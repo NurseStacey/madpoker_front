@@ -1,5 +1,27 @@
+
 .App {
   text-align: center;
+  display:flex;
+  flex-direction:row;
+}
+
+.MyLink {
+  display:flex;
+  justify-content:flex-start;
+  font-size: 20px;
+  color:#FF5656;
+  margin-top:5px;
+}
+
+.MyLink:hover{
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+.RightSide {
+  border:1px solid black;
+  width:10%;
+  display:block;
 }
 
 .App-logo {
