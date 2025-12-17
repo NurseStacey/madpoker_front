@@ -2,22 +2,25 @@ import MDLogo from '../Pictures/MD_Logo1.jpg'
 import {MD_LINKS} from '../data-files/links'
 import '@fontsource/averia-sans-libre'
 import '../App.css'
+import {APPLICATION_COLORS} from '../Components/application-colors'
 
 export default function Left_Side({
-    setRighSideKey
+    setRightSideKey,
+    RightSideKey
 })
 {
 
     const SetLinkKey = (which) => {
         console.log(which)
-        setRighSideKey(which)
+        setRightSideKey(which)
     }
 
     return (
         <div
             style={{
                 width:'15%',
-                 marginLeft:'15%',
+                marginTop:'3%',
+                marginLeft:'15%',
                 display:'block',
             }} >
 
@@ -33,11 +36,12 @@ export default function Left_Side({
             {MD_LINKS.map((one_link)=>
                 <div
                     className='MyLink'
+                    style={{fontFamily:'Averia Sans Libre',
+                        color: (RightSideKey==one_link['id']) ? APPLICATION_COLORS['link-colors']['clicked'] :APPLICATION_COLORS['link-colors']['unclicked']
+                    }}
                     key={one_link['id']}
                     onClick={()=>SetLinkKey(one_link['id'])}
-                    style={{
-                        fontFamily:'Averia Sans Libre',
-                    }}>
+                >
                     {one_link['text']}
                 </div>
             )}       

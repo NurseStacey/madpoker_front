@@ -2,8 +2,8 @@ import AxiosInstance from './utils/axios'
 import './App.css';
 import Left_Side from './Components/left-side'
 import {useState, useEffect} from 'react'
-
-import HomeScreen from './Pages/home'
+import Slider from './Components/slider'
+import HomeScreen from './Pages/Home/home'
 
 function App() {
 
@@ -23,18 +23,19 @@ function App() {
 
   return (
     <div className="App">
-
+        <Slider/>
         {/* <button onClick={test}>test</button> */}
 
-          <Left_Side
+          {/* <Left_Side
             
-            setRighSideKey={setRighSideKey}
+            setRightSideKey={setRighSideKey}
+            RightSideKey={RightSideKey}
             />
 
-          <div style={{width:'15%', marginRightt:'15%'}}></div>
+          
           {(RightSideKey=='home') ? 
             <HomeScreen/> :
-            <></>}
+            <></>} */}
     </div>
   );
 }
