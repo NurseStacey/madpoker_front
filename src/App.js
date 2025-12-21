@@ -1,43 +1,23 @@
-import AxiosInstance from './utils/axios'
 import './App.css';
-import Left_Side from './Components/left-side'
-import {useState, useEffect} from 'react'
-import Slider from './Components/slider'
-import HomeScreen from './Pages/Home/home'
+import './styles.css'
+import Deck from'./Components/Deck'
+//import Deck from './Components/my-slide-show'
 
-function App() {
+import {Winners} from './data-files/images'
 
-  const [RightSideKey, setRighSideKey]=useState('home')
+ export default function App(){
+    return (
 
-  useEffect(()=>{
-
-  }, [RightSideKey])
-  
-  const test =()=>{
-        AxiosInstance.get('http://localhost:8000/react_test/')
-        .then(res => {
-            console.log(res)
-            })
-        .catch(err => {})
-  }
-
-  return (
-    <div className="App">
-        <Slider/>
-        {/* <button onClick={test}>test</button> */}
-
-          {/* <Left_Side
-            
-            setRightSideKey={setRighSideKey}
-            RightSideKey={RightSideKey}
-            />
-
-          
-          {(RightSideKey=='home') ? 
-            <HomeScreen/> :
-            <></>} */}
-    </div>
-  );
-}
-
-export default App;
+        <div
+            style={{
+                width:'750px',
+                height:'750px',
+                
+                marginLeft:'100px',
+                position:'relative',
+            }}>
+            <Deck
+                All_Images={Winners}/>
+        </div>
+    )
+ }

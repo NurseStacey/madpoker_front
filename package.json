@@ -5,6 +5,8 @@
   "dependencies": {
     "@fontsource/averia-sans-libre": "^5.2.7",
     "@fontsource/francois-one": "^5.2.7",
+    "@fontsource/kaushan-script": "^5.2.8",
+    "@fontsource/open-sans": "^5.2.7",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",

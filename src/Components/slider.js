@@ -1,5 +1,9 @@
 import { Slide } from "react-slideshow-image"
-
+import image1 from '../Pictures/image1.jpg'
+import image2 from '../Pictures/image2.jpg'
+import image3 from '../Pictures/image3.jpg'
+import image4 from '../Pictures/image4.jpg'
+import image5 from '../Pictures/image5.jpg'
 //import slideImages from "../data-files/images"
 
 import "react-slideshow-image/dist/styles.css"
@@ -7,6 +11,7 @@ import styles from './slider.module.css'
 
 export default function Slider() {
 
+    const IMAGES = [image1,image2,image3, image4, image5]
     const spanStyle = {
     padding: '20px',
     background: '#efefef',
@@ -37,20 +42,24 @@ export default function Slider() {
     ];
 
   return (
-    <div className="slide-container">
-      <Slide easing="ease">
-            {slideImages.map((oneImage, index)=>{
-                return(
-                <div key={index}>
-                    <div style={{ ...divStyle, 'backgroundImage': `url(${oneImage.url})` }}>
-                        <span style={spanStyle}>{oneImage.caption}</span>
+    <div>
+        <div style={{
+            display:'flex',
+            justifyContent:'center',
+            fontSize:'20px'}}
+            >Slide Show</div>
+        <div className="slide-container">
 
-                    </div>
-                    
-                </div>)}
-            )}
-    
+        <Slide>
+         {slideImages.map((slideImage, index)=> (
+            <div key={index}>
+              <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
+                <span style={spanStyle}>{slideImage.caption}</span>
+              </div>
+            </div>
+          ))} 
         </Slide>
+        </div>
     </div>
   );
 }
