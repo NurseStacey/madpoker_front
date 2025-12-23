@@ -12,12 +12,13 @@ const style={
     card:{
         margin:0,
         padding:0,
+        boxSizing:'border-box',
         width:'inherit',
         height:'inherit',
         position:'absolute',
         top:'0%',
         left:'50%',
-        transform:'translate(-50%,0%)',              
+        transform:'translate(-50%,0%)',      
     },
     card_img:{
         height:'100%',

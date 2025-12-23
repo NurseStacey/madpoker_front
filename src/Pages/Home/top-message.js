@@ -10,7 +10,7 @@ export  default function TopMessage()
             style={{
                 display:'block',
                 width:'100%',
-                height:'20%',
+                height:'80%',
                 border:'3px solid #3f007f',
                 marginTop:'5%'
             }}>

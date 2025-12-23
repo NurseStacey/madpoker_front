@@ -3,25 +3,43 @@ import {MD_LINKS} from '../data-files/links'
 import '@fontsource/averia-sans-libre'
 import '../App.css'
 import {APPLICATION_COLORS} from '../Components/application-colors'
+import WindowDimensions from '../utils/window-dimensions'
+import {useEffect, useState} from 'react'
 
 export default function Left_Side({
     setRightSideKey,
     RightSideKey
 })
 {
+    const { height, width } = WindowDimensions();
+    const [Width, setWidth]=useState(0)
+    const [Height, setHeight] =  useState(0)
+    const [TopMargin, setTopMargin]=useState(0)
+    const [LeftMargin, setLeftMargin]=useState(0)
 
     const SetLinkKey = (which) => {
-        console.log(which)
         setRightSideKey(which)
     }
 
+    useEffect(()=>{
+        setWidth(width*0.20)
+        setHeight(height)
+        setTopMargin(height*.05)
+        setLeftMargin(width*.15)
+    },[])
+    
+    const Test=()=>{
+        console.log(Width)
+    }
     return (
         <div
             style={{
-                width:'15%',
-                marginTop:'3%',
-                marginLeft:'15%',
+                width:`${Width}px`,
+                height:`${Height}px`,
+                marginTop:`${TopMargin}px`,
+                marginLeft:`${LeftMargin}px`,
                 display:'block',
+
             }} >
 
             <div

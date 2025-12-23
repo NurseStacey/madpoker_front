@@ -8,6 +8,7 @@ class Deck extends Component {
     constructor(props){
         super(props)
         this.state={
+            percent_of_window:props['Percent_of_Window'],
             cards:props['All_Images'].map((one_link,index)=><Card picsum={one_link} id={index} key={index} />),
             cards_small:props['All_Images'].map((one_link,index)=><CardSmall picsum={one_link} id={index} key={index} onclick={this.selection_clicked} />)
         }
@@ -20,14 +21,19 @@ class Deck extends Component {
 
         let img_width_as_percentage=100;
 
-        let nav_button_placement_as_percentage=40;
+        //let nav_button_placement_as_percentage=40;
 
-        //this.new_width=  (img_width_as_percentage/100)*window.innerWidth;
-        this.new_width=  (img_width_as_percentage/100)*this.big_box.offsetWidth
+        this.new_width=  (img_width_as_percentage/100)*window.innerWidth*(this.state.percent_of_window/100);
+
+        //this.new_width=  (img_width_as_percentage/100)*this.big_box.offsetWidth
+        //this.new_width=(img_width_as_percentage/100)*this.state.parent_width
+
        // this.new_width =this.small_images.offsetWidth/4
 
         this.view_port.style.width=`${this.new_width}px`;
-        this.nav_buttons_container.style.width=`${nav_button_placement_as_percentage}vw`;
+        //this.nav_buttons_container.style.width=`${nav_button_placement_as_percentage}vw`;
+        this.nav_buttons_container.style.width=`${this.new_width}px`;
+        this.selection_row.style.width=`${this.new_width}px`;
         this.button_prev.style.width=`${this.new_width/2 * 0.15}px`;
         this.button_next.style.width=`${this.new_width/2 * 0.15}px`;
         this.current_card=1
@@ -46,7 +52,7 @@ class Deck extends Component {
         //selection button comment out end
 
         this.order_cards();
-        this.create_small_image_border();
+        
 
         this.big_box.addEventListener('mouseenter', (event)=>{
 
@@ -103,6 +109,7 @@ class Deck extends Component {
             this.last_position_selection_image.push(parseFloat(this.small_images.children[i].style.left))
         }
 
+        this.create_small_image_border();
         this.scroll_in_progress=false;
         this.start_autoplay();
     }
@@ -140,6 +147,17 @@ class Deck extends Component {
     create_small_image_border = () =>{
         let which_card = this.middle_card_by_index + this.current_card-1
 
+
+        for(let i=0; i<this.small_images.children.length; i++) {
+            if (i==5){
+                this.small_images.children[i].style.border = `4px solid blue`
+
+            } else {
+  
+                this.small_images.children[i].style.border = `0px solid blue`;
+            }
+        }
+
     }
 
     handle_prev=()=>{
@@ -174,6 +192,7 @@ class Deck extends Component {
     }
 
     handle_next=()=>{
+        //this.Test();
         if (this.scroll_in_progress) return;
 
         this.scroll_in_progress=true;
@@ -284,14 +303,12 @@ class Deck extends Component {
     }
 
     Test = ()=>{
-            console.log(this.current_card)
-            console.log(this.middle_card_by_index)
-            let which_card =  this.middle_card_by_index + this.current_card-1
-            if (which_card >= this.small_images.children.length) which_card -=this.small_images.children.length
-            console.log( which_card)
+        console.log(this.big_box.offsetWidth)
+        console.log(this.new_width)
+          
         }
     start_autoplay = () =>{
-        return
+
         clearTimeout(this.autoplay_timeout_id)
         clearInterval(this.autoplay_interval_id)
 
@@ -305,7 +322,17 @@ class Deck extends Component {
                     this.images.children[i].style.left = `${updated_position}px`;
                     this.last_position[i]=updated_position;
                 }
+
+                for(let i=0; i<this.small_images.children.length; i++) {
+                    this.small_images.children[i].style.transitionDuration='0.25s';
+                    const small_image_updated_position = this.last_position_selection_image[i] - this.change_in_left_for_selection;
+
+                    this.small_images.children[i].style.left = `${small_image_updated_position}px`;
+                    this.last_position_selection_image[i]=small_image_updated_position;
+                }
+                
                 this.handle_boundaries();
+                this.create_small_image_border();
             }, 1100);
         }, 1200);
 
@@ -314,8 +341,8 @@ class Deck extends Component {
     render(){
         return(
             <Fragment>
-                <button onClick={this.Test}>Test</button>
-                <div ref={ref_id=>this.big_box=ref_id} style={{width:"100%",border:'1px solid red',}}>
+                {/* <button onClick={this.Test}>test</button> */}
+                <div ref={ref_id=>this.big_box=ref_id} style={{width:`${this.new_width}px`, height:"100%"}}>
                     <div ref={ref_id=>this.nav_buttons_container=ref_id} style={styles.nav_buttons_container}>
                         <img onClick={this.handle_prev} ref={ref_id=>this.button_prev = ref_id} style={styles.nav_button} src={LeftChev} alt="prev" id="prev"/>
                         <img onClick={this.handle_next}  ref={ref_id=>this.button_next = ref_id}  style={styles.nav_button}  src={RightChev}  alt="next" id="next"/>
@@ -325,15 +352,20 @@ class Deck extends Component {
                             {this.state.cards}
                         </div>
                     </div>
-                     <div style={styles.selection_row}>
-                       <div style={styles.selection_one_button} ></div> 
-                       <div ref={ref_id=>this.small_images= ref_id } style={styles.selection_images}>
+                </div> 
+                     <div style={styles.selection_row} ref={ref_id=>this.selection_row = ref_id}>
+
+                        <img onClick={this.handle_prev} ref={ref_id=>this.lower_button_prev = ref_id} style={styles.selection_prev_button} src={LeftChev} alt="prev" id="prev"/>
+
+                        <div ref={ref_id=>this.small_images= ref_id } style={styles.selection_images}>
                             {this.state.cards_small}
                         </div>
                         
-                        <div style={styles.selection_one_button}></div>
-                    </div> 
-     
+
+                        <img onClick={this.handle_next}  ref={ref_id=>this.lower_button_next = ref_id}  style={styles.selection_next_button}  src={RightChev}  alt="next" id="next"/>
+
+                    
+
                 </div>
             </Fragment>
         )
@@ -346,13 +378,12 @@ const styles={
         margin:0,
         padding:0,
         width:'100%',
-        height:'95%',
+        height:'90%',
         position:'absolute',
-        top:'50%',
+        top:'40%',
         left:'50%',
         transform:'translate(-50%,-50%)',
         overflow:'hidden',
-        border:'1px solid green'
     },
     images_container:{
         margin:0,
@@ -367,19 +398,19 @@ const styles={
     selection_row:{
         overflow:'hidden',
         margin:0,
-        padding:0,
         width:'100%',
         display:'flex',
         flexDirection:'row',
+        border:"1px solid black",
         // justifyContent:'space-around',
-        height:'80px',
+        height:'10%',
         position:'absolute',
-        top:'100%',
+        top:'85%',
         left:'50%',
         transform:'translate(-50%,-50%)',
-        // border:'1px solid black'
     },
     selection_images:{
+        //visibility:'hidden',
         overflow:'hidden',
         width:'60%',
         height:'100%',
@@ -387,16 +418,25 @@ const styles={
         // top:'100%',
         left:'50%',
         transform:'translate(-50%,0%)',
-        border:'1px solid red'
     },
-    selection_one_button:{
-        width:'20%',
-        border:'1px solid black'
+    selection_next_button:{
+        position:'absolute',
+        right:'0%',
+        height:'100%',
+        transform:'translate(0%,0%)',
+        width:'10%',
+    },
+    selection_prev_button:{
+        position:'absolute',
+        left:'0%',
+        width:'10%',
+        height:'100%',
+        transform:'translate(0%,0%)',
     },
     nav_buttons_container:{
         margin:0,
         padding:0,
-        width:'100vw',
+        width:'100%',
         position:'absolute',
         top:'50%',
         left:'50%',
@@ -414,7 +454,8 @@ const styles={
         width:'50%',
         height:'auto',
         pointerEvents:'all',
-        cursor:'pointer'
+        cursor:'pointer',
+        borderRadius:'50%'
     },
     selection_buttons_container:{
         margin:0,

@@ -1,23 +1,54 @@
+import AxiosInstance from './utils/axios'
 import './App.css';
-import './styles.css'
-import Deck from'./Components/Deck'
-//import Deck from './Components/my-slide-show'
+import Left_Side from './Components/left-side'
+import {useState, useEffect} from 'react'
+import WindowDimensions from './utils/window-dimensions'
+import Slider from './Components/slider'
+import HomeScreen from './Pages/Home/home'
 
-import {Winners} from './data-files/images'
+function App() {
 
- export default function App(){
-    return (
+  const [RightSideKey, setRighSideKey]=useState('home')
 
-        <div
-            style={{
-                width:'750px',
-                height:'750px',
-                
-                marginLeft:'100px',
-                position:'relative',
-            }}>
-            <Deck
-                All_Images={Winners}/>
-        </div>
-    )
- }
+  const { Height, Width } = WindowDimensions();
+
+  useEffect(()=>{
+
+  }, [RightSideKey])
+  
+  const test =()=>{
+    console.log(window.innerWidth)
+        // AxiosInstance.get('http://localhost:8000/react_test/')
+        // .then(res => {
+        //     console.log(res)
+        //     })
+        // .catch(err => {})
+  }
+
+
+
+  return (
+    <div 
+      className="App"
+      style={{
+        width:`${Width}px`,
+        height:`${Height}px`,
+      }}>
+
+         {/* <button onClick={test}>test</button>  */}
+
+          <Left_Side
+            
+            setRightSideKey={setRighSideKey}
+            RightSideKey={RightSideKey}
+            />
+
+          
+          {(RightSideKey=='home') ? 
+            <HomeScreen/> :
+            <></>}
+    </div>
+  );
+}
+
+export default App;
