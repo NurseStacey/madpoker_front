@@ -3,13 +3,15 @@ import './App.css';
 import Left_Side from './Components/left-side'
 import {useState, useEffect} from 'react'
 import WindowDimensions from './utils/window-dimensions'
-import Slider from './Components/slider'
+
 import HomeScreen from './Pages/Home/home'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Login from './Pages/UserPages/Login';
 import Register from './Pages/UserPages/Register';
 import Layout from './Pages/UserPages/Layout';
 import Admin from './Pages/UserPages/Admin';
+import Index from './Pages/Index/index'
+import UpdateTopMessage from './Pages/UserPages/update-top-message'
 
 function App() {
 
@@ -22,7 +24,7 @@ function App() {
   }, [RightSideKey])
   
   const test =()=>{
-    console.log(window.innerWidth)
+    console.log(Width)
         // AxiosInstance.get('http://localhost:8000/react_test/')
         // .then(res => {
         //     console.log(res)
@@ -41,26 +43,17 @@ function App() {
       }}>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Layout/>}>
-            <Route index element={<Admin/>}/>    
+            <Route path='layout' element={<Layout/>}/>
+            {/* <Route path='layout' element={<Layout/>}/> */}
+            <Route path='/' element={<Index/>}/> 
+            <Route path='admin' element={<Admin/>}/>    
             <Route path='login' element={<Login/>}/>
             <Route path='register' element={<Register/>}/>
-        
-            </Route>              
+            <Route path='update_top' element={<UpdateTopMessage/>}/>            
+         
           </Routes>
         </BrowserRouter>
-{/* 
 
-          <Left_Side
-            
-            setRightSideKey={setRighSideKey}
-            RightSideKey={RightSideKey}
-            />
-
-          
-          {(RightSideKey=='home') ? 
-            <HomeScreen/> :
-            <></>} */}
     </div>
   );
 }

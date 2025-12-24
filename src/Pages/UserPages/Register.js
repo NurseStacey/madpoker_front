@@ -1,15 +1,30 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import WindowDimensions from '../../utils/window-dimensions';
+import Title from './Componenets/Title';
+import MyButton from '../../Components/Widgets/my-button';
+import MyInput from '../../Components/Widgets/my-input';
+
 
 export default function Register(){
-
+    const navigate = useNavigate();
+    const { height, width } = WindowDimensions();
+    const [Width, setWidth]=useState(0);
+    const [Height, setHeight] =  useState(0);
     const [formData, setFormData]=useState({
         username:"",
         email:"",
         password1:"",
         password2:"",
     });
+
+    useEffect(()=>{
+        setWidth(width)
+        setHeight(height)
+    },[]);
+
     const[isLoading, setisLoading]=useState(false)
     const [successMessage, setsuccessMessage]=useState(null);
     const [ error, seterror]=useState(null);
@@ -56,46 +71,80 @@ export default function Register(){
         console.log(error)
     }
     return(
-        <div>
+        <div 
+            style={{
+                width:`${Width}px`,
+                height:`${Height}px`,
+                displpay:"block"
+        }}>
             {/* <button onClick={test}>test</button> */}
+
+            <Title
+                TitleText = "MAD Poker New Director Registration Page"
+                />          
             {successMessage && <p>{successMessage}</p>}
             {error && <p>{error}</p>}
-            <form>
-                <label>username:</label>
-                <input 
-                    onChange={handleChange}
-                    type="text" 
-                    name="username"
-                    value={formData.username}></input>
-                <br/>
-                <br/>
-                <label>email:</label>
-                <input
-                    onChange={handleChange}  
-                    type="text" 
-                    name="email" 
-                    value={formData.email}></input>
-                <br/>
-                <br/>
-                <label>password:</label>
-                <input  
-                    onChange={handleChange}
-                    type="password" 
-                    name="password1" 
-                    value={formData.password1}></input>
-                <br/>
-                <br/>
-                <label>confirm password:</label>
-                <input  
-                    onChange={handleChange}
-                    type="password" 
-                    name="password2" 
-                    value={formData.password2}></input>
-                <br/>
-                <br/>
-                <button type="submit" onClick={handlesubmit} disabled={isLoading}>Register</button>
+            <div
+                style={{
+                    display:"block",
+                    width:"40%",
+                    border:"3px solid blue",
+                    margin:"100px auto"
 
-            </form>
+                }}>
+                <MyInput
+                    labelText="Username"
+                    handleChange={handleChange}
+                    inputValue={formData.username}
+                    inputName="username"
+                />
+                <MyInput
+                    labelText="Email"
+                    handleChange={handleChange}
+                    inputValue={formData.email}
+                    inputName="email"
+                />
+                <MyInput
+                    labelText="Password"
+                    handleChange={handleChange}
+                    inputValue={formData.password1}
+                    inputName="password1"
+                    inputType="password"                    
+                />
+                <MyInput
+                    labelText="Confirm Password"
+                    handleChange={handleChange}
+                    inputValue={formData.password2}
+                    inputName="password2"
+                    inputType="password"
+                />
+                <div
+                    style={{
+                        display:"flex",
+                        flexDirection:"row",
+                        justifyContent:"space-around"
+                    }}>
+                    <MyButton
+                        button_function={handlesubmit}
+                        button_text={"Add Director"}  
+                        button_style={{
+                            margin:"25px auto",
+                            height:"75px",
+                            width:"100px"
+                        }}              
+                    />
+                    <MyButton
+                        button_function={()=>navigate("/admin",)}
+                        button_text={"Return to Admin Page"}  
+                        button_style={{
+                            margin:"25px auto",
+                            height:"75px",
+                            width:"100px"
+                        }}              
+                    />                    
+                </div>                                     
+            </div>
+            
         </div>
     )
 }

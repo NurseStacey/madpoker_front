@@ -6,15 +6,15 @@ export default function Layout(){
         <>
             <nav>
                 <ul>
-                    <li>
+                    {/* <li>
                         <Link to='/'>Home</Link>
-                    </li>
+                    </li> */}
                     <li>
                         <Link to='/login'>Login</Link>
                     </li>
-                                    <li>
+                    {/*                 <li>
                         <Link to='/register'>Register</Link>
-                    </li>                    
+                    </li>                     */}
                 </ul>
             </nav>
             <Outlet/>
