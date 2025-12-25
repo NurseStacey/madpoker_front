@@ -5,38 +5,70 @@ import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
 import ColorSelector from '../../../Components/Widgets/my-color-selector'
 import OneMessage from './one-message'
+import NewMessage from './new-message'
+import UpdateMessage from './update-one-message'
 import MyButton from '../../../Components/Widgets/my-button'
 
 export default function UpdateTopMessage()
 {
     const navigate = useNavigate();
+    const [editText, setEditText]=useState(false)
+    const [RecordToEdit, setRecordToEdit]=useState({
+        order:"",
+        text:"",
+        color:"#000000",        
+    })    
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
     const [Messages,setMessages]=useState([]);
 
-    const DeleteMessage = (id) =>{
-        console.log(id)
+    const Reset = () =>{
+        setEditText(false)
+        setRecordToEdit({
+        order:"",
+        text:"",
+        color:"#000000",        
+        })
+    }
+    const DeleteMessage = async (id) =>{
+
+        try{
+
+            const response = await axios.delete(`http://127.0.0.1:8000/website_data/homepagetext/${id}/`,);
+
+            fetchData()
+
+        }catch(err){
+            console.log(err);
+        }
+
+        
     }
 
     const EditMessage =(id)=>{
-        console.log(id)
+        console.log(Messages.find((one_message)=>one_message.id==id))
+        setEditText(true)
+        setRecordToEdit(Messages.find((one_message)=>one_message.id==id))
+    }
+
+    const fetchData = async ()=>{
+        try{
+
+            const response = await axios.get("http://127.0.0.1:8000/website_data/homepagetext",);
+
+            setMessages(response.data)
+
+        }catch(err){
+            console.log(err);
+        }
     }
 
     useEffect(()=>{
         setWidth(width)
         setHeight(height)
 
-        const fetchData = async ()=>{
-            try{
-                console.log("Here")
-                const response = await axios.get("http://127.0.0.1:8000/website_data/homepagetext",);
-                setMessages(response.data)
-                console.log(response)
-            }catch(err){
-                console.log(err);
-            }
-        }
+
 
         fetchData()
     },[]);
@@ -68,63 +100,78 @@ export default function UpdateTopMessage()
                 />      
             <div
                 style={{
-                    display:"flex",
-                    flexDirection:"row",
-                    margin:"5% 5%",
+                    display:"block"
                 }}>
-                    <div
-                        style={{
-                            width:"10%"
-                        }}
-                        >
-                            
-                        </div>
-                    <div
-                        style={{
-                            width:"10%"
-                        }}
-                        >
-                            
-                        </div>
+                {editText ? 
+                <UpdateMessage
+                    fetchData={fetchData}
+                    Reset={Reset}
+                    thisRecord={RecordToEdit}
+                />:
+                <NewMessage
+                    fetchData={fetchData}
+                    Reset={Reset}/>}
+                <div
+                    style={{
+                        display:"flex",
+                        flexDirection:"row",
+                        margin:"5% 5%",
+                    }}>
                         <div
-                        style={{
-                            width:"10%"
-                        }}
-                        >
-                            Order
-                        </div>
-                    <div
-                        style={{
-                            width:"10%"
-                        }}
-                        >
-                            Color
-                        </div>  
-                    <div
-                        style={{
-                            width:"10%"
-                        }}
-                        >
-                            Font Size
-                        </div>                        
-                    <div
-                        style={{
-                            width:"70%"
-                        }}
-                        >
-                            Text
-                        </div>                                              
-                </div>
-                {Messages.map((one_message)=>
-                    <div>
-                        <OneMessage
-                            thisMessage={one_message}
-                            deleteFunction = {DeleteMessage}
-                            editFunction = {EditMessage}
-                            />
-                            
-                        </div>
-                )}     
+                            style={{
+                                width:"10%"
+                            }}
+                            >
+                                
+                            </div>
+                        <div
+                            style={{
+                                width:"10%"
+                            }}
+                            >
+                                
+                            </div>
+                            <div
+                            style={{
+                                width:"10%"
+                            }}
+                            >
+                                Order
+                            </div>
+                        <div
+                            style={{
+                                width:"10%"
+                            }}
+                            >
+                                Color
+                            </div>  
+                        <div
+                            style={{
+                                width:"10%"
+                            }}
+                            >
+                                Font Size
+                            </div>                        
+                        <div
+                            style={{
+                                width:"70%"
+                            }}
+                            >
+                                Text
+                            </div>                                              
+                    </div>
+                    {Messages.map((one_message)=>
+                        <div
+                            key={one_message.id}>
+                            <OneMessage
+                                thisMessage={one_message}
+                                deleteFunction = {DeleteMessage}
+                                editFunction = {EditMessage}
+                                />
+                                
+                            </div>
+                    )}  
+                </div>   
          
             <button onClick={Test}>test</button>     
         </div>

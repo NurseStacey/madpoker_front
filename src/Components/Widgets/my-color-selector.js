@@ -1,8 +1,9 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import MyInput from './my-input'
 
 export default function ColorSelector({
-    setValue
+    setValue,
+    currentValue
 }){
     const [enteredHex, setenteredHex]=useState("")
     const [Pallette, setPallette] = useState( [
@@ -15,34 +16,40 @@ export default function ColorSelector({
         {'name':'pink', 'hex':'#FF69B4','selected':false},
     ])
     
-    const textChange = (e) =>{
-        setenteredHex(e.target.value)
-        setValue(e.target.value)
-    }
-
-    const SelectedColor = (whichColor)=>{
+    useEffect(()=>{
         let newPallette = []
         Pallette.map((oneColor)=>{
-            if (oneColor['name']==whichColor) {
+            if (oneColor['hex']==currentValue) {
                 oneColor['selected']=true
-                setValue(oneColor['hex'])
+                
             } else {
                 oneColor['selected']=false
             }
             newPallette.push(oneColor)
         })
         setPallette(newPallette)
+    },[currentValue])
+
+    const textChange = (e) =>{
+        setenteredHex(e.target.value)
+        setValue(e.target.value)
+    }
+
+    const SelectedColor = (whichColor)=>{
+        setValue(whichColor)
+        
     }
     return (
         <div
             style={{
-                width:"300px",
+                width:"400px",
                 border:"1px solid black",
                 display:"flex",
                 flexWrap:"wrap"
             }}>
                 {Pallette.map((oneColor)=>(
                     <div
+                    key={oneColor.hex}
                     style={{
                         display:"flex",
                         flexDirection:"row",
@@ -53,7 +60,7 @@ export default function ColorSelector({
                         padding:"3px",
                         margin:"3px"
                     }}
-                    onClick={()=>SelectedColor(oneColor['name'])}
+                    onClick={()=>SelectedColor(oneColor['hex'])}
                     >
 
                     </div>
