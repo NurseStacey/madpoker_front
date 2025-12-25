@@ -11,7 +11,7 @@ import Register from './Pages/UserPages/Register';
 import Layout from './Pages/UserPages/Layout';
 import Admin from './Pages/UserPages/Admin';
 import Index from './Pages/Index/index'
-import UpdateTopMessage from './Pages/UserPages/update-top-message'
+import UpdateTopMessage from './Pages/UserPages/update-top-message/update-top-message'
 
 function App() {
 
