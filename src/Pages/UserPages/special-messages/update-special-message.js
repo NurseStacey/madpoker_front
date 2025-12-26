@@ -7,18 +7,20 @@ import OneMessage from './one-message'
 import NewMessage from './new-message'
 import UpdateMessage from './one-message-edit'
 import MyButton from '../../../Components/Widgets/my-button'
+import TodayDate from '../../../utils/today-date';
 
-export default function UpdateTopMessage()
+export default function UpdateSpecialMessage()
 {
+
     const [formData, setFormData]=useState({
-        order:"",
+        date:TodayDate(),
         text:"",
         color:"#000000",
     });    
     const navigate = useNavigate();
     const [editText, setEditText]=useState(false)
     const [RecordToEdit, setRecordToEdit]=useState({
-        order:"",
+        date:"",
         text:"",
         color:"#000000",        
     })    
@@ -27,11 +29,12 @@ export default function UpdateTopMessage()
     const [Height, setHeight] =  useState(0);  
     const [Messages,setMessages]=useState([]);
 
+
     
     const Reset = () =>{
         setEditText(false)
         setRecordToEdit({
-        order:"",
+        date:TodayDate(),
         text:"",
         color:"#000000",        
         })
@@ -40,7 +43,7 @@ export default function UpdateTopMessage()
 
         try{
 
-            const response = await axios.delete(`http://127.0.0.1:8000/website_data/homepagetext/${id}/`,);
+            const response = await axios.delete(`http://127.0.0.1:8000/website_data/specialmessages/${id}/`,);
 
             fetchData()
             Reset()
@@ -61,10 +64,10 @@ export default function UpdateTopMessage()
     const fetchData = async ()=>{
         try{
 
-            const response = await axios.get("http://127.0.0.1:8000/website_data/homepagetext",);
-
+            const response = await axios.get("http://127.0.0.1:8000/website_data/specialmessages",);
+            console.log(response.data)
             setFormData({
-                    order:Math.max(...response.data.map((one_record)=>one_record.order))+1,
+                    date:TodayDate(),
                     text:"",
                     color:"#000000",        
                 }
@@ -83,7 +86,7 @@ export default function UpdateTopMessage()
     },[]);
 
     const Test =  ()=>{
-      
+      console.log(formData)
     }
 
     return(
@@ -95,7 +98,7 @@ export default function UpdateTopMessage()
         }}>
 
             <Title
-                TitleText = "Update Top Message on Home Page"
+                TitleText = "Update Special Message"
                 />      
             <div
                 style={{
@@ -139,7 +142,7 @@ export default function UpdateTopMessage()
                                 width:"10%"
                             }}
                             >
-                                Order
+                                Date
                             </div>
                         <div
                             style={{
@@ -184,7 +187,7 @@ export default function UpdateTopMessage()
                         margin:"auto"
                     }}
                 />
-                    {/* <button onClick={Test}>test</button> */}
+                    {/* <button onClick={Test}>test</button>  */}
         </div>
     )
 }

@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react'
 import WindowDimensions from '../../utils/window-dimensions'
 import HomeScreen from '../Home/home'
 import Merch from '../Merch/merch'
-
+import SpecialMessages from '../Special/special';
 
 export default function Index(){
     const [RightSideKey, setRighSideKey]=useState('home')
@@ -34,6 +34,7 @@ export default function Index(){
         {(RightSideKey=='home') ? 
         <HomeScreen/> :
         (RightSideKey=='shop') ?  <Merch/> :
+        (RightSideKey=='special') ?  <SpecialMessages/> :
         <></>}
         </>
     )
