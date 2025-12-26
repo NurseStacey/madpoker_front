@@ -6,27 +6,30 @@ export default function ColorSelector({
     currentValue
 }){
     const [enteredHex, setenteredHex]=useState("")
-    const [Pallette, setPallette] = useState( [
+    const [Pallette, setPallette] = useState( [            
         {'name':'black', 'hex':'#000000','selected':false},
         {'name':'red', 'hex':'#FF0000','selected':false},
         {'name':'blue', 'hex':'#0000FF','selected':false},
         {'name':'green', 'hex':'#008000','selected':false},
         {'name':'aqua', 'hex':'#00FFFF','selected':false},
         {'name':'purple', 'hex':'#800080','selected':false},
-        {'name':'pink', 'hex':'#FF69B4','selected':false},
-    ])
+        {'name':'pink', 'hex':'#FF69B4','selected':false}])
     
     useEffect(()=>{
+       
         let newPallette = []
         Pallette.map((oneColor)=>{
+
             if (oneColor['hex']==currentValue) {
                 oneColor['selected']=true
                 
             } else {
                 oneColor['selected']=false
             }
-            newPallette.push(oneColor)
+            newPallette=[...newPallette, oneColor]
+
         })
+
         setPallette(newPallette)
     },[currentValue])
 
@@ -39,10 +42,13 @@ export default function ColorSelector({
         setValue(whichColor)
         
     }
+
+    const Test=()=>{console.log(Pallette)}
+
     return (
         <div
             style={{
-                width:"400px",
+                width:"300px",
                 border:"1px solid black",
                 display:"flex",
                 flexWrap:"wrap"

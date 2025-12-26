@@ -3,14 +3,18 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
-import ColorSelector from '../../../Components/Widgets/my-color-selector'
 import OneMessage from './one-message'
 import NewMessage from './new-message'
-import UpdateMessage from './update-one-message'
-import MyButton from '../../../Components/Widgets/my-button'
+import UpdateMessage from './one-message-edit'
+
 
 export default function UpdateTopMessage()
 {
+    const [formData, setFormData]=useState({
+        order:"",
+        text:"",
+        color:"#000000",
+    });    
     const navigate = useNavigate();
     const [editText, setEditText]=useState(false)
     const [RecordToEdit, setRecordToEdit]=useState({
@@ -38,6 +42,7 @@ export default function UpdateTopMessage()
             const response = await axios.delete(`http://127.0.0.1:8000/website_data/homepagetext/${id}/`,);
 
             fetchData()
+            Reset()
 
         }catch(err){
             console.log(err);
@@ -57,6 +62,12 @@ export default function UpdateTopMessage()
 
             const response = await axios.get("http://127.0.0.1:8000/website_data/homepagetext",);
 
+            setFormData({
+                    order:Math.max(...response.data.map((one_record)=>one_record.order))+1,
+                    text:"",
+                    color:"#000000",        
+                }
+            )
             setMessages(response.data)
 
         }catch(err){
@@ -67,14 +78,11 @@ export default function UpdateTopMessage()
     useEffect(()=>{
         setWidth(width)
         setHeight(height)
-
-
-
         fetchData()
     },[]);
 
-    const Test = async ()=>{
-        console.log(Messages)
+    const Test =  ()=>{
+        //console.log(defaultOrder)
         // let data = {
         //     "text":"another test"
         // }
@@ -105,10 +113,14 @@ export default function UpdateTopMessage()
                 {editText ? 
                 <UpdateMessage
                     fetchData={fetchData}
+
                     Reset={Reset}
                     thisRecord={RecordToEdit}
+                    editText={editText}
                 />:
                 <NewMessage
+                    formData={formData}
+                    setFormData={setFormData}                    
                     fetchData={fetchData}
                     Reset={Reset}/>}
                 <div
@@ -172,8 +184,7 @@ export default function UpdateTopMessage()
                             </div>
                     )}  
                 </div>   
-         
-            <button onClick={Test}>test</button>     
+                    <button onClick={Test}>test</button>
         </div>
     )
 }

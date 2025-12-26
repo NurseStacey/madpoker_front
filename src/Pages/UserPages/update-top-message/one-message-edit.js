@@ -3,6 +3,7 @@ import MyButton from '../../../Components/Widgets/my-button';
 import {useState,useEffect} from 'react';
 import ColorSelector from '../../../Components/Widgets/my-color-selector';
 import axios from 'axios';
+import '../../../App.css';
 
 export default function UpdateMessage({
     fetchData,
@@ -64,12 +65,9 @@ export default function UpdateMessage({
             }}
             >    
             <div
-                style={{
-                    display:"flex",
-                    flexDirection:"row",
-                    justifyContent:"center"
-                }}>
-                    Update Text  <button onClick={Test}>test</button>
+                className="SubTitle"
+            >
+                    Update Text
                 </div>            
             <div
                 style={{

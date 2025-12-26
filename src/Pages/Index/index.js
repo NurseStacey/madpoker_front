@@ -4,15 +4,17 @@ import Left_Side from '../../Components/left-side'
 import {useState, useEffect} from 'react'
 import WindowDimensions from '../../utils/window-dimensions'
 import HomeScreen from '../Home/home'
+import Merch from '../Merch/merch'
 
 
 export default function Index(){
     const [RightSideKey, setRighSideKey]=useState('home')
-
+    const [pageTitle, setPageTitle]=useState('MAD Poker | Free Poker Leage')
     const { Height, Width } = WindowDimensions();
 
     useEffect(()=>{
-
+        if (RightSideKey=='home') {document.title ='MAD Poker | Free Poker Leage'}
+        else if (RightSideKey=='shop') {document.title ='MERCH SHOP'}
     }, [RightSideKey])
 
     const test =()=>{
@@ -21,7 +23,7 @@ export default function Index(){
 
     return (
         <>
-                
+
         <Left_Side
         
         setRightSideKey={setRighSideKey}
@@ -31,6 +33,7 @@ export default function Index(){
         
         {(RightSideKey=='home') ? 
         <HomeScreen/> :
+        (RightSideKey=='shop') ?  <Merch/> :
         <></>}
         </>
     )

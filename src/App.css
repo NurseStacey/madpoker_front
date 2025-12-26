@@ -5,6 +5,15 @@
   flex-direction:row;
 }
 
+.SubTitle {
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  font:arial;
+  font-size:22px;
+  margin:30px;
+}
+
 .MyLink {
   display:flex;
   justify-content:flex-start;

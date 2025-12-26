@@ -3,17 +3,14 @@ import MyButton from '../../../Components/Widgets/my-button';
 import {useState,useEffect} from 'react';
 import ColorSelector from '../../../Components/Widgets/my-color-selector';
 import axios from 'axios';
+import '../../../App.css';
 
 export default function NewMessage({
     fetchData,
-    Reset
+    Reset,
+    formData,
+    setFormData
 }){
-    const [formData, setFormData]=useState({
-        order:"",
-        text:"",
-        color:"#000000",
-    });
-
 
     const AddText = async () =>{
         console.log(formData)
@@ -23,6 +20,7 @@ export default function NewMessage({
             
             fetchData()
             Reset()
+
 
         }catch(err){
             console.log(err);
@@ -42,6 +40,9 @@ export default function NewMessage({
         })        
     }
 
+    const Test =()=>{
+        console.log(formData)
+    }
     return (
         <div
             style={{
@@ -49,11 +50,8 @@ export default function NewMessage({
             }}
             >
             <div
-                style={{
-                    display:"flex",
-                    flexDirection:"row",
-                    justifyContent:"center"
-                }}>
+                className="SubTitle"
+            >
                     Add New Text
                 </div>
             <div
@@ -92,7 +90,7 @@ export default function NewMessage({
                         width:"120px"
                     }}   
                 />
-                
+                {/* <button onClick={Test}>Test</button> */}
             </div>
         </div>
     )

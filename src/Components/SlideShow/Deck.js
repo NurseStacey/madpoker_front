@@ -147,14 +147,15 @@ class Deck extends Component {
     create_small_image_border = () =>{
         let which_card = this.middle_card_by_index + this.current_card-1
 
+        if (this.small_images!==null){
+            for(let i=0; i<this.small_images.children.length; i++) {
+                if (i==5){
+                    this.small_images.children[i].style.border = `4px solid blue`
 
-        for(let i=0; i<this.small_images.children.length; i++) {
-            if (i==5){
-                this.small_images.children[i].style.border = `4px solid blue`
-
-            } else {
-  
-                this.small_images.children[i].style.border = `0px solid blue`;
+                } else {
+    
+                    this.small_images.children[i].style.border = `0px solid blue`;
+                }
             }
         }
 
@@ -303,45 +304,51 @@ class Deck extends Component {
     }
 
     Test = ()=>{
-        console.log(this.big_box.offsetWidth)
-        console.log(this.new_width)
-          
+            clearTimeout(this.autoplay_timeout_id)
+            clearInterval(this.autoplay_interval_id)
+            console.log()
         }
     start_autoplay = () =>{
 
-        clearTimeout(this.autoplay_timeout_id)
-        clearInterval(this.autoplay_interval_id)
+        try {
+            clearTimeout(this.autoplay_timeout_id)
+            clearInterval(this.autoplay_interval_id)
 
-        this.autoplay_timeout_id = setTimeout(()=>{
-            this.autoplay_interval_id = setInterval(()=>{
-                this.current_card++;
-                for(let i=0; i<this.images.children.length; i++) {
-                    this.images.children[i].style.transitionDuration='0.25s';
-                    const updated_position = this.last_position[i] - this.new_width;
+            this.autoplay_timeout_id = setTimeout(()=>{
+                this.autoplay_interval_id = setInterval(()=>{
+                    this.current_card++;
+                    
+                    if (this.images!==null){
+                        for(let i=0; i<this.images.children.length; i++) {
+                            this.images.children[i].style.transitionDuration='0.25s';
+                            const updated_position = this.last_position[i] - this.new_width;
 
-                    this.images.children[i].style.left = `${updated_position}px`;
-                    this.last_position[i]=updated_position;
-                }
+                            this.images.children[i].style.left = `${updated_position}px`;
+                            this.last_position[i]=updated_position;
+                        }
+                    }
+                    if (this.small_images!==null){
+                        for(let i=0; i<this.small_images.children.length; i++) {
+                            this.small_images.children[i].style.transitionDuration='0.25s';
+                            const small_image_updated_position = this.last_position_selection_image[i] - this.change_in_left_for_selection;
 
-                for(let i=0; i<this.small_images.children.length; i++) {
-                    this.small_images.children[i].style.transitionDuration='0.25s';
-                    const small_image_updated_position = this.last_position_selection_image[i] - this.change_in_left_for_selection;
-
-                    this.small_images.children[i].style.left = `${small_image_updated_position}px`;
-                    this.last_position_selection_image[i]=small_image_updated_position;
-                }
-                
-                this.handle_boundaries();
-                this.create_small_image_border();
-            }, 1100);
-        }, 1200);
+                            this.small_images.children[i].style.left = `${small_image_updated_position}px`;
+                            this.last_position_selection_image[i]=small_image_updated_position;
+                        }
+                    }
+                    
+                    this.handle_boundaries();
+                    this.create_small_image_border();
+                }, 1100);
+            }, 1200);
+        }catch{console.log('problem')}
 
     }
 
     render(){
         return(
             <Fragment>
-                {/* <button onClick={this.Test}>test</button> */}
+                 <button onClick={this.Test}>test</button>
                 <div ref={ref_id=>this.big_box=ref_id} style={{width:`${this.new_width}px`, height:"100%"}}>
                     <div ref={ref_id=>this.nav_buttons_container=ref_id} style={styles.nav_buttons_container}>
                         <img onClick={this.handle_prev} ref={ref_id=>this.button_prev = ref_id} style={styles.nav_button} src={LeftChev} alt="prev" id="prev"/>
