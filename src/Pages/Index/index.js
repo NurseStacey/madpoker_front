@@ -6,6 +6,8 @@ import WindowDimensions from '../../utils/window-dimensions'
 import HomeScreen from '../Home/home'
 import Merch from '../Merch/merch'
 import SpecialMessages from '../Special/special';
+import Locations from '../Locations/location';
+
 
 export default function Index(){
     const [RightSideKey, setRighSideKey]=useState('home')
@@ -35,6 +37,7 @@ export default function Index(){
         <HomeScreen/> :
         (RightSideKey=='shop') ?  <Merch/> :
         (RightSideKey=='special') ?  <SpecialMessages/> :
+        (RightSideKey=='locations') ? <Locations/> :
         <></>}
         </>
     )
