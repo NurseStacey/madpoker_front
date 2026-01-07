@@ -27,16 +27,20 @@ class VerticalDeck extends Component {
         this.current_card=1
 
 
-      
+        this.order_cards();
         this.last_position=[];
         // this.right_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.left)+this.new_width
         // this.left_boundary = parseFloat(this.images.children[0].style.left)-this.new_width
         this.bottom_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.top)+this.new_height
-        this.top_boundary = parseFloat(this.images.children[0].style.top)-this.new_height
-        this.order_cards();
+        this.top_boundary = parseFloat(this.images.children[0].style.top-this.new_height)
+        console.log(`first top:${this.images.children[0].style.top}`)
+        console.log(`new  height:${this.new_height}`)
+        console.log(`top:${this.top_boundary}`)
+        console.log(`bottom:${this.bottom_boundary}`)
+        
 
         for (let i=0;i<this.images.children.length;i++){
-            //console.log(`${i} - ${this.images.children[i].style.top}`)
+            console.log(`${i} - ${this.images.children[i].style.top}`)
             this.last_position.push(parseFloat(this.images.children[i].style.top))
         }
 
@@ -54,21 +58,18 @@ class VerticalDeck extends Component {
 
             if (i<this.middle_card_by_index){
 
-                this.images.children[i].style.top = `-${this.top_boundary-(counter_for_top*this.new_height) - this.new_height/2+300}px`
+                this.images.children[i].style.top = `-${(counter_for_top*this.new_height) - this.new_height/2}px`
                 counter_for_top--;
                 //console.log(this.images.children[i].style.top)
             }else if (i>this.middle_card_by_index){
 
-                this.images.children[i].style.top = `${this.top_boundary+(counter_for_bottom*this.new_height) + this.new_height/2+300}px`
+                this.images.children[i].style.top = `${(counter_for_bottom*this.new_height) + this.new_height/2}px`
                 counter_for_bottom--;
                 //console.log(this.images.children[i].style.top)
             }else{
 
                 this.images.children[i].style.top =`${this.top_boundary+this.new_height/2 +300}px`
-                console.log(i)
-                console.log(this.images.children[i].style.top)
-                console.log(this.new_height)
-                console.log(this.top_boundary)
+
             }
         }
 
@@ -85,7 +86,7 @@ class VerticalDeck extends Component {
         if(this.current_card<0) {
             this.current_card=this.number_of_cards_by_index
         }
-
+        console.log(this.last_position)
         // if (this.last_position[0]<=this.left_boundary){
         //     const end_of_deck = this.last_position[this.number_of_cards_by_index] + this.new_width;
         if (this.last_position[0]<=this.top_boundary){
@@ -103,18 +104,18 @@ class VerticalDeck extends Component {
         // if (this.last_position[this.number_of_cards_by_index]>=this.right_boundary){
 
         //     const beginning_of_deck = this.last_position[0] - this.new_width;
-        if (this.last_position[this.number_of_cards_by_index]>=this.bottom_boundary){
+        // if (this.last_position[this.number_of_cards_by_index]>=this.bottom_boundary){
 
-            const beginning_of_deck = this.last_position[0] - this.new_height;            
+        //     const beginning_of_deck = this.last_position[0] - this.new_height;            
 
-            this.images.children[this.number_of_cards_by_index].style.top = `${beginning_of_deck}px`;
-            //this.images.children[this.number_of_cards_by_index].style.left = `${beginning_of_deck}px`;
-            this.last_position[this.number_of_cards_by_index]=beginning_of_deck;
+        //     this.images.children[this.number_of_cards_by_index].style.top = `${beginning_of_deck}px`;
+        //     //this.images.children[this.number_of_cards_by_index].style.left = `${beginning_of_deck}px`;
+        //     this.last_position[this.number_of_cards_by_index]=beginning_of_deck;
 
-            this.images.insertBefore(this.images.children[this.number_of_cards_by_index],this.images.children[0]);
-            this.last_position.splice(0,0, this.last_position.pop());
+        //     this.images.insertBefore(this.images.children[this.number_of_cards_by_index],this.images.children[0]);
+        //     this.last_position.splice(0,0, this.last_position.pop());
                 
-        }
+        // }
     }
 
 
@@ -124,7 +125,7 @@ class VerticalDeck extends Component {
         }
 
     start_autoplay = () =>{
-        //return;
+        return;
         try {
             clearTimeout(this.autoplay_timeout_id)
             clearInterval(this.autoplay_interval_id)
@@ -182,7 +183,7 @@ const styles={
         left:'50%',
         transform:'translate(-50%,-50%)',
         border:'1px solid black',
-        overflow:'hidden',
+        //overflow:'hidden',
     },
     images_container:{
         margin:0,

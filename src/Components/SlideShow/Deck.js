@@ -50,7 +50,10 @@ class Deck extends Component {
         //     this.selection_buttons_container.children[i].style.height=`${this.new_width*.05}px`;
         // }
         //selection button comment out end
-
+        for (let i=0;i<this.images.children.length;i++){
+            console.log(`${i} - ${this.images.children[i].style.left}`)
+            //this.last_position.push(parseFloat(this.images.children[i].style.left))
+        }
         this.order_cards();
         
 
@@ -96,10 +99,14 @@ class Deck extends Component {
         this.last_position=[];
         this.right_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.left)+this.new_width
         this.left_boundary = parseFloat(this.images.children[0].style.left)-this.new_width
-
-        for (let i=0;i<this.images.children.length;i++){
-            this.last_position.push(parseFloat(this.images.children[i].style.left))
-        }
+        // console.log(`first left:${this.images.children[0].style.left}`)
+        // console.log(`new_width:${this.new_width}`)
+        // console.log(`right:${this.right_boundary}`)
+        // console.log(`left:${this.left_boundary}`)
+        // for (let i=0;i<this.images.children.length;i++){
+        //     console.log(`${i} - ${this.images.children[i].style.left}`)
+        //     this.last_position.push(parseFloat(this.images.children[i].style.left))
+        // }
 
         this.last_position_selection_image=[]
         this.right_boundary_selection_image = parseFloat(this.small_images.children[this.number_of_cards_by_index].style.left)+this.new_width
@@ -309,7 +316,7 @@ class Deck extends Component {
             console.log()
         }
     start_autoplay = () =>{
-
+        return;
         try {
             clearTimeout(this.autoplay_timeout_id)
             clearInterval(this.autoplay_interval_id)

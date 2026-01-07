@@ -10,7 +10,7 @@ import Locations from '../Locations/location';
 
 
 export default function Index(){
-    const [RightSideKey, setRighSideKey]=useState('home')
+    const [RightSideKey, setRighSideKey]=useState('locations')
     const [pageTitle, setPageTitle]=useState('MAD Poker | Free Poker Leage')
     const { Height, Width } = WindowDimensions();
 
