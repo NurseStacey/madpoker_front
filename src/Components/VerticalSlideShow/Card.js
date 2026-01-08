@@ -1,10 +1,17 @@
 import React from 'react'
-
+            {/*  */}
 function Card(props){
     return(
-        <div style={style.card} id={props.id}>
-            <img style={style.card_img} src={props.picsum} alt=""/>
-        </div>
+        <>
+            <div style={style.card} id={props.id}>
+                
+                <img style={style.card_img} src={props.picsum.img_link} alt=""/>
+                <div style={style.label}>
+                    {props.picsum.venue_name}
+                </div>                
+            </div>
+
+        </>
     )
 }
 
@@ -17,7 +24,7 @@ const style={
         position:'absolute',
         top:'50%',
         left:'50%',
-        transform:'translate(-50%,-50%)',              
+        transform:'translate(-50%,-50%)',       
     },
     card_img:{
         height:'100%',
@@ -27,7 +34,18 @@ const style={
         position:'relative',
         top:'50%',
         left:'50%',
-        transform:'translate(-50%,-50%)',              
+        transform:'translate(-50%,-50%)',
+    },
+    label:{
+        height:'15%',
+        width:'100%',
+        position:'absolute',
+        top:'80%',
+        //left:'50%',
+        transform:'translate(0%,10%)', 
+        backgroundColor:'black',
+        color:'white',
+        opacity:0.75,  
     }
 }
 export default React.memo(Card);

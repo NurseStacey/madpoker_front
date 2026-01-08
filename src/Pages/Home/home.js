@@ -53,7 +53,7 @@ export default function HomeScreen()
                         style={{
                             position: 'relative',
                             width:'100%',
-                            height:'70%',
+                            height:'70%',                            
                     }}>
                         <Deck
                             All_Images={Winners}

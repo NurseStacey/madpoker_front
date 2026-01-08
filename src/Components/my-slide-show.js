@@ -223,7 +223,7 @@ class Deck extends Component {
     }
 
     start_autoplay = () =>{
-        return
+        //return
         clearTimeout(this.autoplay_timeout_id)
         clearInterval(this.autoplay_interval_id)
 

@@ -21,17 +21,10 @@ class Deck extends Component {
 
         let img_width_as_percentage=100;
 
-        //let nav_button_placement_as_percentage=40;
-
         this.new_width=  (img_width_as_percentage/100)*window.innerWidth*(this.state.percent_of_window/100);
 
-        //this.new_width=  (img_width_as_percentage/100)*this.big_box.offsetWidth
-        //this.new_width=(img_width_as_percentage/100)*this.state.parent_width
-
-       // this.new_width =this.small_images.offsetWidth/4
-
         this.view_port.style.width=`${this.new_width}px`;
-        //this.nav_buttons_container.style.width=`${nav_button_placement_as_percentage}vw`;
+        
         this.nav_buttons_container.style.width=`${this.new_width}px`;
         this.selection_row.style.width=`${this.new_width}px`;
         this.button_prev.style.width=`${this.new_width/2 * 0.15}px`;
@@ -41,19 +34,8 @@ class Deck extends Component {
         let selection_image_width_as_percentage=20;
         this.selection_image_width =  (selection_image_width_as_percentage/100)*this.small_images.offsetWidth;
         this.change_in_left_for_selection = 1.33*this.selection_image_width
-        //selection button comment out start
-        // this.selection_buttons_container.style.bottom = `${this.view_port.getBoundingClientRect().top}px`
 
-        // for (let i=0; i<this.images.children.length; i++){
-        //     this.selection_buttons_container.children[i].transitionDuration='0.25s';
-        //     this.selection_buttons_container.children[i].style.width=`${this.new_width*.05}px`;
-        //     this.selection_buttons_container.children[i].style.height=`${this.new_width*.05}px`;
-        // }
-        //selection button comment out end
-        for (let i=0;i<this.images.children.length;i++){
-            console.log(`${i} - ${this.images.children[i].style.left}`)
-            //this.last_position.push(parseFloat(this.images.children[i].style.left))
-        }
+
         this.order_cards();
         
 
@@ -67,46 +49,14 @@ class Deck extends Component {
             this.button_prev.style.opacity=.10;
             this.button_next.style.opacity=.10 ;
         })
-        // window.addEventListener('resize', ()=>{
-        //     let img_width_as_percentage=50;
-
-        //         this.new_width=(img_width_as_percentage/100)*window.innerWidth;
-
-        //         this.view_port.style.width=`${this.new_width}px`
-        //         this.nav_buttons_container.style.width=`${nav_button_placement_as_percentage}vw`;
-
-        //     this.selection_buttons_container.style.bottom = `${this.view_port.getBoundingClientRect().top}px`
-        //     for (let i=0; i<this.images.children.length; i++){
-        //         this.selection_buttons_container.children[i].transitionDuration='0.25s';
-        //         this.selection_buttons_container.children[i].style.width=`${this.new_width*.05}px`;
-        //         this.selection_buttons_container.children[i].style.height=`${this.new_width*.05}px`;
-        //     }
-
-        //     this.order_cards();
-        //     this.update_selection();
-
-        //     this.right_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.left)+this.new_width
-        //     this.leftt_boundary = parseFloat(this.images.children[0].style.left)-this.new_width
-
-        //     for (let i=0;i<this.images.children.length;i++){
-        //         this.last_position[i]=parseFloat(this.images.children[i].style.left);
-        //     }
-
-        //     this.autoplay_timeout_id = null;
-        //     this.autoplay_interval_id = null;
-        // });
-
+        
         this.last_position=[];
         this.right_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.left)+this.new_width
         this.left_boundary = parseFloat(this.images.children[0].style.left)-this.new_width
-        // console.log(`first left:${this.images.children[0].style.left}`)
-        // console.log(`new_width:${this.new_width}`)
-        // console.log(`right:${this.right_boundary}`)
-        // console.log(`left:${this.left_boundary}`)
-        // for (let i=0;i<this.images.children.length;i++){
-        //     console.log(`${i} - ${this.images.children[i].style.left}`)
-        //     this.last_position.push(parseFloat(this.images.children[i].style.left))
-        // }
+
+        for (let i=0;i<this.images.children.length;i++){
+            this.last_position.push(parseFloat(this.images.children[i].style.left))
+        }
 
         this.last_position_selection_image=[]
         this.right_boundary_selection_image = parseFloat(this.small_images.children[this.number_of_cards_by_index].style.left)+this.new_width
@@ -123,7 +73,6 @@ class Deck extends Component {
 
     order_cards=()=>{
 
-        //const card_width=parseFloat(getComputedStyle(this.images.children[0]).width);
         let counter_for_right=1,
             counter_for_left = this.middle_card_by_index;
 
@@ -202,11 +151,11 @@ class Deck extends Component {
     handle_next=()=>{
         //this.Test();
         if (this.scroll_in_progress) return;
-
+        
         this.scroll_in_progress=true;
 
         this.current_card++;
-
+        console.log(this.last_position)
         for(let i=0; i<this.images.children.length; i++) {
             this.images.children[i].style.transitionDuration='0.25s';
             const updated_position = this.last_position[i] - this.new_width;
@@ -316,7 +265,7 @@ class Deck extends Component {
             console.log()
         }
     start_autoplay = () =>{
-        return;
+       //return;
         try {
             clearTimeout(this.autoplay_timeout_id)
             clearInterval(this.autoplay_interval_id)
@@ -397,7 +346,7 @@ const styles={
         top:'40%',
         left:'50%',
         transform:'translate(-50%,-50%)',
-        overflow:'hidden',
+        //overflow:'hidden',
     },
     images_container:{
         margin:0,

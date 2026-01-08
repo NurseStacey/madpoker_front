@@ -1,81 +1,116 @@
 import React, {Component, Fragment} from 'react'
 import Card from './Card'
-
+import LeftChev from './left-chevron.png'
+import RightChev from './right-chevron.png'
 
 class VerticalDeck extends Component {
     constructor(props){
         super(props)
         this.state={
-            percent_of_window:props['Percent_of_Window'],
+            //percent_of_window:props['Percent_of_Window'],
+            WindowWidth:props['WindowWidth'],
+            WindowHeight:props['WindowHeight'],
             cards:props['All_Images'].map((one_link,index)=><Card picsum={one_link} id={index} key={index} />),
         }
     }
 
     componentDidMount(){
-
+        //return;
         this.number_of_cards_by_index = this.images.children.length-1;
         this.middle_card_by_index = Math.floor(this.number_of_cards_by_index/2);
 
-        let img_width_as_percentage=90;
-
-        this.new_width=  (img_width_as_percentage/100)*window.innerWidth*(this.state.percent_of_window/100);
-        this.new_height=  (img_width_as_percentage/100)*window.innerHeight*(this.state.percent_of_window/100);
+        let img_width_as_percentage=0.85
+        //this.new_width=  (img_width_as_percentage/100)*window.innerWidth*(this.state.percent_of_window/100);
+        this.new_width= this.state.WindowWidth*img_width_as_percentage;
+        
+        //this.new_height=  2*(img_width_as_percentage/100)*window.innerHeight*(this.state.percent_of_window/100);
+        this.new_height = this.state.WindowHeight*img_width_as_percentage;
 
         this.view_port.style.width=`${this.new_width}px`;
         this.view_port.style.height=`${this.new_height}px`;
 
         this.current_card=1
+        
+        this.last_position=[];
 
+        this.bottom_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.top)+this.new_height
+        this.top_boundary = parseFloat(this.images.children[0].style.top)-this.new_height
 
         this.order_cards();
-        this.last_position=[];
-        // this.right_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.left)+this.new_width
-        // this.left_boundary = parseFloat(this.images.children[0].style.left)-this.new_width
-        this.bottom_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.top)+this.new_height
-        this.top_boundary = parseFloat(this.images.children[0].style.top-this.new_height)
-        console.log(`first top:${this.images.children[0].style.top}`)
-        console.log(`new  height:${this.new_height}`)
-        console.log(`top:${this.top_boundary}`)
-        console.log(`bottom:${this.bottom_boundary}`)
-        
 
         for (let i=0;i<this.images.children.length;i++){
-            console.log(`${i} - ${this.images.children[i].style.top}`)
             this.last_position.push(parseFloat(this.images.children[i].style.top))
         }
-
+        
         this.scroll_in_progress=false;
+
         this.start_autoplay();
     }
 
     order_cards=()=>{
 
         let counter_for_bottom=1,
-            counter_for_top=this.middle_card_by_index-2
-
+            counter_for_top=this.middle_card_by_index
+        
         for (let i=0; i<this.images.children.length; i++){
             this.images.children[i].style.transitionDuration='0.25s';
 
             if (i<this.middle_card_by_index){
-
-                this.images.children[i].style.top = `-${(counter_for_top*this.new_height) - this.new_height/2}px`
+                this.images.children[i].style.top = `-${(counter_for_top*this.new_height) + this.new_height/2}px`
+                //this.images.children[i].style.top = `-${(counter_for_top*this.new_height- this.new_height) }px`
                 counter_for_top--;
-                //console.log(this.images.children[i].style.top)
             }else if (i>this.middle_card_by_index){
+                this.images.children[i].style.top = `${(counter_for_bottom*this.new_height) + 3*this.new_height/2}px`
+                //this.images.children[i].style.top = `${(counter_for_bottom*this.new_height) }px`
+                counter_for_bottom++;
 
-                this.images.children[i].style.top = `${(counter_for_bottom*this.new_height) + this.new_height/2}px`
-                counter_for_bottom--;
-                //console.log(this.images.children[i].style.top)
             }else{
-
-                this.images.children[i].style.top =`${this.top_boundary+this.new_height/2 +300}px`
-
+                this.images.children[i].style.top =`${3*this.new_height/2}px`
+                //this.images.children[i].style.top =`${-this.new_height}px`
             }
         }
 
 
     }
 
+    handle_prev = ()=>{
+        if (this.scroll_in_progress) return;
+
+        this.scroll_in_progress=true;
+
+        this.current_card--
+        for(let i=0; i<this.images.children.length; i++) {
+            this.images.children[i].style.transitionDuration='0.25s';
+            const updated_position = this.last_position[i] + this.new_height;
+
+            this.images.children[i].style.top = `${updated_position}px`;
+            this.last_position[i]=updated_position;
+        }
+
+        setTimeout(()=>{
+                    this.scroll_in_progress=false;
+                    this.start_autoplay();
+        },200);        
+    }
+
+    handle_next=()=>{
+        if (this.scroll_in_progress) return;
+
+        this.scroll_in_progress=true;
+
+        this.current_card++
+        for(let i=0; i<this.images.children.length; i++) {
+            this.images.children[i].style.transitionDuration='0.25s';
+            const updated_position = this.last_position[i] - this.new_height;
+
+            this.images.children[i].style.top = `${updated_position}px`;
+            this.last_position[i]=updated_position;
+        }
+        setTimeout(()=>{
+                    this.scroll_in_progress=false;
+                    this.start_autoplay();
+        },200);        
+    }
 
     handle_boundaries=()=>{
 
@@ -86,14 +121,13 @@ class VerticalDeck extends Component {
         if(this.current_card<0) {
             this.current_card=this.number_of_cards_by_index
         }
-        console.log(this.last_position)
-        // if (this.last_position[0]<=this.left_boundary){
-        //     const end_of_deck = this.last_position[this.number_of_cards_by_index] + this.new_width;
+        
+
         if (this.last_position[0]<=this.top_boundary){
             const end_of_deck = this.last_position[this.number_of_cards_by_index] + this.new_height;
   
             this.images.children[0].style.top = `${end_of_deck}px`;
-            //this.images.children[0].style.left = `${end_of_deck}px`;
+
             this.last_position[0]=end_of_deck;
 
             this.images.appendChild(this.images.children[0],this.images.children[this.number_of_cards_by_index]);
@@ -101,21 +135,6 @@ class VerticalDeck extends Component {
 
         }
 
-        // if (this.last_position[this.number_of_cards_by_index]>=this.right_boundary){
-
-        //     const beginning_of_deck = this.last_position[0] - this.new_width;
-        // if (this.last_position[this.number_of_cards_by_index]>=this.bottom_boundary){
-
-        //     const beginning_of_deck = this.last_position[0] - this.new_height;            
-
-        //     this.images.children[this.number_of_cards_by_index].style.top = `${beginning_of_deck}px`;
-        //     //this.images.children[this.number_of_cards_by_index].style.left = `${beginning_of_deck}px`;
-        //     this.last_position[this.number_of_cards_by_index]=beginning_of_deck;
-
-        //     this.images.insertBefore(this.images.children[this.number_of_cards_by_index],this.images.children[0]);
-        //     this.last_position.splice(0,0, this.last_position.pop());
-                
-        // }
     }
 
 
@@ -125,7 +144,7 @@ class VerticalDeck extends Component {
         }
 
     start_autoplay = () =>{
-        return;
+       //return;
         try {
             clearTimeout(this.autoplay_timeout_id)
             clearInterval(this.autoplay_interval_id)
@@ -157,12 +176,21 @@ class VerticalDeck extends Component {
     render(){
         return(
             <Fragment>
-                 <button onClick={this.Test}>test</button>
-                <div ref={ref_id=>this.big_box=ref_id} style={{width:`${this.new_width}px`, height:"100%"}}>
-                    <div ref={ref_id=>this.view_port = ref_id} style={styles.view_port}>
-                        <div ref={ref_id=>this.images= ref_id} style={styles.images_container}>
-                            {this.state.cards}
+                    <div style={{
+                            backgroundColor:'lightGrey',      
+                            height:'100%',
+                    }}
+                    >
+                        <div ref={ref_id=>this.nav_buttons_container=ref_id} style={styles.nav_buttons_container}>
+                            <img onClick={this.handle_prev} ref={ref_id=>this.button_prev = ref_id} style={styles.nav_button} src={LeftChev} alt="prev" id="prev"/>
+                            <img onClick={this.handle_next}  ref={ref_id=>this.button_next = ref_id}  style={styles.nav_button}  src={RightChev}  alt="next" id="next"/>                            
+                       
                         </div>
+                        <div ref={ref_id=>this.view_port = ref_id} style={styles.view_port}>
+                            <div ref={ref_id=>this.images= ref_id} style={styles.images_container}>
+                                {this.state.cards}
+                            </div>                    
+
                     </div>
                 </div> 
 
@@ -177,24 +205,49 @@ const styles={
         margin:0,
         padding:0,
         width:'100%',
-        height:'90%',
+        height:'100%',
         position:'absolute',
-        top:'40%',
+        top:'50%',
         left:'50%',
-        transform:'translate(-50%,-50%)',
-        border:'1px solid black',
-        //overflow:'hidden',
+        transform:'translate(-50%,-50%)',        
+        overflow:'hidden',
     },
     images_container:{
         margin:0,
         padding:0,
         width:'inherit',
-        height:'90%',
+        height:'100%',
+        position:'absolute',
+        top:'50%',
+        left:'50%',
+        zIndex:10,        
+        transform:'translate(-50%,-50%)',
+    },
+    nav_buttons_container:{
+        margin:0,
+        padding:0,
+        width:'100%',
         position:'absolute',
         top:'50%',
         left:'50%',
         transform:'translate(-50%,-50%)',
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        pointerEvents:'none',
+
+        display:'flex',
+
     },
-   
+    nav_button:{
+
+        width:'30px',
+        height:'30px',
+        pointerEvents:'all',
+        cursor:'pointer',
+        borderRadius:'50%',
+        zIndex:2,
+    },   
 }
 export default VerticalDeck;
