@@ -25,9 +25,10 @@ export default function EditVenues()
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
-            console.log(response.data)
             setAllVenues(response.data)
-
+            setFormData({
+                VenueName:""
+            })
         }catch(err){
             console.log(err);
         }

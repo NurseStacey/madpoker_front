@@ -15,8 +15,8 @@ export default function NewVenue({
     const [buttonText, setButtonText]=useState("Add Venue")
 
     useEffect(()=>{
-        if (setButtonText===null) setButtonText("Update Venue")
-            else setButtonText("Add Venue")
+        if (selectedVenue===null) setButtonText("Add Venue")
+            else setButtonText("Update Venue")
     },[selectedVenue])
 
     const handleChange = (e)=>{
@@ -28,21 +28,16 @@ export default function NewVenue({
     }
 
     const AddVenue = async () =>{
-        //console.log(formData)
         try{
 
             const response = await axios.post("http://127.0.0.1:8000/venues/venues/",formData);
-            console.log(response.err)
+            
             fetchData()
-            setFormData({
-                VenueName:""
-            })
-
-
         }catch(err){
             console.log(err);
         }
     }
+    
     return(
         <div
             style={{

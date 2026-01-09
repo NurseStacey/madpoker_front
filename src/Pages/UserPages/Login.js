@@ -14,8 +14,8 @@ export default function Login(){
     const [Height, setHeight] =  useState(0)
 
     const [formData, setFormData]=useState({
-        email:"",
-        password:"",
+        email:"stacey.wayne.m@gmail.com",
+        password:"password",
     });
     const[isLoading, setisLoading]=useState(false)
     const [successMessage, setsuccessMessage]=useState(null);

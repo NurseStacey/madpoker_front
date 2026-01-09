@@ -14,7 +14,7 @@ import Index from './Pages/Index/index'
 import UpdateTopMessage from './Pages/UserPages/update-top-message/update-top-message'
 import UpdateSpecialMessage from './Pages/UserPages/special-messages/update-special-message'
 import EditVenues from './Pages/UserPages/edit-venues/edit-venues'
-
+import EditGames from './Pages/UserPages/games/games'
 function App() {
 
   const [RightSideKey, setRighSideKey]=useState('home')
@@ -53,7 +53,8 @@ function App() {
             <Route path='register' element={<Register/>}/>
             <Route path='update_top' element={<UpdateTopMessage/>}/> 
             <Route path='update_special' element={<UpdateSpecialMessage/>}/>        
-            <Route path='edit_venues' element={<EditVenues/>}/>             
+            <Route path='edit_venues' element={<EditVenues/>}/>         
+            <Route path='edit_games' element={<EditGames/>}/>             
          
           </Routes>
         </BrowserRouter>

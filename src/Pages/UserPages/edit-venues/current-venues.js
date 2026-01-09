@@ -1,4 +1,4 @@
-import MyButton from '../../../Components/Widgets/my-button';
+import CurrentVenuesButton from './current-venues-buttons'
 import {useState,useEffect} from 'react';
 import axios from 'axios';
 
@@ -12,15 +12,17 @@ export default function CurrentVenues({
 })
 {
     const [buttonText, setButtonText]=useState("Deactivate")
-
+    
     const getVenue = () =>{
         return allVenues.find((oneVenue)=>oneVenue.id===selectedVenue)
     }
     
     useEffect(()=>{
-        console.log(getVenue())
-      //  if (getVenue().active) setButtonText("Deactivate")
-        //    else setButtonText("Activate")
+        if (selectedVenue===null) {
+            let thisVenue=getVenue()
+            if (thisVenue.active) setButtonText("Deactivate")
+                else setButtonText("Activate")
+        }
     },[selectedVenue])
 
     const Delete= async ()=>{
@@ -40,12 +42,13 @@ export default function CurrentVenues({
     const ChangeActive= async()=>{
 
         try{
-
+            let thisVenue = getVenue()
             let updatedData={
-                VenueName:formData.VenueName,
-                active:true
-            }
+                VenueName:thisVenue.VenueName,
+                active:!thisVenue.active                
 
+            }
+            console.log(updatedData)
             const response = await axios.patch(`http://127.0.0.1:8000/venues/onevenue/${selectedVenue}/`,updatedData);
             
             fetchData()
@@ -58,10 +61,10 @@ export default function CurrentVenues({
 
     const Update= async ()=>{
         try{
-            let thisVenue = getVenue()
+            
             let updatedData={
-                VenueName:thisVenue.VenueName,
-                active:!thisVenue.VenueName
+                VenueName:formData.VenueName,
+                active:true
             }
 
             const response = await axios.patch(`http://127.0.0.1:8000/venues/onevenue/${selectedVenue}/`,updatedData);
@@ -75,7 +78,7 @@ export default function CurrentVenues({
     }        
 
     const VenueSelected=(id)=>{
-        console.log(getVenue()) 
+        //console.log(getVenue()) 
 
         if (selectedVenue===null) {
             setSelectedVenue(id)
@@ -95,54 +98,15 @@ export default function CurrentVenues({
                 border:'1px solid black',
                 padding:'40px'
             }}>
-            <div
-                style={{
-                    width:"100%",
-                    height:"100px",
-                    display:"flex",
-                    justifyContent:"space-around"
-                }}>
-                <MyButton
-                    button_function={ChangeActive}
-                    button_text={"Make Inactive"}
-                    button_style={{
-                        height:"50px",
-                        width:"100px",
-                        margin:"auto",
-                        backgroundColor: (selectedVenue!==null) ? "#00FFFF" : "#088080"
-                    }}
-                />    
-                <MyButton
-                    button_function={Delete}
-                    button_text={"Delete"}
-                    button_style={{
-                        height:"50px",
-                        width:"100px",
-                        margin:"auto",
-                        backgroundColor: (selectedVenue!==null) ? "#00FFFF" : "#088080"
-                    }}
-                />    
-                <MyButton
-                    button_function={Update}
-                    button_text={"Update"}
-                    button_style={{
-                        height:"50px",
-                        width:"100px",
-                        margin:"auto",
-                        backgroundColor: (selectedVenue!==null) ? "#00FFFF" : "#088080"
-                    }}
-                />     
-                <MyButton
-                    button_function={()=>setSelectedVenue(null)}
-                    button_text={"Unselect"}
-                    button_style={{
-                        height:"50px",
-                        width:"100px",
-                        margin:"auto",
-                        backgroundColor: (selectedVenue===null) ? "#00FFFF" : "#088080"
-                    }}
-                />                                                    
-            </div>
+                <CurrentVenuesButton
+                    selectedVenue={selectedVenue}
+                    setSelectedVenue={setSelectedVenue}
+                    ChangeActive={ChangeActive}
+                    Delete={Delete}
+                    Update={Update}
+                    buttonText={buttonText}
+                />
+
 
             <div
 
@@ -156,9 +120,9 @@ export default function CurrentVenues({
                         onClick={()=>VenueSelected(oneVenue.id)}
                         key={oneVenue.id}
                         style={{
-                            backgroundColor: ((oneVenue.active) ? ((oneVenue.id===selectedVenue) ? "pink" :"white") :"lightgray")
+                            backgroundColor:(oneVenue.id===selectedVenue) ? "pink" :"white",
                         }}>
-                        {oneVenue.VenueName}
+                        {(oneVenue.active) ? oneVenue.VenueName : oneVenue.VenueName + ' - inactive'} 
                     </div>
                 ))}
             </div>
