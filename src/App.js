@@ -13,7 +13,7 @@ import Admin from './Pages/UserPages/Admin';
 import Index from './Pages/Index/index'
 import UpdateTopMessage from './Pages/UserPages/update-top-message/update-top-message'
 import UpdateSpecialMessage from './Pages/UserPages/special-messages/update-special-message'
-
+import EditVenues from './Pages/UserPages/edit-venues/edit-venues'
 
 function App() {
 
@@ -52,7 +52,8 @@ function App() {
             <Route path='login' element={<Login/>}/>
             <Route path='register' element={<Register/>}/>
             <Route path='update_top' element={<UpdateTopMessage/>}/> 
-            <Route path='update_special' element={<UpdateSpecialMessage/>}/>             
+            <Route path='update_special' element={<UpdateSpecialMessage/>}/>        
+            <Route path='edit_venues' element={<EditVenues/>}/>             
          
           </Routes>
         </BrowserRouter>

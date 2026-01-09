@@ -19,23 +19,23 @@ export default function Locations(){
         <div
             style={{
                 width:`${Width}px`,
-                height:`${Height}px`,          
+                height:`${Height}px`,  
+                marginLeft:'125px'        
             }}
             >
                 <div
                     style={{
-                        marginTop:"300px",
-                        marginLeft:"200px",
-                        width:"350px",
-                        height:"250px",
+                        marginTop:"150px",
+                        //marginLeft:"200px",
+                        width:"400px",
+                        height:"300px",
                         position: "relative",
  
                     }}
+                    id="location_slide_show"
                 >
                     <VerticalDeck
-                        All_Images={VenuePics}
-                        WindowWidth={350}
-                        WindowHeight={250}/> 
+                        All_Images={VenuePics}/> 
                 </div>
 
         </div>

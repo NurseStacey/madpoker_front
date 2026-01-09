@@ -7,24 +7,23 @@ class VerticalDeck extends Component {
     constructor(props){
         super(props)
         this.state={
-            //percent_of_window:props['Percent_of_Window'],
-            WindowWidth:props['WindowWidth'],
-            WindowHeight:props['WindowHeight'],
             cards:props['All_Images'].map((one_link,index)=><Card picsum={one_link} id={index} key={index} />),
         }
     }
 
     componentDidMount(){
-        //return;
+        
+
         this.number_of_cards_by_index = this.images.children.length-1;
         this.middle_card_by_index = Math.floor(this.number_of_cards_by_index/2);
 
         let img_width_as_percentage=0.85
         //this.new_width=  (img_width_as_percentage/100)*window.innerWidth*(this.state.percent_of_window/100);
-        this.new_width= this.state.WindowWidth*img_width_as_percentage;
-        
+        //this.new_width= this.state.WindowWidth*img_width_as_percentage;
+        this.new_width= document.getElementById("location_slide_show").offsetWidth*img_width_as_percentage;
         //this.new_height=  2*(img_width_as_percentage/100)*window.innerHeight*(this.state.percent_of_window/100);
-        this.new_height = this.state.WindowHeight*img_width_as_percentage;
+        //this.new_height = this.state.WindowHeight*img_width_as_percentage;
+        this.new_height= document.getElementById("location_slide_show").offsetHeight*img_width_as_percentage;
 
         this.view_port.style.width=`${this.new_width}px`;
         this.view_port.style.height=`${this.new_height}px`;

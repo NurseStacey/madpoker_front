@@ -38,7 +38,16 @@ export default function Operations({
                     }}
                     button_function={()=>NavigationFunction("/update_special")}
                     button_text="Update Special Messages"
-                    />                                      
+                    />     
+                <MyButton
+                    button_style={{
+                        margin:'20px',
+                        height:'100px',
+                        width:'100px'
+                    }}
+                    button_function={()=>NavigationFunction("/edit_venues")}
+                    button_text="Edit Venues"
+                    />                                                          
         </div>
     )
 }

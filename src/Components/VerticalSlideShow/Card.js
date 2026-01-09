@@ -45,7 +45,7 @@ const style={
         transform:'translate(0%,10%)', 
         backgroundColor:'black',
         color:'white',
-        opacity:0.75,  
+        opacity:0.65,  
     }
 }
 export default React.memo(Card);
