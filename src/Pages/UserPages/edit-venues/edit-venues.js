@@ -86,7 +86,7 @@ export default function EditVenues()
                     margin:"auto"
                 }}
             />         
-            <button onClick={Test}>test</button>       
+
         </div>
     )
 }

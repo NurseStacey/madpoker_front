@@ -5,7 +5,7 @@ import axios, { all } from 'axios';
 import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
-
+import MyButton from '../../../Components/Widgets/my-button';
 
 
 export default function EditGames()
@@ -28,6 +28,7 @@ export default function EditGames()
         active:false,
     });
 
+    
     useEffect(()=>{
         setWidth(width);
         setHeight(height);
@@ -39,7 +40,7 @@ export default function EditGames()
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-            console.log(response.data)
+            //console.log(response.data)
             setAllGames(response.data)
 
         }catch(err){
@@ -57,18 +58,27 @@ export default function EditGames()
             <Title
                 TitleText = "Edit Games"
             />   
-
+            <MyButton
+                button_function={()=>navigate("/admin")}
+                button_text={"Return to Admin"}
+                button_style={{
+                    height:"75px",
+                    width:"100px",
+                    margin:"2% auto"
+                }}
+            />   
             <div
                 style={{
                     display:"flex",
                     justifyContent:"space-between",
-                    marginTop:"50px"
+                    //marginTop:"50px"
                 }}
             >
                 <NewGame
                     formData={formData}
                     setFormData={setFormData}
                     fetchData={fetchData}
+                    selectedGame={selectedGame}
                 />
                 <CurrentGames
                     formData={formData}
@@ -78,6 +88,7 @@ export default function EditGames()
                     setSelectedGame={setSelectedGame}        
                 />
             </div>
+             
         </div>
     )
 }

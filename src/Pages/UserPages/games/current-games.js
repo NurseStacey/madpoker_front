@@ -13,20 +13,76 @@ export default function CurrentGames({
 
     const [buttonText, setButtonText]=useState("Deactivate")    
 
-    const ChangeActive=()=>{}
-    const Delete=()=>{}
-    const Update=()=>{}
+    const ChangeActive=async()=>{
 
-    const getGame = () =>{
-        return allGames.find((oneGame)=>oneGame.id===selectedGame)
+        try{
+
+            console.log(formData)
+            let updatedData={
+                ...formData,
+                ...{active:!formData.active}
+            }
+            console.log(updatedData)
+            const response = await axios.patch(`http://127.0.0.1:8000/games/onegame/${selectedGame}/`,updatedData);
+            
+            fetchData()
+            setSelectedGame(null)
+
+        }catch(err){
+        }
+    }
+
+    const Delete=async()=>{
+
+        try{
+            const response = await axios.delete(`http://127.0.0.1:8000/games/onegame/${selectedGame}/`,);
+            
+            fetchData()
+            setSelectedGame(null)
+
+        }catch(err){
+            console.log(err);
+        }             
+    }
+    const Update=async()=>{
+        try{
+            
+            let updatedData={
+                ...formData,
+                ...{active:true}
+            }
+
+            const response = await axios.patch(`http://127.0.0.1:8000/games/onegame/${selectedGame}/`,updatedData);
+            
+            fetchData()
+            setSelectedGame(null)
+
+        }catch(err){
+            console.log(err);
+        }            
+    }
+
+    const getGame = (id) =>{
+
+        return allGames.find((oneGame)=>oneGame.id===id)
     }    
+
     const GameSelected=(id)=>{
+        let thisGame=getGame(id)     
+
         if (selectedGame===null) {
             setSelectedGame(id)
+            
+            if (thisGame.active) setButtonText("Deactivate")
+                else setButtonText("Activate")            
             return
         }
-        if (getGame().active) setSelectedGame(null)
-            else setSelectedGame(id)        
+
+        if (selectedGame===id) {
+            setSelectedGame(null)
+            return
+        }
+        setSelectedGame(id)        
     }
 
     const Test=()=>{
@@ -37,7 +93,7 @@ export default function CurrentGames({
             style={{
                 display:"block",
                 width:"40%",
-                margin:"5%",
+                margin:"2% 5%",
                 border:'1px solid black',
                 padding:'40px'
             }}>
@@ -51,15 +107,17 @@ export default function CurrentGames({
                 />
                 {allGames.map((oneGame)=>(
                     <div
-                        onClick={GameSelected}
+                        onClick={()=>GameSelected(oneGame.id)}
                         key={oneGame.id}
                         style={{
-                            margin:"5px",
+                            margin:"10px 5px",
+                            textAlign:"left",
+                            fontSize:"18px",
                             backgroundColor:(oneGame.id===selectedGame) ? "pink" :"white",
                         }}
-                        >{(oneGame.active) ?oneGame.Text : oneGame.Text + ' - inactive'}</div>
+                        >{(oneGame.active) ? oneGame.Text : oneGame.Text + ' - inactive'}</div>
                 ))}
-                <button onClick={Test}>test</button>
+            <button onClick={Test}>test</button> 
         </div>
     )
 }

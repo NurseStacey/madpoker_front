@@ -4,31 +4,64 @@ import MyDropdownText from '../../../Components/Widgets/my-dropdown-text'
 import MyTextArea from '../../../Components/Widgets/my-textarea'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import {WeekDays} from '../../../Components/weekdays'
 
 export default function NewGame({
     formData,
     setFormData,
-    fetchData
+    fetchData,
+    selectedGame
 })
 {
     const [buttonText, setButtonText]=useState("Add Game")        
     const [allDirectors, setAllDirectors]=useState([])
     const [allVenues, setAllVenues]=useState([])
 
-    let WeekDays = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thurseday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-    ]
+
+    useEffect(()=>{
+        // if (selectedGame===null) setButtonText("Add Game")
+        //     else setButtonText("Update Game")
+
+        if (selectedGame===null)
+            setFormData({
+                WeekDay:"Monday",
+                Time:"6:00",
+                Director:-1,
+                DirectorUserName:"",
+                Venue:-1,
+                VenueName:"",
+                Description:"",
+                active:false,
+            });
+        else
+            GetThisGame(selectedGame)
+        
+    },[selectedGame])
+
+    const GetThisGame=async(id)=>{
+        try{
+            const response = await axios.get(`http://127.0.0.1:8000/games/onegame/${id}/`,);
+            console.log(response.data)
+            let thisVenue=allVenues.find((oneVenue)=>oneVenue.id===response.data.Venue);
+            console.log(thisVenue)
+            let thisDirector=allDirectors.find((oneDirector)=>oneDirector.id===response.data.Director);
+            setFormData({
+                ...response.data,
+                ...{Director:thisDirector.id, DirectorUserName:thisDirector.username},
+                ...{Venue:thisVenue.id, VenueName:thisVenue.VenueName}
+            });
+            
+
+
+        }catch(err){
+            console.log(err);
+        }
+    }
 
     const GetDirectors = async()=>{
         try{
             const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
-            console.log(response.data)
+            //console.log(response.data)
             setAllDirectors(response.data)
 
         }catch(err){
@@ -81,14 +114,14 @@ export default function NewGame({
         
         let thisDirector=allDirectors.find((oneDirector)=>oneDirector.username===director)
 
-        console.log(director)
+        //console.log(director)
         if (thisDirector===undefined) return
         
         setFormData({...formData, ...{Director:thisDirector.id, DirectorUserName:thisDirector.username}})
     }
 
     const VenueSelected=(venue)=>{
-        console.log(venue)
+        //console.log(venue)
         let thisVenue=allVenues.find((oneVenue)=>oneVenue.VenueName===venue)
         setFormData({...formData, ...{Venue:thisVenue.id, VenueName:thisVenue.VenueName}})
     }
@@ -98,9 +131,18 @@ export default function NewGame({
     }
 
     const AddGame = async()=>{
+        if (selectedGame!==null) return
         try {
-            const response = await axios.post("http://127.0.0.1:8000/games/games/",formData);
-            
+            console.log(formData)
+            let DataToSend={
+                WeekDay:formData.WeekDay,
+                Time:formData.Time,
+                Director:formData.Director,
+                Venue:formData.Venue,
+                Description:formData.Description
+            }
+            const response = await axios.post("http://127.0.0.1:8000/games/games/",DataToSend);
+            //console.log(response)
             fetchData()
             setFormData({
                 WeekDay:"Monday",
@@ -109,7 +151,8 @@ export default function NewGame({
                 DirectorUserName:"",
                 Venue:-1,
                 VenueName:"",
-                Text:""
+                Description:"",
+                active:false,
             })
         }catch(err){
             console.log(err)
@@ -121,7 +164,7 @@ export default function NewGame({
             style={{
                 display:"block",
                 width:"40%",
-                margin:"5%",
+                margin:"2% 5%",
                 border:'1px solid black',
                 padding:'40px'
             }}>
@@ -163,9 +206,8 @@ export default function NewGame({
                     <MyTextArea
                         labelText="Text"
                         handleChange={HandelChange}
-                        inputValue={formData.Text}
-                        inputName="Text"
-                        inputType="Text"
+                        inputValue={formData.Description}
+                        inputName="Description"
                         cols="20"
                         rows="6"
                     />
@@ -173,6 +215,7 @@ export default function NewGame({
                     
                 <MyButton
                     button_function={AddGame}
+                      disable={selectedGame!==null}
                     button_text={buttonText}
                     button_style={{
                         margin:"auto",

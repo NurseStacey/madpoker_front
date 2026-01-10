@@ -15,7 +15,7 @@ export default function Login(){
 
     const [formData, setFormData]=useState({
         email:"stacey.wayne.m@gmail.com",
-        password:"password",
+        password:"prog2003",
     });
     const[isLoading, setisLoading]=useState(false)
     const [successMessage, setsuccessMessage]=useState(null);

@@ -13,17 +13,10 @@ export default function CurrentVenues({
 {
     const [buttonText, setButtonText]=useState("Deactivate")
     
-    const getVenue = () =>{
-        return allVenues.find((oneVenue)=>oneVenue.id===selectedVenue)
+    const getVenue = (id) =>{
+        return allVenues.find((oneVenue)=>oneVenue.id===id)
     }
-    
-    useEffect(()=>{
-        if (selectedVenue===null) {
-            let thisVenue=getVenue()
-            if (thisVenue.active) setButtonText("Deactivate")
-                else setButtonText("Activate")
-        }
-    },[selectedVenue])
+
 
     const Delete= async ()=>{
 
@@ -42,7 +35,7 @@ export default function CurrentVenues({
     const ChangeActive= async()=>{
 
         try{
-            let thisVenue = getVenue()
+            let thisVenue = getVenue(selectedVenue)
             let updatedData={
                 VenueName:thisVenue.VenueName,
                 active:!thisVenue.active                
@@ -78,15 +71,22 @@ export default function CurrentVenues({
     }        
 
     const VenueSelected=(id)=>{
-        //console.log(getVenue()) 
+        let thisVenue=getVenue(id)
 
         if (selectedVenue===null) {
             setSelectedVenue(id)
+            
+            if (thisVenue.active) setButtonText("Deactivate")
+                else setButtonText("Activate")            
             return
         }
 
-        if (getVenue().active) setSelectedVenue(null)
-            else setSelectedVenue(id)
+        if (selectedVenue===id) {
+            setSelectedVenue(null)
+            return
+        }
+        setSelectedVenue(id)
+        
     }
 
     return(
@@ -107,7 +107,6 @@ export default function CurrentVenues({
                     buttonText={buttonText}
                 />
 
-
             <div
 
                 style={{
@@ -121,6 +120,8 @@ export default function CurrentVenues({
                         key={oneVenue.id}
                         style={{
                             backgroundColor:(oneVenue.id===selectedVenue) ? "pink" :"white",
+                            fontSize:"18px",
+                            textAlign:"left"
                         }}>
                         {(oneVenue.active) ? oneVenue.VenueName : oneVenue.VenueName + ' - inactive'} 
                     </div>

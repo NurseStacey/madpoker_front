@@ -39,7 +39,12 @@ export default function Register(){
         setisLoading(true)
         try{
             const response = await axios.post("http://127.0.0.1:8000/login_api/register/",formData)
-            console.log(response)
+            setFormData({
+                username:"",
+                email:"",
+                password1:"",
+                password2:"",
+            })
             setsuccessMessage("Registration Successful")
             seterror(null)
         }
