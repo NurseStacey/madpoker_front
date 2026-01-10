@@ -36,8 +36,6 @@ export default function Locations(){
         }catch(err){
             console.log(err);
         }        
-
-
     }
 
     const RegisterForGame=(id)=>{
@@ -60,24 +58,37 @@ export default function Locations(){
 
 
 
-                <div
-                    style={{
-                        marginTop:"150px",
-                        marginLeft:"100px",
-                        width:"400px",
-                        height:"300px",
-                        position: "relative",
- 
-                    }}
-                    id="location_slide_show"
-                >
-                    {(openModal) ?  <GameRegisteration
-                        setOpenModal={setOpenModal}
-                    /> :
-                    <VerticalDeck
-                        All_Images={VenuePics}/> }
 
-                </div>
+                    {(openModal) ?  
+                        <div
+                            style={{
+                                marginTop:"50px",
+//                                marginLeft:"50px",
+                                width:"600px",
+                                height:"400px",              
+                               // border:'1px solid black'                  
+                            }}
+                        >
+                        <GameRegisteration
+                            setOpenModal={setOpenModal}
+                        /> 
+                    </div>:
+                    <div
+                        style={{
+                            marginTop:"150px",
+                            marginLeft:"100px",
+                            width:"400px",
+                            height:"300px",
+                            position: "relative",
+    
+                        }}
+                        id="location_slide_show"
+                    >
+                        <VerticalDeck
+                            All_Images={VenuePics}/>
+                    </div> }
+                    
+
                 <div
                     style={{
                         color:"red",
