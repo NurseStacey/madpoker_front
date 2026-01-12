@@ -6,6 +6,7 @@ import axios from 'axios'
 import { WeekDays } from '../../Components/weekdays';
 import '@fontsource/averia-sans-libre/700.css';  
 import GameRegisteration from './register';
+import OneGame from './one-game';
 
 
 export default function Locations(){
@@ -30,7 +31,8 @@ export default function Locations(){
     const LoadGamesForPlayers =async()=>{
         try{
             const response = await axios.get("http://127.0.0.1:8000/games/games_for_player/",);
-            setPlayerGames(response.data)
+            console.log(response.data);
+            setPlayerGames(response.data);
 
         }catch(err){
             console.log(err);
@@ -121,23 +123,15 @@ export default function Locations(){
                             }}>
 
                                 {oneWeekDay}
-                                {playerGames.map((oneGame)=>((oneGame.WeekDay===oneWeekDay)?
-                                    <div
-                                        onClick={()=>RegisterForGame(oneGame.id)}
-                                        key={oneGame.id}
-                                        style={{
-                                            fontSize:"18px",
-                                            display:'flex',
-                                            flexWrap:'wrap',
-                                            cursor:"pointer"
-                                        }}
-                                        >
-                                            <p>
-                                                <span style={{color:'red'}}>{oneGame.VenueName}</span>{", " + oneGame.Description}
-                                            </p>                                
+                                {playerGames.map((oneGame)=>(<div key={`${oneGame.id}${oneWeekDay}`}>
+                                    <OneGame
+                                        thisGame={oneGame}
+                                        thisWeekDay={oneWeekDay}
+                                        RegisterForGame={RegisterForGame}
+                                    />
                                     </div>
-                                    :<></>
-                                ))}
+                                ))} 
+
                      
                             
                         </div>
@@ -148,3 +142,22 @@ export default function Locations(){
         </div>
     )
 }
+
+
+                                {/* {playerGames.map((oneGame)=>((oneGame.WeekDay===oneWeekDay)?
+                                    <div
+                                        onClick={()=>RegisterForGame(oneGame.id)}
+                                        key={`${oneGame.id}${oneWeekDay}`}
+                                        style={{
+                                            fontSize:"18px",
+                                            display:'flex',
+                                            flexWrap:'wrap',
+                                            cursor:"pointer"
+                                        }}
+                                        >
+                                            <p>
+                                                <span style={{color:'red'}}>{oneGame.VenueName}</span>{", " + oneGame.Description}
+                                            </p> 
+                                    </div>
+                                    :<div key={`${oneGame.id}${oneWeekDay}`}></div>
+                                ))} */}
