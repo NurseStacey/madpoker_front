@@ -35,7 +35,7 @@ export default function Login(){
     }
     const handlesubmit = async (e) =>{
         
-        e.preventDefault();
+        //e.preventDefault();
         if(isLoading){
             return
         }
@@ -116,6 +116,7 @@ export default function Login(){
                     <MyButton
                         button_function={handlesubmit}
                         button_text={"Login"}
+                        disable={false}
                         />
                 </div>
         

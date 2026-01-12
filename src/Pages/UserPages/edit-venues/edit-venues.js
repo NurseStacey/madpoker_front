@@ -85,6 +85,7 @@ export default function EditVenues()
                     width:"100px",
                     margin:"auto"
                 }}
+                disable={false}
             />         
 
         </div>

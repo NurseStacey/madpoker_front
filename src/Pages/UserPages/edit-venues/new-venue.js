@@ -63,6 +63,7 @@ export default function NewVenue({
                     width:"100px",
                     margin:"auto"
                 }}
+                disable={false}
             />                
         </div>
     )

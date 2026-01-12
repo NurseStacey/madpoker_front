@@ -215,11 +215,11 @@ export default function NewGame({
                     
                 <MyButton
                     button_function={AddGame}
-                      disable={selectedGame!==null}
+                    disable={selectedGame!==null}
                     button_text={buttonText}
                     button_style={{
                         margin:"auto",
-                        height:"75px"}}
+                        height:"75px"}}                     
                 />
                 <button onClick={Test}>test</button>
         </div>

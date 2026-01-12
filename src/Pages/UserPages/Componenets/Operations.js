@@ -20,6 +20,7 @@ export default function Operations({
                     }}
                     button_function={()=>NavigationFunction("/register")}
                     button_text="Add Director"
+                    disable={false}
                     />
                 <MyButton
                     button_style={{
@@ -27,6 +28,7 @@ export default function Operations({
                         height:'100px',
                         width:'100px'
                     }}
+                    disable={false}
                     button_function={()=>NavigationFunction("/update_top")}
                     button_text="Update Top Message"
                     />    
@@ -36,6 +38,7 @@ export default function Operations({
                         height:'100px',
                         width:'100px'
                     }}
+                    disable={false}
                     button_function={()=>NavigationFunction("/update_special")}
                     button_text="Update Special Messages"
                     />     
@@ -45,6 +48,7 @@ export default function Operations({
                         height:'100px',
                         width:'100px'
                     }}
+                    disable={false}
                     button_function={()=>NavigationFunction("/edit_venues")}
                     button_text="Edit Venues"
                     />           
@@ -52,8 +56,10 @@ export default function Operations({
                     button_style={{
                         margin:'20px',
                         height:'100px',
-                        width:'100px'
+                        width:'100px',
+                        fontSize:'18px'
                     }}
+                    disable={false}
                     button_function={()=>NavigationFunction("/edit_games")}
                     button_text="Edit Games"
                     />
@@ -61,11 +67,24 @@ export default function Operations({
                     button_style={{
                         margin:'20px',
                         height:'100px',
-                        width:'100px'
+                        width:'100px',
+                        fontSize:'18px'
                     }}
+                    disable={false}
                     button_function={()=>NavigationFunction("/game_registration")}
                     button_text="Games Registration"
-                    />                                                                                        
+                    />     
+                <MyButton
+                    button_style={{
+                        margin:'20px',
+                        height:'100px',
+                        width:'100px',
+                        fontSize:'16px'
+                    }}
+                    disable={false}
+                    button_function={()=>NavigationFunction("/season_management")}
+                    button_text="Season Management"
+                    />                                                                                                            
         </div>
     )
 }

@@ -32,7 +32,6 @@ export default function Locations(){
             const response = await axios.get("http://127.0.0.1:8000/games/games_for_player/",);
             setPlayerGames(response.data)
 
-            console.log(response.data)
         }catch(err){
             console.log(err);
         }        
@@ -40,7 +39,7 @@ export default function Locations(){
 
     const RegisterForGame=(id)=>{
         setOpenModal(true)
-        console.log(id)
+
     }
 
     const Test=()=>{

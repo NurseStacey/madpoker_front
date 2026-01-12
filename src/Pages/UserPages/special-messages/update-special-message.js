@@ -186,6 +186,7 @@ export default function UpdateSpecialMessage()
                         width:"100px",
                         margin:"auto"
                     }}
+                    disable={false}
                 />
                     {/* <button onClick={Test}>test</button>  */}
         </div>

@@ -88,7 +88,8 @@ export default function NewMessage({
                         margin:"15px",
                         height:"80px",
                         width:"120px"
-                    }}   
+                    }}  
+                    disable={false} 
                 />
                 {/* <button onClick={Test}>Test</button> */}
             </div>

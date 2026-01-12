@@ -66,6 +66,7 @@ export default function EditGames()
                     width:"100px",
                     margin:"2% auto"
                 }}
+                disable={false}
             />   
             <div
                 style={{

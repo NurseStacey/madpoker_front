@@ -108,7 +108,8 @@ export default function UpdateMessage({
                             margin:"15px",
                             height:"80px",
                             width:"120px"
-                        }}   
+                        }}
+                        disable={false}   
                     />
                     <MyButton
                         button_function={Cancel}
@@ -117,7 +118,8 @@ export default function UpdateMessage({
                             margin:"15px",
                             height:"80px",
                             width:"120px"
-                        }}   
+                        }} 
+                        disable={false}  
                     />
                 </div>                
             </div>

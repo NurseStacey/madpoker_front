@@ -22,7 +22,8 @@ export default function OneMessage({
                         button_style={{
                             width:"6%",
                             margin:"0% 2%"
-                        }}              
+                        }}
+                        disable={false}              
                     />      
                     <MyButton
                         button_function={()=>editFunction(thisMessage.id)}
@@ -30,7 +31,8 @@ export default function OneMessage({
                         button_style={{
                             width:"6%",
                             margin:"0% 2%"
-                        }}                      
+                        }}
+                        disable={false}                      
                     />                                   
                     <div
                         style={{

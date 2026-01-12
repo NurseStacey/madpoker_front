@@ -111,6 +111,7 @@ export default function Admin(){
                 <MyButton
                     button_function={handleLogout}
                     button_text={"Logout"}
+                    disable={false}
                     />
 
             </div>

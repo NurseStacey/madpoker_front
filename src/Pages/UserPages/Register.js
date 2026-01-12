@@ -136,7 +136,8 @@ export default function Register(){
                             margin:"25px auto",
                             height:"75px",
                             width:"100px"
-                        }}              
+                        }}
+                        disable={false}              
                     />
                     <MyButton
                         button_function={()=>navigate("/admin",)}
@@ -145,7 +146,8 @@ export default function Register(){
                             margin:"25px auto",
                             height:"75px",
                             width:"100px"
-                        }}              
+                        }}     
+                        disable={false}         
                     />                    
                 </div>                                     
             </div>

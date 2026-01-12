@@ -26,6 +26,7 @@ export default function CurrentGamesButton({
                         margin:"auto",
                         backgroundColor: (selectedGame!==null) ? "#00FFFF" : "#088080"
                     }}
+                    disable={false}
                 />    
                 <MyButton
                     button_function={Delete}
@@ -36,6 +37,7 @@ export default function CurrentGamesButton({
                         margin:"auto",
                         backgroundColor: (selectedGame!==null) ? "#00FFFF" : "#088080"
                     }}
+                    disable={false}
                 />    
                 <MyButton
                     button_function={Update}
@@ -46,6 +48,7 @@ export default function CurrentGamesButton({
                         margin:"auto",
                         backgroundColor: (selectedGame!==null) ? "#00FFFF" : "#088080"
                     }}
+                    disable={false}
                 />     
                 <MyButton
                     button_function={()=>setSelectedGame(null)}
@@ -56,6 +59,7 @@ export default function CurrentGamesButton({
                         margin:"auto",
                         backgroundColor: (selectedGame!==null) ? "#00FFFF" : "#088080"
                     }}
+                    disable={false}
                 />                                                    
             </div>        
     )
