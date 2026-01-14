@@ -31,7 +31,7 @@ export default function Register(){
 
     const handlesubmit = async (e) =>{
         
-        e.preventDefault();
+        //e.preventDefault();
         if(isLoading){
             return
         }

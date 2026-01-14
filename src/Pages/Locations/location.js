@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react'
 import axios from 'axios'
 import { WeekDays } from '../../Components/weekdays';
 import '@fontsource/averia-sans-libre/700.css';  
-import GameRegisteration from './register';
+import GameRegistrationAndSignup from './register-signup';
 import OneGame from './one-game';
 
 
@@ -13,14 +13,14 @@ export default function Locations(){
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0)
     const [Height, setHeight] =  useState(0)
-    const [LeftMargin, setLeftMargin]=useState(0)
+    const [gameID, setGameID]=useState(-1)
     const [playerGames, setPlayerGames]=useState([])
     const [localWeekDays, setLocalWeekDays]=useState([])
     const [openModal, setOpenModal]=useState(false)
 
     useEffect(()=>{
         setWidth(width*0.60)
-        setLeftMargin(width*.0)
+       
         setHeight(height)
         LoadGamesForPlayers()
         let now = new Date()
@@ -40,6 +40,7 @@ export default function Locations(){
     }
 
     const RegisterForGame=(id)=>{
+        setGameID(id)
         setOpenModal(true)
 
     }
@@ -57,9 +58,6 @@ export default function Locations(){
             }}
             >
 
-
-
-
                     {(openModal) ?  
                         <div
                             style={{
@@ -70,8 +68,9 @@ export default function Locations(){
                                // border:'1px solid black'                  
                             }}
                         >
-                        <GameRegisteration
+                        <GameRegistrationAndSignup
                             setOpenModal={setOpenModal}
+                            gameID={gameID}
                         /> 
                     </div>:
                     <div

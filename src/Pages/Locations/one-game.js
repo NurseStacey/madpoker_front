@@ -9,7 +9,7 @@ export default function OneGame({
     return(
         (thisGame.WeekDay===thisWeekDay)?
             <div
-                onClick={()=>RegisterForGame(thisGame.id)}
+                onClick={()=>RegisterForGame(thisGame.NextPlayerGameID)}
                 style={{
                     fontSize:"18px",
                     display:'flex',
