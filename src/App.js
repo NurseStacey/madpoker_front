@@ -16,7 +16,7 @@ import UpdateSpecialMessage from './Pages/UserPages/special-messages/update-spec
 import EditVenues from './Pages/UserPages/edit-venues/edit-venues'
 import EditGames from './Pages/UserPages/games/games'
 import SeasonManagement from './Pages/UserPages/Seasons/seasons-management';
-
+import GameRoster from './Pages/UserPages/game-roster/game-roster.js'
 
 
 function App() {
@@ -60,7 +60,7 @@ function App() {
             <Route path='edit_venues' element={<EditVenues/>}/>         
             <Route path='edit_games' element={<EditGames/>}/>      
             <Route path='season_management' element={<SeasonManagement/>}/>                         
-         
+            <Route path='game_roster' element={<GameRoster/>}/>
           </Routes>
         </BrowserRouter>
 

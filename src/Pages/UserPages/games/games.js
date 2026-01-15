@@ -1,7 +1,7 @@
 import NewGame from './new-game'
 import CurrentGames from './current-games';
 import {useState,useEffect} from 'react';
-import axios, { all } from 'axios';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
@@ -40,13 +40,13 @@ export default function EditGames()
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-            //console.log(response.data)
-            setAllGames(response.data)
+            setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
 
         }catch(err){
             console.log(err);
         }
     }    
+
     return(
         <div 
             style={{

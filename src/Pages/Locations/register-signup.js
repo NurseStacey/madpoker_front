@@ -19,28 +19,36 @@ export default function GameRegistrationAndSignup({
     const RegisterNewPlayer = async ()=>{
 
         try{
-            const response = await axios.post("http://127.0.0.1:8000/players/players/",player)
-            console.log(response.data)
-            setPlayer({
-                player:"",
-                email:"",
-                phone:""
-            })
+            let data_to_send = {
+                new_player:player,
+                WhichGame:gameID
+            }
+            const response = await axios.post("http://127.0.0.1:8000/games/register_new_player_for_game/",data_to_send).then(
 
+                setPlayer({
+                    player:"",
+                    email:"",
+                    phone:"",
+                    id:response.data.id
+                })
+                
+            )
+            
         }
         catch(error){
            console.log(error)
 
         }        
+        setOpenModal(false)
     }
+
     const RegisterAndSignUp=()=>{
         RegisterNewPlayer()
-        SignupForGame()
     }
     
-    const SignupForGame=async()=>{
+    const SignupForGame=async(localPlayerID)=>{
         let data_to_send={
-            WhichPlayer:playerID,
+            WhichPlayer:localPlayerID,
             WhichGame:gameID
         }
         try{
@@ -71,7 +79,7 @@ export default function GameRegistrationAndSignup({
                 setPlayer={setPlayer}
                 player={player}
                 setOpenModal={setOpenModal}
-                SignupForGame={SignupForGame}
+                SignupForGame={()=>SignupForGame(playerID)}
                 setPlayerID={setPlayerID}
             />
             <Register

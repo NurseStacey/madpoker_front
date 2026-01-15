@@ -47,6 +47,7 @@ export default function Login(){
             setsuccessMessage("Login Successful")
             localStorage.setItem("accessToken",response.data.tokens.access);
             localStorage.setItem("refreshToken",response.data.tokens.refresh);
+            localStorage.setItem("current_user",response.data['username'])
             seterror(null)
             navigate("/admin",)
         }

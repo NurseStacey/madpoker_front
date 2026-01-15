@@ -73,7 +73,8 @@ export default function MyDropdownText({
             <div
                 style={{
                     width:"100%",
-                    overflowY:"auto",
+                    overflowY:"scroll",
+                    height:'80%'
                 }}
             >
                 {matchingList.map((oneItem)=>

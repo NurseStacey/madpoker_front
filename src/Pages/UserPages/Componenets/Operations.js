@@ -8,13 +8,16 @@ export default function Operations({
             style={{
                 display:"flex",
                 flexDirection:"row",
+                flexWrap:'wrap',
                 justifyContent:"space-around",
-                width:"100%",
+                width:"60%",
+                marginLeft:'20%',
+                marginRight:'20%',
                 backgroundColor:'salmon'
             }}>
                 <MyButton
                     button_style={{
-                        margin:'20px',
+                        margin:'40px',
                         height:'100px',
                         width:'100px'
                     }}
@@ -24,7 +27,7 @@ export default function Operations({
                     />
                 <MyButton
                     button_style={{
-                        margin:'20px',
+                        margin:'40px',
                         height:'100px',
                         width:'100px'
                     }}
@@ -34,7 +37,7 @@ export default function Operations({
                     />    
                 <MyButton
                     button_style={{
-                        margin:'20px',
+                        margin:'40px',
                         height:'100px',
                         width:'100px'
                     }}
@@ -44,7 +47,7 @@ export default function Operations({
                     />     
                 <MyButton
                     button_style={{
-                        margin:'20px',
+                        margin:'40px',
                         height:'100px',
                         width:'100px'
                     }}
@@ -54,7 +57,7 @@ export default function Operations({
                     />           
                 <MyButton
                     button_style={{
-                        margin:'20px',
+                        margin:'40px',
                         height:'100px',
                         width:'100px',
                         fontSize:'18px'
@@ -65,7 +68,7 @@ export default function Operations({
                     />
                 <MyButton
                     button_style={{
-                        margin:'20px',
+                        margin:'40px',
                         height:'100px',
                         width:'100px',
                         fontSize:'18px'
@@ -76,7 +79,7 @@ export default function Operations({
                     />     
                 <MyButton
                     button_style={{
-                        margin:'20px',
+                        margin:'40px',
                         height:'100px',
                         width:'100px',
                         fontSize:'16px'
@@ -84,7 +87,18 @@ export default function Operations({
                     disable={false}
                     button_function={()=>NavigationFunction("/season_management")}
                     button_text="Season Management"
-                    />                                                                                                            
+                    />    
+                <MyButton
+                    button_style={{
+                        margin:'40px',
+                        height:'100px',
+                        width:'100px',
+                        fontSize:'16px'
+                    }}
+                    disable={false}
+                    button_function={()=>NavigationFunction("/game_roster")}
+                    button_text="View Game Roster"
+                    />                                                                                                                                
         </div>
     )
 }

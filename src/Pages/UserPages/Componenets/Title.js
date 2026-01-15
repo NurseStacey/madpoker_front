@@ -13,7 +13,7 @@ export default function Title({
                 backgroundColor:"red"
             }}>
                 {TitleText}
-                
+
         </div>
     )
 }
