@@ -304,7 +304,7 @@ class Deck extends Component {
     render(){
         return(
             <Fragment>
-                 <button onClick={this.Test}>test</button>
+                 {/* <button onClick={this.Test}>test</button> */}
                 <div ref={ref_id=>this.big_box=ref_id} style={{width:`${this.new_width}px`, height:"100%"}}>
                     <div ref={ref_id=>this.nav_buttons_container=ref_id} style={styles.nav_buttons_container}>
                         <img onClick={this.handle_prev} ref={ref_id=>this.button_prev = ref_id} style={styles.nav_button} src={LeftChev} alt="prev" id="prev"/>
@@ -346,7 +346,7 @@ const styles={
         top:'40%',
         left:'50%',
         transform:'translate(-50%,-50%)',
-        //overflow:'hidden',
+        overflow:'hidden',
     },
     images_container:{
         margin:0,

@@ -10,8 +10,8 @@ export default function OneMessage({
         <div
             style={{
                 font:"arial",
-                fontSize:"25px",
-                margin:"5% 5%",
+                fontSize:"20px",
+                margin:"1% 5%",
                 color:thisMessage['color'],
                 display:"flex",
                 flexDirection:"row",                

@@ -37,7 +37,7 @@ export default function CurrentVenues({
         try{
             let thisVenue = getVenue(selectedVenue)
             let updatedData={
-                VenueName:thisVenue.VenueName,
+                venue_name:thisVenue.venue_name,
                 active:!thisVenue.active                
 
             }
@@ -56,7 +56,7 @@ export default function CurrentVenues({
         try{
             
             let updatedData={
-                VenueName:formData.VenueName,
+                venue_name:formData.venue_name,
                 active:true
             }
 
@@ -123,7 +123,7 @@ export default function CurrentVenues({
                             fontSize:"18px",
                             textAlign:"left"
                         }}>
-                        {(oneVenue.active) ? oneVenue.VenueName : oneVenue.VenueName + ' - inactive'} 
+                        {(oneVenue.active) ? oneVenue.venue_name : oneVenue.venue_name + ' - inactive'} 
                     </div>
                 ))}
             </div>

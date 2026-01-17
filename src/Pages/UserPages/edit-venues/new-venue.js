@@ -51,8 +51,8 @@ export default function NewVenue({
             <MyInput
                 labelText="New Venue Name"
                 handleChange={handleChange}
-                inputValue={formData.VenueName}
-                inputName="VenueName"
+                inputValue={formData.venue_name}
+                inputName="venue_name"
                 inputType="text"
             />
             <MyButton

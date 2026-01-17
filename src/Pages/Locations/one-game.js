@@ -7,7 +7,7 @@ export default function OneGame({
 })
 {
     return(
-        (thisGame.WeekDay===thisWeekDay)?
+        (thisGame.week_day===thisWeekDay)?
             <div
                 onClick={()=>RegisterForGame(thisGame.NextPlayerGameID)}
                 style={{
@@ -18,7 +18,7 @@ export default function OneGame({
                 }}
                 >
                     <p>
-                        <span style={{color:'red'}}>{thisGame.VenueName}</span>{", " + thisGame.Description}
+                        <span style={{color:'red'}}>{thisGame.venue_name}</span>{", " + thisGame.description}
                     </p> 
             </div>
         :<></>

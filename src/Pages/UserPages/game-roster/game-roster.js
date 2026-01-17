@@ -1,13 +1,10 @@
 import {useState,useEffect} from 'react';
-import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
 import MyButton from '../../../Components/Widgets/my-button';
-import MyDropdownText from '../../../Components/Widgets/my-dropdown-text';
-import {WeekDays}  from '../../../Components/weekdays'
 import SelectGame from './select-game'
-
+import CurrentRoster from './current-roster'
 
 export default function GameRoster()
 {
@@ -15,9 +12,10 @@ export default function GameRoster()
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
+
     const navigate = useNavigate();
 
-    const [whichGame, setWhichGame]=useState({Text:""});
+    const [which_game, setwhich_game]=useState({Text:""});
     const [whichUser, setWhichUser]=useState({
         username:"",
         id:-1,
@@ -29,38 +27,39 @@ export default function GameRoster()
         setHeight(height);
     },[]);
 
-    useEffect(()=>{
-        
-    },[whichGame])
+
 
     return(
         <div 
             style={{
                 width:`${Width}px`,
                 height:`${Height}px`,
-                displpay:"block"
+                display:"block"
         }}>
-
+   
             <Title
                 TitleText = "View Game Roster"
             />  
-            <SelectGame
-                whichGame={whichGame}
-                setWhichGame={setWhichGame}
-                whichUser={whichUser}
-                setWhichUser={setWhichUser}
-            />
-
             <MyButton
                 button_function={()=>navigate("/admin")}
                 button_text={"Return to Admin"}
                 button_style={{
-                    height:"100px",
-                    width:"100px",
-                    margin:"auto"
+                    height:"70px",
+                    width:"150px",
+                    margin:"20px auto"
                 }}
                 disable={false}
             />               
+            <SelectGame
+                which_game={which_game}
+                setwhich_game={setwhich_game}
+                whichUser={whichUser}
+                setWhichUser={setWhichUser}
+            />
+            <CurrentRoster
+                which_game={which_game}
+                />
+         
         </div>
     )
 }

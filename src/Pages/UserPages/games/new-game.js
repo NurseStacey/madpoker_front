@@ -24,13 +24,13 @@ export default function NewGame({
 
         if (selectedGame===null)
             setFormData({
-                WeekDay:"Monday",
-                Time:"6:00",
-                Director:-1,
+                week_day:"Monday",
+                time:"6:00",
+                director:-1,
                 DirectorUserName:"",
-                Venue:-1,
-                VenueName:"",
-                Description:"",
+                venue:-1,
+                venue_name:"",
+                description:"",
                 active:false,
             });
         else
@@ -42,13 +42,13 @@ export default function NewGame({
         try{
             const response = await axios.get(`http://127.0.0.1:8000/games/onegame/${id}/`,);
             console.log(response.data)
-            let thisVenue=allVenues.find((oneVenue)=>oneVenue.id===response.data.Venue);
+            let thisVenue=allVenues.find((oneVenue)=>oneVenue.id===response.data.venue);
             console.log(thisVenue)
-            let thisDirector=allDirectors.find((oneDirector)=>oneDirector.id===response.data.Director);
+            let thisDirector=allDirectors.find((oneDirector)=>oneDirector.id===response.data.director);
             setFormData({
                 ...response.data,
-                ...{Director:thisDirector.id, DirectorUserName:thisDirector.username},
-                ...{Venue:thisVenue.id, VenueName:thisVenue.VenueName}
+                ...{director:thisDirector.id, DirectorUserName:thisDirector.username},
+                ...{venue:thisVenue.id, venue_name:thisVenue.venue_name}
             });
             
 
@@ -87,18 +87,18 @@ export default function NewGame({
 
     const HandelChange = (e)=>{
 
-        if (e.target.name==="Director"){
+        if (e.target.name==="director"){
            
             DirectorSelected(e.target.value)
             return
         }
 
-        if (e.target.name==="Weekday") {
+        if (e.target.name==="week_day") {
             WeekDaySelected(e.target.value)
             return
         }
 
-        if (e.target.name==="Venues") {
+        if (e.target.name==="venues") {
             
             VenueSelected(e.target.value)
             return
@@ -108,7 +108,7 @@ export default function NewGame({
     }
 
     const WeekDaySelected = (day) =>{
-        setFormData({...formData, ...{WeekDay:day}})
+        setFormData({...formData, ...{week_day:day}})
     }
 
     const DirectorSelected = (director)=>{
@@ -118,13 +118,13 @@ export default function NewGame({
         //console.log(director)
         if (thisDirector===undefined) return
         
-        setFormData({...formData, ...{Director:thisDirector.id, DirectorUserName:thisDirector.username}})
+        setFormData({...formData, ...{director:thisDirector.id, DirectorUserName:thisDirector.username}})
     }
 
     const VenueSelected=(venue)=>{
         //console.log(venue)
-        let thisVenue=allVenues.find((oneVenue)=>oneVenue.VenueName===venue)
-        setFormData({...formData, ...{Venue:thisVenue.id, VenueName:thisVenue.VenueName}})
+        let thisVenue=allVenues.find((oneVenue)=>oneVenue.venue_name===venue)
+        setFormData({...formData, ...{venue:thisVenue.id, venue_name:thisVenue.venue_name}})
     }
     const Test=()=>{
         console.log(formData)
@@ -134,25 +134,26 @@ export default function NewGame({
     const AddGame = async()=>{
         if (selectedGame!==null) return
         try {
-            console.log(formData)
+            //console.log(formData)
             let DataToSend={
-                WeekDay:formData.WeekDay,
-                Time:formData.Time,
-                Director:formData.Director,
-                Venue:formData.Venue,
-                Description:formData.Description
+                week_day:formData.week_day,
+                time:formData.time,
+                director:formData.director,
+                venue:formData.venue,
+                description:formData.description
             }
+            //console.log(DataToSend)
             const response = await axios.post("http://127.0.0.1:8000/games/games/",DataToSend);
             //console.log(response)
             fetchData()
             setFormData({
-                WeekDay:"Monday",
-                Time:"6:00",
-                Director:-1,
+                week_day:"Monday",
+                time:"6:00",
+                director:-1,
                 DirectorUserName:"",
-                Venue:-1,
-                VenueName:"",
-                Description:"",
+                venue:-1,
+                venue_name:"",
+                description:"",
                 active:false,
             })
         }catch(err){
@@ -178,37 +179,37 @@ export default function NewGame({
                     <MyDropdownText
                         optionsList={WeekDays}
                         setSelectedOption={HandelChange}
-                        selection = {formData.WeekDay}
-                        name="Weekday"
+                        selection = {formData.week_day}
+                        name="week_day"
                         disable={false}
                     />
                     <MyDropdownText
                         optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
                         setSelectedOption={HandelChange}
                         selection = {formData.DirectorUserName}
-                        name="Director"
+                        name="director"
                         disable={false}
                     />       
                     <MyDropdownText
-                        optionsList={allVenues.map((oneVenue)=>oneVenue.VenueName)}
+                        optionsList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
                         setSelectedOption={HandelChange}
-                        selection = {formData.VenueName}
-                        name="Venues"
+                        selection = {formData.venue_name}
+                        name="venues"
                         disable={false}
                     />         
                 </div>
                     <MyInput
                         labelText="Time"
                         handleChange={HandelChange}
-                        inputValue={formData.Time}
-                        inputName="Time"
+                        inputValue={formData.time}
+                        inputName="time"
                         inputType="Text"
                     />
                     <MyTextArea
                         labelText="Text"
                         handleChange={HandelChange}
-                        inputValue={formData.Description}
-                        inputName="Description"
+                        inputValue={formData.description}
+                        inputName="description"
                         cols="20"
                         rows="6"
                     />

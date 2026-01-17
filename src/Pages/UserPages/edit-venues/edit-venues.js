@@ -17,7 +17,7 @@ export default function EditVenues()
     const navigate = useNavigate();
     const [allVenues, setAllVenues]=useState([]);
     const [formData, setFormData]=useState({
-        VenueName:"",
+        venue_name:"",
         active:true
     });  
 
@@ -27,7 +27,7 @@ export default function EditVenues()
             const response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
             setAllVenues(response.data)
             setFormData({
-                VenueName:""
+                venue_name:""
             })
         }catch(err){
             console.log(err);

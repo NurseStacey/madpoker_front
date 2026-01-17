@@ -20,9 +20,13 @@ export default function HomeScreen()
     useEffect(()=>{
         setWidth(width*0.60)
         setLeftMargin(width*.0)
+
         setHeight(height)
     },[])
 
+    const Test=()=>{
+        console.log(Height)
+    }
     return(
 
          <div
@@ -33,19 +37,24 @@ export default function HomeScreen()
                 marginLeft:`${LeftMargin}px`,
             }}
             >
+                {/* <button onClick={Test}>test</button> */}
                 <div
                     style={{
                         display:'block',
-                        width:'80%',
-                                             
+                        width:`${0.8*Width}px`,
+                        //border:'1px solid black'                   
                     }}
                     >
                     <div
                         style={{
-                            height:'30%',
+                            height:`${0.30*Height}px`,   
+                            width:`${0.65*Width}px`,              
                         }}
                     >
-                        <TopMessage/>
+                        <TopMessage
+                            LocalHeight={Math.floor(0.30*Height)}
+                            LocalWidth={Math.floor(0.65*Width)}
+                            />
                         <Award/> 
                     </div>    
  
@@ -53,7 +62,8 @@ export default function HomeScreen()
                         style={{
                             position: 'relative',
                             width:'100%',
-                            height:'70%',                            
+                            height:'70%',  
+                            marginTop:'100px'                          
                     }}>
                         <Deck
                             All_Images={Winners}

@@ -3,10 +3,12 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
-import OneMessage from './one-message'
+
 import NewMessage from './new-message'
 import UpdateMessage from './one-message-edit'
 import MyButton from '../../../Components/Widgets/my-button'
+import CurrentMessages from './current-messages'
+
 
 export default function UpdateTopMessage()
 {
@@ -36,27 +38,9 @@ export default function UpdateTopMessage()
         color:"#000000",        
         })
     }
-    const DeleteMessage = async (id) =>{
 
-        try{
 
-            const response = await axios.delete(`http://127.0.0.1:8000/website_data/homepagetext/${id}/`,);
 
-            fetchData()
-            Reset()
-
-        }catch(err){
-            console.log(err);
-        }
-
-        
-    }
-
-    const EditMessage =(id)=>{
-        console.log(Messages.find((one_message)=>one_message.id==id))
-        setEditText(true)
-        setRecordToEdit(Messages.find((one_message)=>one_message.id==id))
-    }
 
     const fetchData = async ()=>{
         try{
@@ -97,6 +81,16 @@ export default function UpdateTopMessage()
             <Title
                 TitleText = "Update Top Message on Home Page"
                 />      
+                <MyButton
+                    button_function={()=>navigate("/admin")}
+                    button_text={"Return to Admin"}
+                    button_style={{
+                        height:"70px",
+                        width:"150px",
+                        margin:"20px auto"
+                    }}
+                    disable={false}
+                />                
             <div
                 style={{
                     display:"block"
@@ -114,77 +108,16 @@ export default function UpdateTopMessage()
                     setFormData={setFormData}                    
                     fetchData={fetchData}
                     Reset={Reset}/>}
-                <div
-                    style={{
-                        display:"flex",
-                        flexDirection:"row",
-                        margin:"5% 5%",
-                    }}>
-                        <div
-                            style={{
-                                width:"10%"
-                            }}
-                            >
-                                
-                            </div>
-                        <div
-                            style={{
-                                width:"10%"
-                            }}
-                            >
-                                
-                            </div>
-                            <div
-                            style={{
-                                width:"10%"
-                            }}
-                            >
-                                Order
-                            </div>
-                        <div
-                            style={{
-                                width:"10%"
-                            }}
-                            >
-                                Color
-                            </div>  
-                        <div
-                            style={{
-                                width:"10%"
-                            }}
-                            >
-                                Font Size
-                            </div>                        
-                        <div
-                            style={{
-                                width:"70%"
-                            }}
-                            >
-                                Text
-                            </div>                                              
-                    </div>
-                    {Messages.map((one_message)=>
-                        <div
-                            key={one_message.id}>
-                            <OneMessage
-                                thisMessage={one_message}
-                                deleteFunction = {DeleteMessage}
-                                editFunction = {EditMessage}
-                                />
-                                
-                            </div>
-                    )}  
-                </div>   
-                <MyButton
-                    button_function={()=>navigate("/admin")}
-                    button_text={"Return to Admin"}
-                    button_style={{
-                        height:"100px",
-                        width:"100px",
-                        margin:"auto"
-                    }}
-                    disable={false}
+                <CurrentMessages
+                    Messages={Messages}
+                    fetchData={fetchData}
+                    Reset={Reset}
+                    setRecordToEdit={setRecordToEdit}
+                    setEditText={setEditText}
+                    
                 />
+             </div>  
+
                     {/* <button onClick={Test}>test</button> */}
         </div>
     )

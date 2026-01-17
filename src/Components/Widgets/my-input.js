@@ -5,7 +5,8 @@ export default function MyInput({
     handleChange,
     inputValue,
     inputName,
-    inputType
+    inputType,
+    inputStyle
 })
 {
     
@@ -15,7 +16,8 @@ export default function MyInput({
                 display:"flex",
                 flexDirection:"row",
                 justifyContent:"space-between",
-                margin:"25px 0px"
+                margin:"25px 0px",
+                ...inputStyle
             }}
             >
             <label

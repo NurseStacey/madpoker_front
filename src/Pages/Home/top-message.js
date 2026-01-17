@@ -2,22 +2,67 @@ import {MESSAGE} from './notice'
 import '@fontsource/open-sans'
 import {useEffect,useState} from 'react'
 import axios from 'axios';
+import GetFont from '../../utils/get-font';
 
-export  default function TopMessage()
+
+export default function TopMessage({
+    LocalHeight,
+    LocalWidth
+})
 {
     const test = ()=>{console.log(messages)}
     const [messages, setMessages]=useState([])
+    const [fontSize, setfontSize]=useState(28)
+
+
 
     useEffect(()=>{
-        fetchData()
-    },[])
+        //console.log(LocalHeight)
+        if (LocalHeight>0) fetchData()
+    },[LocalHeight])
 
     const fetchData = async ()=>{
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/website_data/homepagetext",);
+            //console.log('here')
+            //let tempMessageArray=response.data.sort((a,b)=>a.order=b.order)
+            let finalMessageArray=[]
+            let numberLines=0
+            let numberOfMargins=0
+            response.data.sort((a,b)=>a.order=b.order).map((oneMessage, messageIndex)=>{
+                //console.log(oneMessage.text.split('<BR>'))
+                oneMessage.text.split('<BR>').map((oneLine,lineIndex)=>{
+                    numberLines+=1
+                    let marginTop="0px"
+                    if (lineIndex===0 && messageIndex!==0) {
+                        numberOfMargins+=1
+                        marginTop="Add_Margin"
+                    }
+                    finalMessageArray.push({
+                        ...oneMessage,
+                        'text':oneLine,
+                        'marginTop':marginTop,
+                        'key':`${oneMessage.id}-${lineIndex}`
+                    })
+                numberLines+=1
+                })
+            })
+            let newFontSize=GetFont(LocalHeight,LocalWidth, finalMessageArray.map((oneLine)=>oneLine.text), numberOfMargins)
+            // console.log(LocalHeight)
+            // console.log(LocalWidth)
+            // console.log(finalMessageArray.map((oneLine)=>oneLine.text))
+            // console.log(numberOfMargins)
+            console.log(newFontSize)
+            //newFontSize=18
+            setfontSize(newFontSize)
 
-            setMessages(response.data.sort((a,b)=>a.order=b.order))
+
+            finalMessageArray.map((oneLine)=>{
+                if (oneLine.marginTop==='Add_Margin') oneLine.marginTop = `${newFontSize}px`
+            })
+            
+            setMessages(finalMessageArray)
 
         }catch(err){
             console.log(err);
@@ -28,33 +73,31 @@ export  default function TopMessage()
         <div
             style={{
                 display:'block',
-                width:'100%',
-                // height:'80%',
+                width:`${LocalWidth}px`,
+                height:`${LocalHeight}px`,
                 border:'3px solid #3f007f',
                 marginTop:'5%',
                 paddingBottom:'20px'
             }}>
                 {/* <button onClick={test}>test</button> */}
-               {messages.map((one_line,index)=>
+               {messages.map((oneLine,index)=>
                <div
                     style={{
                         fontWeight:'bold',
                         display:'flex',
                         width:'90%',
                         fontFamily:'open sans',
-                        fontSize:'18px',
+                        fontSize:`${fontSize}px`,
                         lineHeight:'1.6',
-                        color:one_line['color'],
-                        // textAlign:'center',
+                        color:oneLine['color'],
                         justifyContent:'center',
-                        // marginTop:(index>0) ? '20px' : '0px',
-                        marginTop:'20px',
+                        marginTop:oneLine['marginTop'],
                         marginLeft:'5%',
                         marginRight:'5%',
                     }}
-                    key={one_line['id']}
+                    key={oneLine['key']}
                 >
-                {one_line['text']}
+                {oneLine['text']}
                 </div>)}  
         </div>
     )

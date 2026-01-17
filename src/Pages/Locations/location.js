@@ -20,7 +20,6 @@ export default function Locations(){
 
     useEffect(()=>{
         setWidth(width*0.60)
-       
         setHeight(height)
         LoadGamesForPlayers()
         let now = new Date()
@@ -30,7 +29,8 @@ export default function Locations(){
 
     const LoadGamesForPlayers =async()=>{
         try{
-            const response = await axios.get("http://127.0.0.1:8000/games/games_for_player/",);
+            //const response = await axios.get("http://127.0.0.1:8000/games/games_for_player/",);
+            const response = await axios.get("http://127.0.0.1:8000/games/games/",);
             console.log(response.data);
             setPlayerGames(response.data);
 
@@ -155,7 +155,7 @@ export default function Locations(){
                                         }}
                                         >
                                             <p>
-                                                <span style={{color:'red'}}>{oneGame.VenueName}</span>{", " + oneGame.Description}
+                                                <span style={{color:'red'}}>{oneGame.venue_name}</span>{", " + oneGame.Description}
                                             </p> 
                                     </div>
                                     :<div key={`${oneGame.id}${oneWeekDay}`}></div>

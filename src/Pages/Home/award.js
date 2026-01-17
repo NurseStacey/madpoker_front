@@ -7,6 +7,7 @@ export default function Award()
         <div
             style={{
                 'display':'block',
+                //'height':'100px',
                 'width':'100%',
                 'border':'3px solid #3f007f',
                 'marginTop':'2%'

@@ -49,11 +49,7 @@ export default function NewMessage({
                 display:"block"
             }}
             >
-            <div
-                className="SubTitle"
-            >
-                    Add New Text
-                </div>
+
             <div
                 style={{
                     display:"flex",

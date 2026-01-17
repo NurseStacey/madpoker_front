@@ -1,17 +1,12 @@
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
-import WindowDimensions from '../../../utils/window-dimensions';
-import Title from '../Componenets/Title';
-import MyButton from '../../../Components/Widgets/my-button';
 import MyDropdownText from '../../../Components/Widgets/my-dropdown-text';
 import {WeekDays}  from '../../../Components/weekdays'
 
 
-
 export default function SelectGame({
-    whichGame,
-    setWhichGame,
+    which_game,
+    setwhich_game,
     whichUser,
     setWhichUser
 })
@@ -26,20 +21,22 @@ export default function SelectGame({
     const GetDirectors = async()=>{
         try{
             const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
-            setAllDirectors(response.data)
+            setAllDirectors([{username:'All Directors'},...response.data])
             setWhichUser(response.data.find((oneUser)=>oneUser.username===localStorage.getItem('current_user')))
         }catch(err){
             console.log(err);
         }
     }    
 
+    useEffect(()=>{
 
-    useEffect(()=>{GetGames()}, [whichUser])
-
+        GetGames();
+    }, [whichUser])
 
     const GetGames = async()=>{
+
         try{
-            if (whichUser.username==="") {
+            if (whichUser.username==="All Directors") {
                 const response = await axios.get("http://127.0.0.1:8000/games/games/",);
                 setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
                 
@@ -57,7 +54,7 @@ export default function SelectGame({
                         let nextGame=response.data.find((oneGame)=>oneGame.WeekDay===WeekDays[WeekDayArray[index]]);
 
                         if (nextGame!==undefined){
-                            setWhichGame(nextGame);
+                            setwhich_game(nextGame);
                             break;
                         }
                     }
@@ -72,9 +69,9 @@ export default function SelectGame({
         
         if (e.target.name==="Director") setWhichUser(allDirectors.find((oneUser)=>oneUser.username===e.target.value))
 
-        if (e.target.name==="Game") setWhichGame(allGames.find((oneGame)=>oneGame.Text===e.target.value))
+        if (e.target.name==="Game") setwhich_game(allGames.find((oneGame)=>oneGame.Text===e.target.value))
         
-        console.log(allGames.find((oneGame)=>oneGame.Text===e.target.value))
+        //console.log(allGames.find((oneGame)=>oneGame.Text===e.target.value))
     }
 
     
@@ -103,7 +100,7 @@ export default function SelectGame({
             <MyDropdownText
                 optionsList={allGames.map((oneGame)=>oneGame.Text)}
                 setSelectedOption={HandelChange}
-                selection = {whichGame.Text}
+                selection = {which_game.Text}
                 name="Game"
                 disable={false}
                 style={{

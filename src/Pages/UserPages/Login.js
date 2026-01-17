@@ -82,8 +82,7 @@ export default function Login(){
             <Title
                 TitleText = "MAD Poker Director Login Page"
                 />
-            {successMessage && <p>{successMessage}</p>}
-            {error && <p>{error}</p>}            
+     
 
             <div
                 style={{
@@ -122,6 +121,8 @@ export default function Login(){
                 </div>
         
             </div>
+            {successMessage && <p>{successMessage}</p>}
+            {error && <p>{error}</p>}       
         {/* <button onClick={test}>test</button> */}
         </div>
     )
