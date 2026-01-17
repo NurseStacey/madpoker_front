@@ -34,31 +34,36 @@ export default function SelectGame({
     }, [whichUser])
 
     const GetGames = async()=>{
-
+        
         try{
+
             if (whichUser.username==="All Directors") {
                 const response = await axios.get("http://127.0.0.1:8000/games/games/",);
+                console.log(response.data)
                 setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
                 
             }else{
-                
-                const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}`,);
-                setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
+                if (whichUser.id>0){
+                    console.log( whichUser)
+                    const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
+                    console.log(response.data);
+                    setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
 
-                if (response.data.length>0){
-                    let thisWeekDay=(new Date()).getDay()
-                    let WeekDayArray = [...Array.from(Array(7).keys()).slice(thisWeekDay,7),
-                        ...Array.from(Array(thisWeekDay).keys())];
+                    if (response.data.length>0){
+                        let thisWeekDay=(new Date()).getDay()
+                        let WeekDayArray = [...Array.from(Array(7).keys()).slice(thisWeekDay,7),
+                            ...Array.from(Array(thisWeekDay).keys())];
 
-                    for (let index=0;index<7;index++){
-                        let nextGame=response.data.find((oneGame)=>oneGame.WeekDay===WeekDays[WeekDayArray[index]]);
+                        for (let index=0;index<7;index++){
+                            let nextGame=response.data.find((oneGame)=>oneGame.WeekDay===WeekDays[WeekDayArray[index]]);
 
-                        if (nextGame!==undefined){
-                            setwhich_game(nextGame);
-                            break;
+                            if (nextGame!==undefined){
+                                setwhich_game(nextGame);
+                                break;
+                            }
                         }
-                    }
-                }                
+                    }     
+                }           
             }
         }catch(err){
             console.log(err);
