@@ -10,18 +10,25 @@ export default function OnePlayer({
     return(
         <div
             style={{
+                // display:'flex',
+                // //justifyContent:'space-between',
+                // font:'arial',
+                // fontSize:'18px',
+                // margin:'5px auto',
+                // width:'50%',
+                // alignItems:'center'
                 display:'flex',
-                //justifyContent:'space-between',
+                justifyContent:'space-between',
                 font:'arial',
                 fontSize:'18px',
-                margin:'5px auto',
-                width:'50%',
-                alignItems:'center'
+                width:'100%',                
             }}>
             <div
                 style={{
-                    width:'50%',
+                    width:'30%',
                     textAlign:'left',
+                    paddingLeft:'15%',                    
+
                 }}>
                 {thisPlayer.name}
             </div>
@@ -38,17 +45,17 @@ export default function OnePlayer({
                     justifyContent:'left',
                 }}
                 >
-                <My_Input
-                    labelText=""
-                    handleChange={setPosition}
-                    inputValue={thisPlayer.position}
-                    inputName={thisPlayer.name}
-                    inputType="text"
-                    inputStyle={{
-                        margin:'0px',
-                        width:'25%',
-                    }}
-                />
+                <input
+                style={{
+                    width:"40%",
+                    marginRight:"10%",
+                    textAlign:"right"
+                }}
+                name={thisPlayer.name}
+                onChange={setPosition}  
+                type="number"
+                value={thisPlayer.position}></input>                    
+
             </div>
         </div>
     )

@@ -49,14 +49,8 @@ export default function TopMessage({
                 })
             })
             let newFontSize=GetFont(LocalHeight,LocalWidth, finalMessageArray.map((oneLine)=>oneLine.text), numberOfMargins)
-            // console.log(LocalHeight)
-            // console.log(LocalWidth)
-            // console.log(finalMessageArray.map((oneLine)=>oneLine.text))
-            // console.log(numberOfMargins)
-            console.log(newFontSize)
-            //newFontSize=18
-            setfontSize(newFontSize)
 
+            setfontSize(newFontSize)
 
             finalMessageArray.map((oneLine)=>{
                 if (oneLine.marginTop==='Add_Margin') oneLine.marginTop = `${newFontSize}px`
@@ -65,6 +59,7 @@ export default function TopMessage({
             setMessages(finalMessageArray)
 
         }catch(err){
+            alert('Problem loading Top Message')
             console.log(err);
         }
     }

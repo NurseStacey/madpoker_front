@@ -29,13 +29,13 @@ export default function Locations(){
 
     const LoadGamesForPlayers =async()=>{
         try{
-            //const response = await axios.get("http://127.0.0.1:8000/games/games_for_player/",);
             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
             console.log(response.data);
             setPlayerGames(response.data);
 
         }catch(err){
-            console.log(err);
+            alert('Problem loading games')
+            //console.log(err);
         }        
     }
 
@@ -141,22 +141,3 @@ export default function Locations(){
         </div>
     )
 }
-
-
-                                {/* {playerGames.map((oneGame)=>((oneGame.WeekDay===oneWeekDay)?
-                                    <div
-                                        onClick={()=>RegisterForGame(oneGame.id)}
-                                        key={`${oneGame.id}${oneWeekDay}`}
-                                        style={{
-                                            fontSize:"18px",
-                                            display:'flex',
-                                            flexWrap:'wrap',
-                                            cursor:"pointer"
-                                        }}
-                                        >
-                                            <p>
-                                                <span style={{color:'red'}}>{oneGame.venue_name}</span>{", " + oneGame.Description}
-                                            </p> 
-                                    </div>
-                                    :<div key={`${oneGame.id}${oneWeekDay}`}></div>
-                                ))} */}

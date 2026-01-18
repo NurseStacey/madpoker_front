@@ -7,7 +7,7 @@ export default function CurrentRoster({
     which_game
 })
 {
-    const [nameDirection, setNameDirection]= useState('forward')
+    const [numberPlayers, setNumberPlayers]=useState(0)
     const [positionDirection, setPositionDirection]= useState('forward')
     const [direction, setDirection]=useState({
         'name':'forward',
@@ -16,12 +16,34 @@ export default function CurrentRoster({
     const [currentDirection, setCurrentDirection]=useState('name')
     const [currentRoster, setCurrentRoster]=useState([])
     const Test=()=>{console.log(currentRoster)}
-    const UpdateRoster=()=>{}
+
+    const UpdateRoster=async ()=>{
+        //let formData={}
+        try{
+            
+            const response = await axios.post("http://127.0.0.1:8000/games/update_roster/",{allUsers:currentRoster});
+
+
+        }catch(err){
+
+            if (err.response.data['result']==='problem') {
+                let playerList = '';
+                err.response.data['problem_players'].map((onePlayer)=> playerList=playerList + '\n ' +  onePlayer);
+                //playerList=playerList.slice(2,playerList.length)
+                alert(`Issues with updating positions on the following players ${playerList}`);
+            } else {alert(`There was an issue with updating the results.  Error code ${err.status}`);}
+            
+        }        
+    }
     const setPosition=(e)=>{
         
         let thisPlayer = currentRoster.find((onePlayer)=>onePlayer.name===e.target.name)
+        console.log(e.target.name)
+        console.log(e.target.value)
+        
+        thisPlayer.position =e.target.value
+        console.log(thisPlayer)
 
-        thisPlayer.position =e.value
         let newRoster = [
             ...currentRoster.filter((onePlayer)=>onePlayer.name!==thisPlayer.name),
             thisPlayer
@@ -31,13 +53,14 @@ export default function CurrentRoster({
     }
 
     const GetRoster=async()=>{
-        
+        //console.log(which_game)
         if (which_game.id !== undefined) {
             try{
                 const response = await axios.get(`http://127.0.0.1:8000/games/game_roster/${which_game.id}`,);    
-                setDirection(response.data.PlayersArray.sort((a,b)=>a.name<b.name));
+                setNumberPlayers(response.data.PlayersArray.length);
+                setCurrentRoster(response.data.PlayersArray.sort((a,b)=>a.name.localeCompare(b.name)));
                 }catch(err){
-                    console.log(err);
+                    alert(`There was an issue with getting the current roster.  Error code ${err.status}`)
                 }
             }
     }
@@ -73,6 +96,16 @@ export default function CurrentRoster({
                 display:'block',
                 margin:'25px'
             }}>
+           <div 
+                style={{
+                    display:'flex',
+                    justifyContent:'center',
+                    fontSize:'18px',
+                    margin:'5px 0px'
+                }}
+                >             
+                {numberPlayers>0 ? `${numberPlayers} Players Registerd` :''  } 
+            </div>   
             <div 
                 style={{
                     display:'flex',
@@ -83,48 +116,61 @@ export default function CurrentRoster({
                 <My_Button
                     button_function={UpdateRoster}
                     button_text="Update Roster"
-                    button_style={{}}
+                    button_style={{
+                        height:'50px',
+                        width:'150px'
+                    }}
                     disable={false}
                 />
             </div>
             <div
                 style={{
-                    display:'flex',
-                    justifyContent:'space-between',
-                    font:'arial',
-                    fontSize:'18px',
-                    margin:'10px auto',
-                    width:'50%',
-                    alignItems:'center'
+                    display:'block',
+                    border:'1px solid black',
+                    margin:'3% 20%'
                 }}>
                 <div
-                    onClick={()=>orderPlayers('name')}
                     style={{
-                        width:'50%',
-                        textAlign:'left',
-                        cursor:'pointer' 
+                        display:'flex',
+                        justifyContent:'space-between',
+                        font:'arial',
+                        fontSize:'18px',
+                        border:'1px solid black',
+                        width:'100%',
+                        //margin:'10px auto',
+   
+                        
                     }}>
-                    Player
+                    <div
+                        onClick={()=>orderPlayers('name')}
+                        style={{
+                            width:'30%',
+                            textAlign:'left',
+                            paddingLeft:'15%',
+                            cursor:'pointer' 
+                        }}>
+                        Player
+                    </div>
+                    <div                
+                        style={{
+                            width:'25%',
+                            textAlign:'left',
+                        }}>
+                        Registration Time
+                    </div>
+                    <div
+                        onClick={()=>orderPlayers('position')}
+                        style={{
+                            width:'10%',
+                            paddingRight:'15%',
+                            textAlign:'right',
+                            cursor:'pointer'   
+                        }}
+                    >
+                        Position
+                    </div>
+                            
                 </div>
-                <div                
-                    style={{
-                        width:'25%',
-                        textAlign:'left',
-                    }}>
-                    Registration Time
-                </div>
-                <div
-                    onClick={()=>orderPlayers('position')}
-                    style={{
-                        width:'25%',
-                        textAlign:'left',
-                        cursor:'pointer'   
-                    }}
-                >
-                    Position
-                </div>
-                           
-            </div>
                 {currentRoster.map((onePlayer)=>(
                     <div
                         key={onePlayer.id}
@@ -135,6 +181,7 @@ export default function CurrentRoster({
                             />
                     </div>
                 ))}
+            </div>
 
             <button onClick={Test}>Test</button>
         </div>

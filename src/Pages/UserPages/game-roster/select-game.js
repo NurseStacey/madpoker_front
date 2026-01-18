@@ -34,19 +34,19 @@ export default function SelectGame({
     }, [whichUser])
 
     const GetGames = async()=>{
-        
+        //console.log(whichUser)
         try{
 
             if (whichUser.username==="All Directors") {
                 const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-                console.log(response.data)
+                //console.log(response.data)
                 setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
                 
             }else{
                 if (whichUser.id>0){
-                    console.log( whichUser)
+                    //console.log( whichUser)
                     const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
-                    console.log(response.data);
+                    //console.log(response.data);
                     setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
 
                     if (response.data.length>0){

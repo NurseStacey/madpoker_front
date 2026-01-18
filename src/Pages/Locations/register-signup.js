@@ -34,8 +34,10 @@ export default function GameRegistrationAndSignup({
             )
             
         }
-        catch(error){
-           console.log(error)
+        catch(err){
+           if (err.status===422) {
+            alert('Not able to create new user.  Please contact a director');
+           } else { alert('There was an issue with registration.  Please let a director know.');}
 
         }        
         setOpenModal(false)
@@ -54,7 +56,7 @@ export default function GameRegistrationAndSignup({
             const response = await axios.post(`http://127.0.0.1:8000/games/register_player_for_game/`,data_to_send)
             console.log(response)
             if(response.status===201) alert('You are registered for this game.')
-                else  alert('There was an issue with registration.  Please let a director know.')
+                else  alert('There was an issue with registration.  Please let a director know.');
 
             setPlayer({
                 player:"",
@@ -65,6 +67,7 @@ export default function GameRegistrationAndSignup({
         }
         catch(error){
            console.log(error)
+           alert('There was a problem with signing up up.  Please contact a director')
 
         }    
 

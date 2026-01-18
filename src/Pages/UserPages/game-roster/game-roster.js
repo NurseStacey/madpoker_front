@@ -17,7 +17,7 @@ export default function GameRoster()
 
     const [which_game, setwhich_game]=useState({Text:""});
     const [whichUser, setWhichUser]=useState({
-        username:"",
+        username:"All Directors",
         id:-1,
         email:""
     });
