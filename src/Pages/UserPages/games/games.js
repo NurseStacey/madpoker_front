@@ -18,18 +18,17 @@ export default function EditGames()
     const [allGames, setAllGames]=useState([])
     const [selectedGame,setSelectedGame]=useState(null)
     const [formData, setFormData]=useState({
-        week_day:"Monday",
-        time:"6:00",
-        director:-1,
-        DirectorUserName:"",
-        venue:-1,
-        venue_name:"",
-        description:"",
-        active:false,
-        all_events:[0]
-    });
+                week_day:"Monday",
+                time:"6:00",
+                // director:-1,
+                // DirectorUserName:"",
+                venue:-1,
+                venue_name:"",
+            //    description:"",
+                active:false,
+           //     all_events:[0]
+            });
 
-    
     useEffect(()=>{
         setWidth(width);
         setHeight(height);
@@ -46,7 +45,7 @@ export default function EditGames()
 
             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
             console.log(response.data)
-            setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
+            setAllGames(response.data);
 
         }catch(err){
             alert('Problem loading games.');

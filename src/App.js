@@ -18,6 +18,8 @@ import EditGames from './Pages/UserPages/games/games'
 import SeasonManagement from './Pages/UserPages/Seasons/seasons-management';
 import GameRoster from './Pages/UserPages/game-roster/game-roster.js'
 import EventManagement from './Pages/UserPages/event-management/event-management.js';
+import GameSection from './Pages/UserPages/game-sections/game-sections';
+
 
 function App() {
 
@@ -62,6 +64,7 @@ function App() {
             <Route path='season_management' element={<SeasonManagement/>}/>                         
             <Route path='game_roster' element={<GameRoster/>}/>
             <Route path='event_management' element={<EventManagement/>}/>
+            <Route path='game_sections' element={<GameSection/>}/>
             
           </Routes>
         </BrowserRouter>

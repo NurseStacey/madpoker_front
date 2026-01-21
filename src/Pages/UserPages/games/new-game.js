@@ -26,13 +26,13 @@ export default function NewGame({
             setFormData({
                 week_day:"Monday",
                 time:"6:00",
-                director:-1,
-                DirectorUserName:"",
+                // director:-1,
+                // DirectorUserName:"",
                 venue:-1,
                 venue_name:"",
-                description:"",
+            //    description:"",
                 active:false,
-                all_events:[0]
+           //     all_events:[0]
             });
         else
             GetThisGame(selectedGame)
@@ -43,10 +43,10 @@ export default function NewGame({
         try{
             const response = await axios.get(`http://127.0.0.1:8000/games/onegame/${id}/`,);
             let thisVenue=allVenues.find((oneVenue)=>oneVenue.id===response.data.venue);
-            let thisDirector=allDirectors.find((oneDirector)=>oneDirector.id===response.data.director);
+            //let thisDirector=allDirectors.find((oneDirector)=>oneDirector.id===response.data.director);
             setFormData({
                 ...response.data,
-                ...{director:thisDirector.id, DirectorUserName:thisDirector.username},
+              //  ...{director:thisDirector.id, DirectorUserName:thisDirector.username},
                 ...{venue:thisVenue.id, venue_name:thisVenue.venue_name}
             });
 
@@ -55,16 +55,7 @@ export default function NewGame({
         }
     }
 
-    const GetDirectors = async()=>{
-        try{
-            const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
-            //console.log(response.data)
-            setAllDirectors(response.data)
 
-        }catch(err){
-            alert('Problem getting directors.');
-        }
-    }
 
     const GetVenues = async()=>{
         try{
@@ -96,11 +87,11 @@ export default function NewGame({
 
     const HandelChange = (e)=>{
 
-        if (e.target.name==="director"){
+        // if (e.target.name==="director"){
            
-            DirectorSelected(e.target.value)
-            return
-        }
+        //     DirectorSelected(e.target.value)
+        //     return
+        // }
 
         if (e.target.name==="week_day") {
             WeekDaySelected(e.target.value)
@@ -112,7 +103,7 @@ export default function NewGame({
             VenueSelected(e.target.value)
             return
         }
-    
+       // console.log(e.target)
         setFormData({...formData, ...{[e.target.name]:e.target.value}})      
     }
 
@@ -120,21 +111,21 @@ export default function NewGame({
         setFormData({...formData, ...{week_day:day}})
     }
 
-    const DirectorSelected = (director)=>{
+    // const DirectorSelected = (director)=>{
         
-        let thisDirector=allDirectors.find((oneDirector)=>oneDirector.username===director)
+    //     let thisDirector=allDirectors.find((oneDirector)=>oneDirector.username===director)
 
         //console.log(director)
-        if (thisDirector===undefined) return
+    //     if (thisDirector===undefined) return
         
-        setFormData({...formData, ...{director:thisDirector.id, DirectorUserName:thisDirector.username}})
-    }
+    //     setFormData({...formData, ...{director:thisDirector.id, DirectorUserName:thisDirector.username}})
+    // }
 
     const VenueSelected=(venue)=>{
-        //console.log(venue)
         let thisVenue=allVenues.find((oneVenue)=>oneVenue.venue_name===venue)
         setFormData({...formData, ...{venue:thisVenue.id, venue_name:thisVenue.venue_name}})
     }
+
     const Test=()=>{
         //console.log(formData)
         console.log(formData)
@@ -152,28 +143,29 @@ export default function NewGame({
             }
             const response = await axios.post("http://127.0.0.1:8000/games/games/",DataToSend);
             fetchData()
+
             setFormData({
                 week_day:"Monday",
                 time:"6:00",
-                director:-1,
-                DirectorUserName:"",
+                // director:-1,
+                // DirectorUserName:"",
                 venue:-1,
                 venue_name:"",
-                description:"",
+            //    description:"",
                 active:false,
-                all_events:[0]
-            })
+            //     all_events:[0]
+            });
         }catch(err){
             alert('Problem creating games.');
         }
     }
 
-    const EventSelected=(theseEvents)=>{
-        setFormData({
-            ...formData,
-            all_events:allEvents.filter((oneEvent)=>theseEvents.includes(oneEvent.event)).map((anotherEvent)=>anotherEvent.id)
-        })
-    }
+    // const EventSelected=(theseEvents)=>{
+    //     setFormData({
+    //         ...formData,
+    //         all_events:allEvents.filter((oneEvent)=>theseEvents.includes(oneEvent.event)).map((anotherEvent)=>anotherEvent.id)
+    //     })
+    // }
 
 
     return(

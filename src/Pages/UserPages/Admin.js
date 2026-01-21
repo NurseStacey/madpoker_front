@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import WindowDimensions from '../../utils/window-dimensions'
 import Title from './Componenets/Title'
 import MyButton from '../../Components/Widgets/my-button'
-import Operations from './Componenets/Operations'
+import Operations from './Componenets/operations/Operations'
 
 export default function Admin(){
     const navigate = useNavigate();
