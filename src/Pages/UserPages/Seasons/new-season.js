@@ -30,7 +30,7 @@ export default function NewSeason({
                 StartDate:"2026-01-01"
             })
         }catch(err){
-            console.log(err);
+            alert('Problem creating season')
         }        
     }
     

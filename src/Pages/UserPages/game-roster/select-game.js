@@ -5,15 +5,21 @@ import {WeekDays}  from '../../../Components/weekdays'
 
 
 export default function SelectGame({
-    which_game,
-    setwhich_game,
-    whichUser,
-    setWhichUser
+    setWhichDate,
+    whichDate
 })
 {
     const [allGames, setAllGames]=useState([]);
     const [allDirectors,setAllDirectors]=useState([]);
+    const [allDates, setAllDates]=useState([])
+    const [whichGame, setWhichGame]=useState({Text:""});
+    const [whichUser, setWhichUser]=useState({
+        username:"All Directors",
+        id:-1,
+        email:""
+    });
 
+    const Test=()=>{console.log(allDates)}
     useEffect(()=>{
         GetDirectors();
     },[]);
@@ -29,26 +35,18 @@ export default function SelectGame({
     }    
 
     useEffect(()=>{
-
         GetGames();
     }, [whichUser])
 
     const GetGames = async()=>{
-        //console.log(whichUser)
         try{
-
             if (whichUser.username==="All Directors") {
                 const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-                //console.log(response.data)
                 setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
-                
             }else{
                 if (whichUser.id>0){
-                    //console.log( whichUser)
                     const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
-                    //console.log(response.data);
                     setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
-
                     if (response.data.length>0){
                         let thisWeekDay=(new Date()).getDay()
                         let WeekDayArray = [...Array.from(Array(7).keys()).slice(thisWeekDay,7),
@@ -58,7 +56,7 @@ export default function SelectGame({
                             let nextGame=response.data.find((oneGame)=>oneGame.WeekDay===WeekDays[WeekDayArray[index]]);
 
                             if (nextGame!==undefined){
-                                setwhich_game(nextGame);
+                                setWhichGame(nextGame);
                                 break;
                             }
                         }
@@ -66,19 +64,23 @@ export default function SelectGame({
                 }           
             }
         }catch(err){
-            console.log(err);
+            console.log(err)
+            alert('Problem with loading games.')
         }
     }   
 
     const HandelChange=(e)=>{
-        
         if (e.target.name==="Director") setWhichUser(allDirectors.find((oneUser)=>oneUser.username===e.target.value))
 
-        if (e.target.name==="Game") setwhich_game(allGames.find((oneGame)=>oneGame.Text===e.target.value))
-        
-        //console.log(allGames.find((oneGame)=>oneGame.Text===e.target.value))
+        if (e.target.name==="Game") {
+            let thisGame=allGames.find((oneGame)=>oneGame.Text===e.target.value)
+            setWhichGame(thisGame);
+            let tempDateArray=[];
+            thisGame.Dates.map((oneDate)=>tempDateArray.push(oneDate));
+            setAllDates(tempDateArray);
+        }
+        if (e.target.name==="Date") setWhichDate(allDates.find((oneDate)=>oneDate.date===e.target.value))
     }
-
     
     return(
 
@@ -91,6 +93,7 @@ export default function SelectGame({
 
             }}
         >
+            <button onClick={Test}>test</button>
             <MyDropdownText
                 optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
                 setSelectedOption={HandelChange}
@@ -98,21 +101,33 @@ export default function SelectGame({
                 name="Director"
                 disable={false}
                 style={{
-                    width:'600px',
+                    width:'200px',
                     margin:'0px 20px'
                 }}
             />     
             <MyDropdownText
                 optionsList={allGames.map((oneGame)=>oneGame.Text)}
                 setSelectedOption={HandelChange}
-                selection = {which_game.Text}
+                selection = {whichGame.Text}
                 name="Game"
                 disable={false}
                 style={{
                     width:'600px',
                     margin:'0px 20px'
                 }}
-            />                     
+            />      
+            <MyDropdownText
+                optionsList={[... new Set(allDates.map((oneDate)=>oneDate.date))]}
+                setSelectedOption={HandelChange}
+                selection = {whichDate.date}
+                name="Date"
+                disable={false}
+                style={{
+                    width:'600px',
+                    margin:'0px 20px'
+                }}
+            />                  
+
         </div>               
     )
 }

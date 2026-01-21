@@ -30,7 +30,7 @@ export default function EditVenues()
                 venue_name:""
             })
         }catch(err){
-            console.log(err);
+            alert('Error loading venues')
         }
     }
 

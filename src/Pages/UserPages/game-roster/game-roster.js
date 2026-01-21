@@ -15,12 +15,11 @@ export default function GameRoster()
 
     const navigate = useNavigate();
 
-    const [which_game, setwhich_game]=useState({Text:""});
-    const [whichUser, setWhichUser]=useState({
-        username:"All Directors",
-        id:-1,
-        email:""
-    });
+
+    const [whichDate, setWhichDate]=useState({
+        date:'01/01',
+        id:'-1'
+    })
 
     useEffect(()=>{
         setWidth(width);
@@ -51,13 +50,12 @@ export default function GameRoster()
                 disable={false}
             />               
             <SelectGame
-                which_game={which_game}
-                setwhich_game={setwhich_game}
-                whichUser={whichUser}
-                setWhichUser={setWhichUser}
+                setWhichDate={setWhichDate}
+                whichDate={whichDate}
             />
             <CurrentRoster
-                which_game={which_game}
+                //which_game={which_game}
+                whichGameID={whichDate.id}
                 />
          
         </div>

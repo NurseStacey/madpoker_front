@@ -98,7 +98,18 @@ export default function Operations({
                     disable={false}
                     button_function={()=>NavigationFunction("/game_roster")}
                     button_text="View Game Roster"
-                    />                                                                                                                                
+                    />    
+                <MyButton
+                    button_style={{
+                        margin:'40px',
+                        height:'100px',
+                        width:'100px',
+                        fontSize:'16px'
+                    }}
+                    disable={false}
+                    button_function={()=>NavigationFunction("/event_management")}
+                    button_text="Event Management"
+                    />                                                                                                                                                    
         </div>
     )
 }

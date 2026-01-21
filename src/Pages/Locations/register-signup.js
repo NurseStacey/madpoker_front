@@ -23,27 +23,14 @@ export default function GameRegistrationAndSignup({
                 which_game:gameID
             }
             const response = await axios.post("http://127.0.0.1:8000/games/register_new_player_for_game/",data_to_send);
-                // (response!==undefined) ?  
-                //     setPlayer({
-                //         player:"",
-                //         email:"",
-                //         phone:"",
-                //         id:response.data.id
-                //     }) :{}
-                console.log(response)
                 setPlayer({
                     player:"",
                     email:"",
                     phone:"",
                     id:response.data.id
                 })                
-           // )
             
         } catch(err){
-            // console.log(err)
-            // console.log(err.code)
-            // console.log(err.status)
-            console.log(err.response)
             if (err.response.data['status']==='problem') {
                 alert('Not able to create new user.  Please contact a director');
             } else if (err.response.data['status']==='duplicit username'){alert('That user name is already in use.');            

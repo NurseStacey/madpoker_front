@@ -5,6 +5,8 @@ import MyTextArea from '../../../Components/Widgets/my-textarea'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {WeekDays} from '../../../Components/weekdays'
+import MyCheckBoxes from '../../../Components/Widgets/my-checkboxes';
+
 
 export default function NewGame({
     formData,
@@ -13,14 +15,12 @@ export default function NewGame({
     selectedGame
 })
 {
-    const [buttonText, setButtonText]=useState("Add Game")        
+         
     const [allDirectors, setAllDirectors]=useState([])
     const [allVenues, setAllVenues]=useState([])
-
+    const [allEvents, setAllEvents]=useState([])
 
     useEffect(()=>{
-        // if (selectedGame===null) setButtonText("Add Game")
-        //     else setButtonText("Update Game")
 
         if (selectedGame===null)
             setFormData({
@@ -32,6 +32,7 @@ export default function NewGame({
                 venue_name:"",
                 description:"",
                 active:false,
+                all_events:[0]
             });
         else
             GetThisGame(selectedGame)
@@ -41,20 +42,16 @@ export default function NewGame({
     const GetThisGame=async(id)=>{
         try{
             const response = await axios.get(`http://127.0.0.1:8000/games/onegame/${id}/`,);
-            console.log(response.data)
             let thisVenue=allVenues.find((oneVenue)=>oneVenue.id===response.data.venue);
-            console.log(thisVenue)
             let thisDirector=allDirectors.find((oneDirector)=>oneDirector.id===response.data.director);
             setFormData({
                 ...response.data,
                 ...{director:thisDirector.id, DirectorUserName:thisDirector.username},
                 ...{venue:thisVenue.id, venue_name:thisVenue.venue_name}
             });
-            
-
 
         }catch(err){
-            console.log(err);
+            alert('Problem loading game');
         }
     }
 
@@ -65,7 +62,7 @@ export default function NewGame({
             setAllDirectors(response.data)
 
         }catch(err){
-            console.log(err);
+            alert('Problem getting directors.');
         }
     }
 
@@ -76,13 +73,25 @@ export default function NewGame({
             setAllVenues(response.data)
 
         }catch(err){
-            console.log(err);
+            alert('Problem getting venues.');
         }
     }    
     
+    // const GetEvents = async()=>{
+    //     try{
+    //         const response = await axios.get("http://127.0.0.1:8000/games/events/",);
+    //         console.log(response.data)
+    //         setAllEvents(response.data)
+
+    //     }catch(err){
+    //         alert('Problem getting venues.');
+    //     }
+    // }    
+
     useEffect(()=>{
         GetDirectors()
         GetVenues()
+        //GetEvents()
     },[])
 
     const HandelChange = (e)=>{
@@ -127,14 +136,13 @@ export default function NewGame({
         setFormData({...formData, ...{venue:thisVenue.id, venue_name:thisVenue.venue_name}})
     }
     const Test=()=>{
+        //console.log(formData)
         console.log(formData)
-        //allDirectors.find((oneDirector)=>oneDirector.id===formData.Director).username
     }
 
     const AddGame = async()=>{
         if (selectedGame!==null) return
         try {
-            //console.log(formData)
             let DataToSend={
                 week_day:formData.week_day,
                 time:formData.time,
@@ -142,9 +150,7 @@ export default function NewGame({
                 venue:formData.venue,
                 description:formData.description
             }
-            //console.log(DataToSend)
             const response = await axios.post("http://127.0.0.1:8000/games/games/",DataToSend);
-            //console.log(response)
             fetchData()
             setFormData({
                 week_day:"Monday",
@@ -155,25 +161,35 @@ export default function NewGame({
                 venue_name:"",
                 description:"",
                 active:false,
+                all_events:[0]
             })
         }catch(err){
-            console.log(err)
+            alert('Problem creating games.');
         }
     }
+
+    const EventSelected=(theseEvents)=>{
+        setFormData({
+            ...formData,
+            all_events:allEvents.filter((oneEvent)=>theseEvents.includes(oneEvent.event)).map((anotherEvent)=>anotherEvent.id)
+        })
+    }
+
 
     return(
         <div
             style={{
                 display:"block",
                 width:"40%",
-                margin:"2% 5%",
+                margin:"0% 5%",
                 border:'1px solid black',
-                padding:'40px'
+                padding:'10px'
             }}>
                 <div
                     style={{
                         display:"flex",
-                        justifyContent:"space-around"
+                        justifyContent:"space-around",
+                        height:'175px'
                     }}
                 >
                     <MyDropdownText
@@ -182,22 +198,64 @@ export default function NewGame({
                         selection = {formData.week_day}
                         name="week_day"
                         disable={false}
+                        style={{
+                            height:'100%'
+                        }}
                     />
-                    <MyDropdownText
+                   {/* <MyDropdownText
                         optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
                         setSelectedOption={HandelChange}
                         selection = {formData.DirectorUserName}
                         name="director"
                         disable={false}
-                    />       
+                        style={{
+                            height:'100%'
+                        }}                        
+                    />    */}   
                     <MyDropdownText
                         optionsList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
                         setSelectedOption={HandelChange}
                         selection = {formData.venue_name}
                         name="venues"
                         disable={false}
+                        style={{
+                            height:'100%'
+                        }}                        
                     />         
+                    <MyInput
+                        labelText="Time"
+                        handleChange={HandelChange}
+                        inputValue={formData.time}
+                        inputName="time"
+                        inputType="Text"
+                        inputStyle={{
+                            height:'50px'
+                        }}
+                    />                    
                 </div>
+                {/* <div
+                    style={{
+                        display:'flex',
+                        justifyContent:'space-around',
+                        marginBottom:'10px',
+                        marginTop:'10px'
+                    }}>
+                    <MyCheckBoxes
+                        options={allEvents.map((oneEvent)=>oneEvent.event)}
+                        setSelections={EventSelected}
+                        selections={allEvents.filter(
+                            (oneEvent)=>formData.all_events.includes(oneEvent.id)).
+                            map((anotherEvent)=>anotherEvent.event)}
+                        oneBoxStyle={{
+                            height:'50px'
+                        }}
+                    /> *
+                <div
+                        style={{
+                            display:'block',
+                            width:'50%'
+                        }}
+                 >       
                     <MyInput
                         labelText="Time"
                         handleChange={HandelChange}
@@ -213,17 +271,18 @@ export default function NewGame({
                         cols="20"
                         rows="6"
                     />
-
+                    </div>
+                </div> */}
                     
                 <MyButton
                     button_function={AddGame}
                     disable={selectedGame!==null}
-                    button_text={buttonText}
+                    button_text={'Add Game'}
                     button_style={{
-                        margin:"auto",
+                        margin:"20px auto",
                         height:"75px"}}                     
                 />
-                <button onClick={Test}>test</button>
+                {/* <button onClick={Test}>test</button> */}
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import CurrentVenuesButton from './current-venues-buttons'
 import {useState,useEffect} from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+
 
 
 export default function CurrentVenues({
@@ -17,19 +18,17 @@ export default function CurrentVenues({
         return allVenues.find((oneVenue)=>oneVenue.id===id)
     }
 
-
     const Delete= async ()=>{
 
         try{
-            //const response = await axios.delete(`http://127.0.0.1:8000/website_data/specialmessages/${id}/`,);
-            const response = await axios.delete(`http://127.0.0.1:8000/venues/onevenue/${selectedVenue}/`,);
-            
-            fetchData()
-            setSelectedVenue(null)
+            const response = (await axios.delete(`http://127.0.0.1:8000/venues/onevenue/${selectedVenue}/`,))
+            fetchData();
+            setSelectedVenue(null);
+        }catch(err){    
 
-        }catch(err){
-            console.log(err);
-        }        
+            if(err.response.status===400) {alert('Error deleting venue')
+            } else if(err.response.status===403) {alert('Cannot remove venue.  Games have been played here.') }
+        }
     }
 
     const ChangeActive= async()=>{
@@ -48,7 +47,7 @@ export default function CurrentVenues({
             setSelectedVenue(null)
 
         }catch(err){
-            console.log(err);
+            alert('Error changing status of venue')
         }             
     }
 
@@ -66,7 +65,7 @@ export default function CurrentVenues({
             setSelectedVenue(null)
 
         }catch(err){
-            console.log(err);
+            alert('Error updating venue')
         }      
     }        
 

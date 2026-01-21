@@ -29,6 +29,7 @@ export default function CurrentGames({
             setSelectedGame(null)
 
         }catch(err){
+            alert('Problem changing status of games.');
         }
     }
 
@@ -41,7 +42,7 @@ export default function CurrentGames({
             setSelectedGame(null)
 
         }catch(err){
-            console.log(err);
+            alert('Problem deleting games.');
         }             
     }
     const Update=async()=>{
@@ -51,14 +52,14 @@ export default function CurrentGames({
                 ...formData,
                 ...{active:true}
             }
-
+            console.log(formData)
             const response = await axios.patch(`http://127.0.0.1:8000/games/onegame/${selectedGame}/`,updatedData);
             
             fetchData()
             setSelectedGame(null)
 
         }catch(err){
-            console.log(err);
+            alert('Problem updating games.');
         }            
     }
 

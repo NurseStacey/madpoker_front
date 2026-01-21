@@ -26,6 +26,7 @@ export default function EditGames()
         venue_name:"",
         description:"",
         active:false,
+        all_events:[0]
     });
 
     
@@ -35,6 +36,10 @@ export default function EditGames()
         fetchData();
     },[width,height]);    
 
+    const Test=()=>{
+        console.log(formData)
+        //allDirectors.find((oneDirector)=>oneDirector.id===formData.Director).username
+    }
 
     const fetchData = async()=>{
         try{
@@ -44,7 +49,7 @@ export default function EditGames()
             setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
 
         }catch(err){
-            console.log(err);
+            alert('Problem loading games.');
         }
     }    
 
@@ -69,6 +74,7 @@ export default function EditGames()
                 }}
                 disable={false}
             />   
+            {/* <button onClick={Test}>test</button> */}
             <div
                 style={{
                     display:"flex",
@@ -81,7 +87,7 @@ export default function EditGames()
                     setFormData={setFormData}
                     fetchData={fetchData}
                     selectedGame={selectedGame}
-                />
+                /> 
                 <CurrentGames
                     formData={formData}
                     fetchData={fetchData} 

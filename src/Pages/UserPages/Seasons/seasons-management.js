@@ -31,7 +31,7 @@ export default function SeasonManagement()
             console.log(response.data)
 
         }catch(err){
-            console.log(err);
+            alert('Problem getting current seasons')
         }        
     }
 

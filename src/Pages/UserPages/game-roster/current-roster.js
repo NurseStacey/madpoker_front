@@ -4,11 +4,11 @@ import {useState, useEffect} from 'react'
 import axios from 'axios';
 
 export default function CurrentRoster({
-    which_game
+   // which_game,
+    whichGameID
 })
 {
     const [numberPlayers, setNumberPlayers]=useState(0)
-    const [positionDirection, setPositionDirection]= useState('forward')
     const [direction, setDirection]=useState({
         'name':'forward',
         'position':'forward'
@@ -18,18 +18,14 @@ export default function CurrentRoster({
     const Test=()=>{console.log(currentRoster)}
 
     const UpdateRoster=async ()=>{
-        //let formData={}
+
         try{
-            
             const response = await axios.post("http://127.0.0.1:8000/games/update_roster/",{allUsers:currentRoster});
-
-
         }catch(err){
 
             if (err.response.data['result']==='problem') {
                 let playerList = '';
                 err.response.data['problem_players'].map((onePlayer)=> playerList=playerList + '\n ' +  onePlayer);
-                //playerList=playerList.slice(2,playerList.length)
                 alert(`Issues with updating positions on the following players ${playerList}`);
             } else {alert(`There was an issue with updating the results.  Error code ${err.status}`);}
             
@@ -54,9 +50,9 @@ export default function CurrentRoster({
 
     const GetRoster=async()=>{
         //console.log(which_game)
-        if (which_game.id !== undefined) {
+        if (whichGameID !== undefined && whichGameID!==-1) {
             try{
-                const response = await axios.get(`http://127.0.0.1:8000/games/game_roster/${which_game.id}`,);    
+                const response = await axios.get(`http://127.0.0.1:8000/games/game_roster/${whichGameID}`,);    
                 setNumberPlayers(response.data.PlayersArray.length);
                 setCurrentRoster(response.data.PlayersArray.sort((a,b)=>a.name.localeCompare(b.name)));
                 }catch(err){
@@ -66,7 +62,7 @@ export default function CurrentRoster({
     }
     useEffect(()=>{
         GetRoster();
-    },[which_game])
+    },[whichGameID])
 
     const orderPlayers=(which)=>{
         if (currentDirection===which){
@@ -76,7 +72,7 @@ export default function CurrentRoster({
                 setCurrentRoster(currentRoster.sort((a,b)=>b[which].localeCompare(a[which])))
             }
             setDirection({
-                ...positionDirection,
+                ...direction,
                 ...{which:(currentDirection[which]==='forward')?'backward':'forward'}
             })
         } else {
@@ -94,7 +90,7 @@ export default function CurrentRoster({
         <div
             style={{
                 display:'block',
-                margin:'25px'
+                margin:'25px',
             }}>
            <div 
                 style={{
@@ -127,19 +123,18 @@ export default function CurrentRoster({
                 style={{
                     display:'block',
                     border:'1px solid black',
-                    margin:'3% 20%'
+                    width:"80%",
+                    padding:'10px', 
+                    margin:"auto"
+                    //margin:'3% 20%'
                 }}>
                 <div
                     style={{
                         display:'flex',
-                        justifyContent:'space-between',
+                        justifyContent:'left',
                         font:'arial',
                         fontSize:'18px',
-                        border:'1px solid black',
                         width:'100%',
-                        //margin:'10px auto',
-   
-                        
                     }}>
                     <div
                         onClick={()=>orderPlayers('name')}
@@ -147,7 +142,7 @@ export default function CurrentRoster({
                             width:'30%',
                             textAlign:'left',
                             paddingLeft:'15%',
-                            cursor:'pointer' 
+                            cursor:'pointer',
                         }}>
                         Player
                     </div>
@@ -158,16 +153,25 @@ export default function CurrentRoster({
                         }}>
                         Registration Time
                     </div>
-                    <div
+                     <div
                         onClick={()=>orderPlayers('position')}
                         style={{
-                            width:'10%',
-                            paddingRight:'15%',
+                            width:'5%',
+                            paddingRight:'5%',
                             textAlign:'right',
-                            cursor:'pointer'   
+                            cursor:'pointer',
                         }}
                     >
                         Position
+                    </div> 
+                    <div
+                        style={{
+                            width:'10%',
+                            paddingRight:'15%',
+                            textAlign:'left',
+                            cursor:'pointer',
+                        }}                    >
+                        Remove Player
                     </div>
                             
                 </div>
@@ -178,6 +182,7 @@ export default function CurrentRoster({
                         <OnePlayer
                             thisPlayer={onePlayer}
                             setPosition={setPosition}
+                            GetRoster={GetRoster}
                             />
                     </div>
                 ))}

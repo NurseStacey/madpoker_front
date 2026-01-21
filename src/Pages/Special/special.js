@@ -18,7 +18,7 @@ export default function SpecialMessages(){
             setSpecialMessages(response.data.slice(0,10))
 
         }catch(err){
-            console.log(err);
+            alert('Error loading special messages')
         }
     }    
 

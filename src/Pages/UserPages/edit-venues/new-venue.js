@@ -34,7 +34,7 @@ export default function NewVenue({
             
             fetchData()
         }catch(err){
-            console.log(err);
+            alert('Error creating new venue')
         }
     }
     
