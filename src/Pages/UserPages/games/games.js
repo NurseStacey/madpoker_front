@@ -18,17 +18,6 @@ export default function EditGames()
     const [allGames, setAllGames]=useState([]);
     const [selectedGame,setSelectedGame]=useState(null);
     const [formData, setFormData]=useState(BlankFormData);
-    // const [formData, setFormData]=useState({
-    //             week_day:"Monday",
-    //             time:"6:00",
-    //             // director:-1,
-    //             // DirectorUserName:"",
-    //             venue:-1,
-    //             venue_name:"",
-    //         //    description:"",
-    //             active:false,
-    //        //     all_events:[0]
-    //         });
 
     useEffect(()=>{
         setWidth(width);
@@ -38,7 +27,6 @@ export default function EditGames()
 
     const Test=()=>{
         console.log(formData)
-        //allDirectors.find((oneDirector)=>oneDirector.id===formData.Director).username
     }
 
     const fetchData = async()=>{

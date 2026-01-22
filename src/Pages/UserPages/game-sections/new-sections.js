@@ -3,10 +3,16 @@ import MyDropdownText from '../../../Components/Widgets/my-dropdown-text';
 import axios from 'axios';
 import MyTextArea from '../../../Components/Widgets/my-textarea';
 import MyButton from '../../../Components/Widgets/my-button';
+//import {BlankFormData, FormObject} from './blank-form-data';
+import  {CreateFormObj,BlankFormData} from './blank-form-data';
 
 export default function NewSection({
     formData,
-    setFormData
+    setFormData,
+    fetchData,
+    selectedSection,
+    formObj,
+    setFormObj
 })
 {
     const [allGames, setAllGames]=useState([])
@@ -14,78 +20,124 @@ export default function NewSection({
     const [allSection, setAllSection]=useState([])
 
     useEffect(()=>{
+        if(selectedSection===null) return
 
-        const fetchGames=async()=>{
-            try{
+        console.log(allSection.find((oneSection)=>oneSection.id=selectedSection))
+        setFormData(allSection.find((oneSection)=>oneSection.id=selectedSection))
 
-                const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-                console.log(response.data)
-                setAllGames(response.data);
+    },[selectedSection])
+    // useEffect(()=>{
 
-            }catch(err){
-                alert('Problem loading games.');
-            }
-        }
-        const fetchDirectors = async()=>{
-            try{
-                const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
-                //console.log(response.data)
-                setAllDirectors(response.data)
+    //     const fetchGames=async()=>{
+    //         try{
 
-            }catch(err){
-                alert('Problem getting directors.');
-            }
-        }
+    //             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
+    //             console.log(response.data);
+    //             setFormObj({
+    //                 ...formObj,
+    //                 AllGames:response.data
+    //             })
+    //             //setAllGames(response.data);
 
-        const fetchSections = async()=>{
-                try{
-                    const response = await axios.get("http://127.0.0.1:8000/games/sections/",);
-                    //console.log(response.data)
-                    setAllSection(response.data)
+    //         }catch(err){
+    //             alert('Problem loading games.');
+    //         }
+    //     }
+    //     const fetchDirectors = async()=>{
+    //         try{
+    //             const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
+    //             //console.log(response.data)
+    //             setAllDirectors(response.data)
 
-                }catch(err){
-                    alert('Problem getting sections.');
-                }
-            }           
-        fetchGames()
-        fetchDirectors()
-        fetchSections()
+    //         }catch(err){
+    //             alert('Problem getting directors.');
+    //         }
+    //     }
 
-    }, [])
+    //     const fetchSections = async()=>{
+    //             try{
+    //                 const response = await axios.get("http://127.0.0.1:8000/games/sections/",);
+    //                 //console.log(response.data)
+    //                 setAllSection(response.data)
+
+    //             }catch(err){
+    //                 alert('Problem getting sections.');
+    //             }
+    //         }           
+    //     fetchGames()
+    //     fetchDirectors()
+    //     fetchSections()
+
+    // }, [])
 
     const Test=()=>{console.log(formData)}
 
-    const GameSelected=(whichGame)=>{
-        setFormData({
-            ...formData,
-            game:allGames.find((oneGame)=>whichGame===oneGame.Text).id
-        })
+    const GameSelected=(e)=>{
+        setFormObj({
+            ...formObj,
+            formData:{
+                ...formObj.formData,
+                 director:formObj.setGameID(e.targe.value)
+            }
+        })          
+        // setFormData({
+        //     ...formData,
+        //     game:allGames.find((oneGame)=>e.target.value===oneGame.Text).id
+        // })
     }
-    const DirectorSelected=(whichDirector)=>{
-        setFormData({
-            ...formData,
-            director:allDirectors.find((oneDirector)=>whichDirector===oneDirector.username).id
-        })
+    const DirectorSelected=(e)=>{
+        setFormObj({
+            ...formObj,
+            formData:{
+                ...formObj.formData,
+                 director:allDirectors.find((oneDirector)=>e.target.value===oneDirector.username).id
+            }
+        })                
+        // setFormData({
+        //     ...formData,
+        //     director:allDirectors.find((oneDirector)=>e.target.value===oneDirector.username).id
+        // })
     }    
 
-     const SectionSelected=(whichSection)=>{
-        setFormData({
-            ...formData,
-            section:allSection.find((oneSection)=>whichSection===oneSection.name).id
-        })
+     const SectionSelected=(e)=>{
+
+        setFormObj({
+            ...formObj,
+            formData:{
+                ...formObj.formData,
+                 section:allSection.find((oneSection)=>e.target.value===oneSection.name).id
+            }
+        })        
+        // setFormData({
+        //     ...formData,
+        //     section:allSection.find((oneSection)=>e.target.value===oneSection.name).id
+        // })
     }       
 
     const HandelChange = (e)=>{
-
-        setFormData({...formData, ...{[e.target.name]:e.target.value}})      
+        setFormObj({
+            ...formObj,
+            formData:{
+                ...formObj.formData,
+                ...{[e.target.name]:e.target.value}
+            }
+        })
+        //setFormData({...formData, ...{[e.target.name]:e.target.value}})      
     }
 
     const AddSection = async()=>{
 
-        try{
+        try {
+            const response = await axios.post("http://127.0.0.1:8000/games/sectionthrough/",formData);
+            fetchData()
+            setFormObj({
+                ...formObj,
+                ...BlankFormData
+            })
+            //setFormData(BlankFormData)
 
         }catch(err){
-            alert('Problem adding section.')
+            alert('Problem adding section.');
         }
     }
 
@@ -113,10 +165,10 @@ export default function NewSection({
                 }}
             >
                 {/* <button onClick={Test}>test</button> */}
-                <MyDropdownText
+                {/* <MyDropdownText
                     optionsList={allGames.map((oneGame)=>oneGame.Text)}
                     setSelectedOption={GameSelected}
-                    selection={(formData.game!==-1) ? allGames.find((oneGame)=>oneGame.id===formData.game).Text: ""}
+                    selection={(formObj.formData.game!==-1) ? allGames.find((oneGame)=>oneGame.id===formData.game).Text: ""}
                     style={{}}
                     disable={false}
                     name="Games"
@@ -136,12 +188,12 @@ export default function NewSection({
                     style={{}}
                     disable={false}
                     name="Section"
-                />
+                /> */}
              </div>
             <MyTextArea
                 labelText="Section Description"
                 handleChange={HandelChange}
-                inputValue={formData.description}
+                inputValue={formObj.formData.description}
                 inputName="description"
                 cols="20"
                 rows="6"

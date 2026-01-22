@@ -1,7 +1,7 @@
 
 
 export const BlankFormData={
-    week_day:'Sunday',
+    week_day:'',
     time:'6:00',
     venue:-1,
     active:true,

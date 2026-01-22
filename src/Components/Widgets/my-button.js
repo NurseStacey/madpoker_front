@@ -31,7 +31,7 @@ export default function MyButton({
                 wrap:'wrap',
                 font:'Arial',
                 fontSize:'20px',
-                backgroundColor:'aqua',
+                backgroundColor:(disable) ? '#088080' : 'aqua',
                 ...button_style,
             }}
             >

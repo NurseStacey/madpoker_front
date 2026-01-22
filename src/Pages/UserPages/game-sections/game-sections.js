@@ -6,14 +6,16 @@ import Title from '../Componenets/Title';
 import MyButton from '../../../Components/Widgets/my-button';
 import NewSection from './new-sections';
 import CurrentSection from './current-sections';
-import {BlankFormData} from './blank-form-data';
+//import {BlankFormData,FormObject} from './blank-form-data';
+import  {CreateFormObj} from './blank-form-data';
 
 export default function GameSection(){
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
     const navigate = useNavigate();
-    const [formData, setFormData]=useState(BlankFormData)
+    //const [formData, setFormData]=useState(BlankFormData)
+    const [formObj, setFormObj]=useState(CreateFormObj())
     const [allSections, setAllSections]=useState([])
     const [selectedSection,setSelectedSection]=useState(null)
 
@@ -28,6 +30,7 @@ export default function GameSection(){
         try{
             const response = (await axios.get(`http://127.0.0.1:8000/games/sectionthrough/`,));
             setAllSections(response.data)
+            console.log(response.data)
 
         }catch(err){
             
@@ -50,7 +53,7 @@ export default function GameSection(){
             <Title
                 TitleText = "Edit Game Sections"
             />   
-            <button onClick={Test}>Test</button>
+            {/* <button onClick={Test}>Test</button> */}
             <MyButton
                 button_function={()=>navigate("/admin")}
                 button_text={"Return to Admin"}
@@ -68,11 +71,15 @@ export default function GameSection(){
                 }}
                 >
                 <NewSection
-                    setFormData={setFormData}
-                    formData={formData}
+                    // setFormData={setFormData}
+                    // formData={formData}
+                    fetchData={fetchData}
+                    selectedSection={selectedSection}
+                    formObj={formObj}
+                    setFormObj={setFormObj}
                 />                    
                 <CurrentSection
-                    setFormData={setFormData}   
+                    //setFormData={setFormData}   
                     allSections={allSections}
                     selectedSection={selectedSection}
                     setSelectedSection={setSelectedSection}

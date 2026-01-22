@@ -1,22 +1,43 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import CurrentSectionsButton from './current-sections-buttons';
+import CurrentSectionsListBox from './current-sections-listbox';
 
 export default function CurrentSections({
     allSections,
     formData,
     selectedSection,
     setSelectedSection,
-    fetchData
+    fetchData,
+    formObj,
+    setFormObj
 })
 {
-    const [buttonText, setButtonText]=useState('Deactivate')
+    const [buttonText, setButtonText]=useState('Deactivate');
+    const [allGames, setAllGames]=useState([]);
+
+    useEffect(()=>{
+        const GetGames = async()=>{
+            try{
+
+                const response = await axios.get("http://127.0.0.1:8000/games/games/",);
+                setAllGames(response.data);
+                setFormObj({
+                    ...formObj,
+                    
+                })
+            }catch(err){
+                alert('Problem loading games.');
+            }            
+        }
+
+        GetGames()
+    },[])
 
     const ChangeActive=async()=>{
 
         try{
 
-            console.log(formData)
             let updatedData={
                 ...{active:!formData.active}
             }
@@ -56,18 +77,12 @@ export default function CurrentSections({
                     Update={Update}
                     buttonText={buttonText}
                 />                
-                {allSections.map((oneSection)=>(
-                    <div
-                        onClick={()=>SectionSelected(oneSection.id)}
-                        key={oneSection.id}
-                        style={{
-                            margin:"10px 5px",
-                            textAlign:"left",
-                            fontSize:"18px",
-                            backgroundColor:(oneSection.id===selectedSection) ? "pink" :"white",
-                        }}
-                        >{(oneSection.active) ? oneSection.game_text + '-' + oneSection.section_name: oneSection.Text + '-' + oneSection.section_name + ' - inactive'}</div>
-                ))}
+                <CurrentSectionsListBox
+                    allSections={allSections}
+                    SectionSelected={SectionSelected}
+                    selectedSection={selectedSection}
+                    allGames={allGames}
+                />
             <button onClick={Test}>test</button>         
         </div>
     )

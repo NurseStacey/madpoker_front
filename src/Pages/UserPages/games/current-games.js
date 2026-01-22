@@ -1,6 +1,8 @@
-import axios from 'axios'
-import {useState, useEffect} from 'react'
-import CurrentGamesButton from './current-games-buttons'
+import axios from 'axios';
+import {useState, useEffect} from 'react';
+import CurrentGamesButton from './current-games-buttons';
+import CurrentGamesListBox from './current_games-listbox';
+
 
 export default function CurrentGames({
         fetchData,
@@ -42,6 +44,7 @@ export default function CurrentGames({
             setSelectedGame(null)
 
         }catch(err){
+            if (err.status===403) alert('There is a ')
             alert('Problem deleting games.');
         }             
     }
@@ -106,18 +109,12 @@ export default function CurrentGames({
                     Update={Update}
                     buttonText={buttonText}
                 />
-                {allGames.map((oneGame)=>(
-                    <div
-                        onClick={()=>GameSelected(oneGame.id)}
-                        key={oneGame.id}
-                        style={{
-                            margin:"10px 5px",
-                            textAlign:"left",
-                            fontSize:"18px",
-                            backgroundColor:(oneGame.id===selectedGame) ? "pink" :"white",
-                        }}
-                        >{(oneGame.active) ? oneGame.Text : oneGame.Text + ' - inactive'}</div>
-                ))}
+                <CurrentGamesListBox
+                    allGames={allGames}
+                    GameSelected={GameSelected}
+                    selectedGame={selectedGame}
+                />
+
             {/* <button onClick={Test}>test</button>  */}
         </div>
     )
