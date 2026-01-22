@@ -19,7 +19,7 @@ export default function NewEvent({
 
     const AddEvent = async()=>{        
         try{
-            const response = (await axios.post(`http://127.0.0.1:8000/games/events/`,{'event':event.event}));
+            const response = (await axios.post(`http://127.0.0.1:8000/games/events/`,{'name':event.event}));
             fetchData();
             setEvent({
                 event:"",

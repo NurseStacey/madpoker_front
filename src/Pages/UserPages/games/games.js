@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
 import MyButton from '../../../Components/Widgets/my-button';
-
+import { BlankFormData } from './blank-form-data';
 
 export default function EditGames()
 {
@@ -15,19 +15,20 @@ export default function EditGames()
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
     const navigate = useNavigate();
-    const [allGames, setAllGames]=useState([])
-    const [selectedGame,setSelectedGame]=useState(null)
-    const [formData, setFormData]=useState({
-                week_day:"Monday",
-                time:"6:00",
-                // director:-1,
-                // DirectorUserName:"",
-                venue:-1,
-                venue_name:"",
-            //    description:"",
-                active:false,
-           //     all_events:[0]
-            });
+    const [allGames, setAllGames]=useState([]);
+    const [selectedGame,setSelectedGame]=useState(null);
+    const [formData, setFormData]=useState(BlankFormData);
+    // const [formData, setFormData]=useState({
+    //             week_day:"Monday",
+    //             time:"6:00",
+    //             // director:-1,
+    //             // DirectorUserName:"",
+    //             venue:-1,
+    //             venue_name:"",
+    //         //    description:"",
+    //             active:false,
+    //        //     all_events:[0]
+    //         });
 
     useEffect(()=>{
         setWidth(width);
@@ -44,7 +45,7 @@ export default function EditGames()
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-            console.log(response.data)
+            //console.log(response.data)
             setAllGames(response.data);
 
         }catch(err){

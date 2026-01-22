@@ -14,7 +14,7 @@ export default function EventManagement()
     const [Height, setHeight] =  useState(0);     
     const [allEvents, setAllEvents]=useState([])
     const [event, setEvent]=useState({
-        event:"",
+        name:"",
         id:-1
     });
     const navigate = useNavigate();    
@@ -23,6 +23,7 @@ export default function EventManagement()
         try{
             const response = (await axios.get(`http://127.0.0.1:8000/games/events/`,));
             setAllEvents(response.data)
+            setEvent(response.data.find((oneEvenet)=>oneEvenet.name==='Texas Holdem'))
         }catch(err){
             alert('Trouble getting all events')
         }   

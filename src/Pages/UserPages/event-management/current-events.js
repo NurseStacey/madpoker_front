@@ -71,7 +71,7 @@ export default function CurrentEvent({
                             fontSize:"18px",
                             textAlign:"left"
                         }}>
-                        {oneEvent.event} 
+                        {oneEvent.name} 
                     </div>
                 ))}
             </div>                       

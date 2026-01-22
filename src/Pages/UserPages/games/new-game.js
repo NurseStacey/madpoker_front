@@ -6,7 +6,7 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {WeekDays} from '../../../Components/weekdays'
 import MyCheckBoxes from '../../../Components/Widgets/my-checkboxes';
-
+import {BlankFormData} from './blank-form-data';
 
 export default function NewGame({
     formData,
@@ -23,17 +23,18 @@ export default function NewGame({
     useEffect(()=>{
 
         if (selectedGame===null)
-            setFormData({
-                week_day:"Monday",
-                time:"6:00",
-                // director:-1,
-                // DirectorUserName:"",
-                venue:-1,
-                venue_name:"",
-            //    description:"",
-                active:false,
-           //     all_events:[0]
-            });
+            setFormData(BlankFormData);
+        //     setFormData({
+        //         week_day:"Monday",
+        //         time:"6:00",
+        //         // director:-1,
+        //         // DirectorUserName:"",
+        //         venue:-1,
+        //         venue_name:"",
+        //     //    description:"",
+        //         active:false,
+        //    //     all_events:[0]
+        //     });
         else
             GetThisGame(selectedGame)
         
@@ -57,16 +58,7 @@ export default function NewGame({
 
 
 
-    const GetVenues = async()=>{
-        try{
-            const response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
-            //console.log(response.data)
-            setAllVenues(response.data)
 
-        }catch(err){
-            alert('Problem getting venues.');
-        }
-    }    
     
     // const GetEvents = async()=>{
     //     try{
@@ -80,9 +72,29 @@ export default function NewGame({
     // }    
 
     useEffect(()=>{
-        GetDirectors()
-        GetVenues()
-        //GetEvents()
+        const fetchDirectors = async()=>{
+            try{
+                const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
+                //console.log(response.data)
+                setAllDirectors(response.data)
+
+            }catch(err){
+                alert('Problem getting directors.');
+            }
+        }        
+
+        const fetchVenues = async()=>{
+            try{
+                const response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
+                //console.log(response.data)
+                setAllVenues(response.data)
+
+            }catch(err){
+                alert('Problem getting venues.');
+            }
+        }            
+        fetchDirectors();
+        fetchVenues();
     },[])
 
     const HandelChange = (e)=>{
@@ -93,37 +105,36 @@ export default function NewGame({
         //     return
         // }
 
-        if (e.target.name==="week_day") {
-            WeekDaySelected(e.target.value)
-            return
-        }
+        // if (e.target.name==="week_day") {
+        //     WeekDaySelected(e.target.value)
+        //     return
+        // }
 
-        if (e.target.name==="venues") {
+        // if (e.target.name==="venues") {
             
-            VenueSelected(e.target.value)
-            return
-        }
+        //     VenueSelected(e.target.value)
+        //     return
+        // }
        // console.log(e.target)
         setFormData({...formData, ...{[e.target.name]:e.target.value}})      
     }
 
-    const WeekDaySelected = (day) =>{
-        setFormData({...formData, ...{week_day:day}})
-    }
-
-    // const DirectorSelected = (director)=>{
-        
-    //     let thisDirector=allDirectors.find((oneDirector)=>oneDirector.username===director)
-
-        //console.log(director)
-    //     if (thisDirector===undefined) return
-        
-    //     setFormData({...formData, ...{director:thisDirector.id, DirectorUserName:thisDirector.username}})
+    // const WeekDaySelected = (day) =>{
+    //     setFormData({...formData, ...{week_day:day}})
     // }
+    const DirectorSelected=(whichDirector)=>{
+        setFormData({
+            ...formData,
+            director:allDirectors.find((oneDirector)=>whichDirector===oneDirector.username).id
+        })
+    }    
 
     const VenueSelected=(venue)=>{
-        let thisVenue=allVenues.find((oneVenue)=>oneVenue.venue_name===venue)
-        setFormData({...formData, ...{venue:thisVenue.id, venue_name:thisVenue.venue_name}})
+        setFormData({
+            ...formData,
+            venue:allVenues.find((oneVenue)=>venue===oneVenue.venue_name).id
+        })
+
     }
 
     const Test=()=>{
@@ -144,17 +155,18 @@ export default function NewGame({
             const response = await axios.post("http://127.0.0.1:8000/games/games/",DataToSend);
             fetchData()
 
-            setFormData({
-                week_day:"Monday",
-                time:"6:00",
-                // director:-1,
-                // DirectorUserName:"",
-                venue:-1,
-                venue_name:"",
-            //    description:"",
-                active:false,
-            //     all_events:[0]
-            });
+            setFormData(BlankFormData)
+            // setFormData({
+            //     week_day:"Monday",
+            //     time:"6:00",
+            //     // director:-1,
+            //     // DirectorUserName:"",
+            //     venue:-1,
+            //     venue_name:"",
+            // //    description:"",
+            //     active:false,
+            // //     all_events:[0]
+            // });
         }catch(err){
             alert('Problem creating games.');
         }
@@ -194,20 +206,21 @@ export default function NewGame({
                             height:'100%'
                         }}
                     />
-                   {/* <MyDropdownText
+                   <MyDropdownText
                         optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
-                        setSelectedOption={HandelChange}
-                        selection = {formData.DirectorUserName}
+                        setSelectedOption={DirectorSelected}
+                        //selection = {formData.DirectorUserName}
+                        selection = {(formData.director!==-1) ? allDirectors.find((oneDirector)=>oneDirector.id===formData.director).username: ""}
                         name="director"
                         disable={false}
                         style={{
                             height:'100%'
                         }}                        
-                    />    */}   
+                    />    
                     <MyDropdownText
                         optionsList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
-                        setSelectedOption={HandelChange}
-                        selection = {formData.venue_name}
+                        setSelectedOption={HandVenueSelectedelChange}
+                        selection = {(formData.venue!==-1) ? allVenues.find((oneVenue)=>oneVenue.id===formData.venue).venue_name: ""}
                         name="venues"
                         disable={false}
                         style={{

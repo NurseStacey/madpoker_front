@@ -6,7 +6,8 @@ export default function MyTextArea({
     inputValue,
     inputName,
     cols,
-    rows
+    rows,
+    labelStyle
 })
 {
     
@@ -23,7 +24,8 @@ export default function MyTextArea({
                 style={{
                     width:"40%",
                     marginLeft:"10%",
-                    textAlign:"Left"
+                    textAlign:"Left",
+                    ...labelStyle
                 }}>{labelText}</label>
             <textarea
                 cols={cols}

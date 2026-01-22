@@ -118,7 +118,7 @@ export default function CurrentGames({
                         }}
                         >{(oneGame.active) ? oneGame.Text : oneGame.Text + ' - inactive'}</div>
                 ))}
-            <button onClick={Test}>test</button> 
+            {/* <button onClick={Test}>test</button>  */}
         </div>
     )
 }
