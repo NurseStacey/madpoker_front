@@ -20,15 +20,7 @@ export default function NewSection({
     const [allDirectors, setAllDirectors]=useState([])
     //const [allSection, setAllSection]=useState([])
 
-    useEffect(()=>{
-         if(selectedSection===null) return
 
-         setFormObj({
-             ...formObj,
-                formData: allSections.find((oneSection)=>oneSection.id===selectedSection)
-    })
-
-    },[selectedSection])
     // useEffect(()=>{
 
     //     const fetchGames=async()=>{
@@ -73,33 +65,25 @@ export default function NewSection({
 
     // }, [])
 
-    const Test=()=>{console.log(formData)}
+    const Test=()=>{console.log(formObj.selectedDirectorName())}
 
     const GameSelected=(e)=>{
         setFormObj({
             ...formObj,
             formData:{
                 ...formObj.formData,
-                 director:formObj.setGameID(e.targe.value)
+                 game:formObj.getGameByText(e.target.value).id
             }
         })          
-        // setFormData({
-        //     ...formData,
-        //     game:allGames.find((oneGame)=>e.target.value===oneGame.Text).id
-        // })
     }
     const DirectorSelected=(e)=>{
         setFormObj({
             ...formObj,
             formData:{
                 ...formObj.formData,
-                 director:allDirectors.find((oneDirector)=>e.target.value===oneDirector.username).id
+                director:formObj.getDirectorByName(e.target.value).id
             }
         })                
-        // setFormData({
-        //     ...formData,
-        //     director:allDirectors.find((oneDirector)=>e.target.value===oneDirector.username).id
-        // })
     }    
 
      const SectionSelected=(e)=>{
@@ -108,13 +92,9 @@ export default function NewSection({
             ...formObj,
             formData:{
                 ...formObj.formData,
-                 section:allSections.find((oneSection)=>e.target.value===oneSection.name).id
+                 section:formObj.getSectionByName(e.target.value).id
             }
         })        
-        // setFormData({
-        //     ...formData,
-        //     section:allSection.find((oneSection)=>e.target.value===oneSection.name).id
-        // })
     }       
 
     const HandelChange = (e)=>{
@@ -124,8 +104,7 @@ export default function NewSection({
                 ...formObj.formData,
                 ...{[e.target.name]:e.target.value}
             }
-        })
-        //setFormData({...formData, ...{[e.target.name]:e.target.value}})      
+        }) 
     }
 
     const AddSection = async()=>{
@@ -167,43 +146,44 @@ export default function NewSection({
 
                 }}
             >
-                {/* <button onClick={Test}>test</button> */}
-                {/* <MyDropdownText
-                    optionsList={allGames.map((oneGame)=>oneGame.Text)}
+
+               <MyDropdownText
+                    optionsList={formObj.getAllGamesText()}
                     setSelectedOption={GameSelected}
-                    selection={(formObj.formData.game!==-1) ? allGames.find((oneGame)=>oneGame.id===formData.game).Text: ""}
+                    selection={formObj.selectedGameText()}
                     style={{}}
                     disable={false}
                     name="Games"
                 />
                 <MyDropdownText
-                    optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
+                    optionsList={formObj.getAllDirectorsNamest()}
                     setSelectedOption={DirectorSelected}
-                    selection={(formData.director!==-1) ? allDirectors.find((oneDirector)=>oneDirector.id===formData.director).username: ""}
+                    selection={formObj.selectedDirectorName()}
                     style={{}}
                     disable={false}
                     name="Directors"
                 />     
                 <MyDropdownText
-                    optionsList={allSection.map((oneSection)=>oneSection.name)}
+                    optionsList={formObj.getAllSectionsNames()}
                     setSelectedOption={SectionSelected}
-                    selection={(formData.section!==-1) ? allSection.find((oneSection)=>oneSection.id===formData.section).name: ""}
+                    selection={formObj.selectedSectionName()}
                     style={{}}
                     disable={false}
                     name="Section"
-                /> */}
+                /> 
              </div>
             <MyTextArea
                 labelText="Section Description"
                 handleChange={HandelChange}
-                inputValue={formObj.formData.description}
+                inputValue={formObj.getDescription()}
                 inputName="description"
                 cols="20"
                 rows="6"
                 labelStyle={{
                     fontSize:'20px'
                 }}
-            />          
+            />       
+                             <button onClick={Test}>test</button>    
             <MyButton
                 button_function={AddSection}
                 button_style={{

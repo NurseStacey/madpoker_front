@@ -7,7 +7,7 @@ import MyButton from '../../../Components/Widgets/my-button';
 import NewSection from './new-sections';
 import CurrentSection from './current-sections';
 //import {BlankFormData,FormObject} from './blank-form-data';
-import  {CreateFormObj} from './blank-form-data';
+import  {CreateFormObj,BlankFormData} from './blank-form-data';
 
 export default function GameSection(){
     const { height, width } = WindowDimensions();
@@ -19,16 +19,34 @@ export default function GameSection(){
     const [selectedSection,setSelectedSection]=useState(null)
 
     useEffect(()=>{
+        
+    },[])
+    useEffect(()=>{
         setWidth(width);
         setHeight(height);
         fetchData();
     },[width,height]);       
 
+    useEffect(()=>{
+         if(selectedSection===null) {
+         setFormObj({
+             ...formObj,
+                formData: BlankFormData 
+            })
+            return
+         }else{
+         setFormObj({
+             ...formObj,
+                formData: allSections.find((oneSection)=>oneSection.id===selectedSection)  
+            })
+         }
+    },[selectedSection])
+
     const fetchData = async()=>{
         try{
             const response = (await axios.get(`http://127.0.0.1:8000/games/sectionthrough/`,));
             setAllSections(response.data)
-            console.log(response.data)
+            //console.log(response.data)
         }catch(err){
             
             alert('Trouble getting all sections')
@@ -94,8 +112,9 @@ export default function GameSection(){
         }catch(err){console.log(err)}
 
     },[formObj])
+
     const Test=()=>{
-        console.log(allSections)
+        console.log(formObj.getAllGamesText())
     }
 
     return(

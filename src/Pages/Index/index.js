@@ -7,7 +7,7 @@ import HomeScreen from '../Home/home'
 import Merch from '../Merch/merch'
 import SpecialMessages from '../Special/special';
 import Locations from '../Locations/location';
-
+import NewPlayer from '../new-player/new-player';
 
 export default function Index(){
     const [RightSideKey, setRighSideKey]=useState('locations')
@@ -38,6 +38,7 @@ export default function Index(){
         (RightSideKey=='shop') ?  <Merch/> :
         (RightSideKey=='special') ?  <SpecialMessages/> :
         (RightSideKey=='locations') ? <Locations/> :
+        (RightSideKey=='new_player')? <NewPlayer/>:
         <></>}
         </>
     )

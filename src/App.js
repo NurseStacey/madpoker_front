@@ -58,6 +58,7 @@ function App() {
             <Route path='login' element={<Login/>}/>
             <Route path='register' element={<Register/>}/>
             <Route path='update_top' element={<UpdateTopMessage/>}/> 
+
             <Route path='update_special' element={<UpdateSpecialMessage/>}/>        
             <Route path='edit_venues' element={<EditVenues/>}/>         
             <Route path='edit_games' element={<EditGames/>}/>      

@@ -78,5 +78,9 @@ export const MD_LINKS = [
     {
         'text':'The Legal Stuff',
         'id':'legal'
-    },                        
+    },
+    {
+        'text':'New Player Registration',
+        'id':'new_player'
+    },                            
 ]        

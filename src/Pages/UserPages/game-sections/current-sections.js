@@ -5,7 +5,6 @@ import CurrentSectionsListBox from './current-sections-listbox';
 
 export default function CurrentSections({
     allSections,
-    formData,
     selectedSection,
     setSelectedSection,
     fetchData,
@@ -39,7 +38,7 @@ export default function CurrentSections({
         try{
 
             let updatedData={
-                ...{active:!formData.active}
+                ...{active:!formObj.formData.active}
             }
             //console.log(updatedData)
             const response = await axios.patch(`http://127.0.0.1:8000/games/onesection/${selectedSection}/`,updatedData);
@@ -66,7 +65,23 @@ export default function CurrentSections({
         } 
     }
 
-    const Update=()=>{}
+    const Update= async ()=>{
+        try{
+            
+            let updatedData={
+                ...formObj.formData,
+                ...{active:true}
+            }
+            console.log(updatedData)
+            const response = await axios.patch(`http://127.0.0.1:8000/games/one_sectionthrough/${selectedSection}/`,updatedData);
+            
+            fetchData()
+            setSelectedSection(null)
+
+        }catch(err){
+            alert('Problem updating games.');
+        }          
+    }
 
     const SectionSelected=(id)=>{
         setSelectedSection(id);
