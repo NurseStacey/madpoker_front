@@ -13,7 +13,7 @@ export default function CurrentEvent({
 
     const Delete=async()=>{
         try{
-            const response = (await axios.delete(`http://127.0.0.1:8000/games/one_event/${event.id}/`,))
+            const response = (await axios.delete(`http://127.0.0.1:8000/games/one_section/${event.id}/`,))
             fetchData();
             setEvent({
                 event:"",
@@ -29,7 +29,7 @@ export default function CurrentEvent({
     const Update=async()=>{
         try{
             console.log(event)
-            const response = (await axios.patch(`http://127.0.0.1:8000/games/one_event/${event.id}/`,event))
+            const response = (await axios.patch(`http://127.0.0.1:8000/games/one_section/${event.id}/`,event))
             fetchData();
             setEvent({
                 event:"",

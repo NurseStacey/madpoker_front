@@ -17,21 +17,21 @@ export default function CurrentSections({
     const [allGames, setAllGames]=useState([]);
 
     useEffect(()=>{
-        const GetGames = async()=>{
-            try{
+        // const GetGames = async()=>{
+        //     try{
 
-                const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-                setAllGames(response.data);
-                setFormObj({
-                    ...formObj,
+        //         const response = await axios.get("http://127.0.0.1:8000/games/games/",);
+        //         setAllGames(response.data);
+        //         setFormObj({
+        //             ...formObj,
                     
-                })
-            }catch(err){
-                alert('Problem loading games.');
-            }            
-        }
+        //         })
+        //     }catch(err){
+        //         alert('Problem loading games.');
+        //     }            
+        // }
 
-        GetGames()
+        // GetGames()
     },[])
 
     const ChangeActive=async()=>{
@@ -41,7 +41,7 @@ export default function CurrentSections({
             let updatedData={
                 ...{active:!formData.active}
             }
-            console.log(updatedData)
+            //console.log(updatedData)
             const response = await axios.patch(`http://127.0.0.1:8000/games/onesection/${selectedSection}/`,updatedData);
             
             fetchData()
@@ -52,12 +52,27 @@ export default function CurrentSections({
         }
     }
 
-    const Delete=()=>{}
+    const Delete=async()=>{
+
+        try{
+            const response = await axios.delete(`http://127.0.0.1:8000/games/sections/${selectedSection}/`,);
+            
+            fetchData()
+            setSelectedSection(null)
+
+        }catch(err){
+
+            alert('Problem deleting section.');
+        } 
+    }
+
     const Update=()=>{}
 
-    const SectionSelected=(id)=>{setSelectedSection(id);}
+    const SectionSelected=(id)=>{
+        setSelectedSection(id);
+    }
 
-    const Test=()=>{console.log(selectedSection)}
+    const Test=()=>{console.log(allSections)}
     return(
 
         <div
@@ -81,7 +96,7 @@ export default function CurrentSections({
                     allSections={allSections}
                     SectionSelected={SectionSelected}
                     selectedSection={selectedSection}
-                    allGames={allGames}
+                    formObj={formObj}
                 />
             <button onClick={Test}>test</button>         
         </div>

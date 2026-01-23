@@ -4,7 +4,7 @@ export default function CurrentSectionsListBox({
     allSections,
     SectionSelected,
     selectedSection,
-    allGames
+    formObj
 })
 {
     return(
@@ -24,7 +24,11 @@ export default function CurrentSectionsListBox({
                             fontSize:"18px",
                             backgroundColor:(oneSection.id===selectedSection) ? "pink" :"white",
                         }}
-                        >{(oneSection.active) ? oneSection.game_text + '-' + oneSection.section_name: oneSection.Text + '-' + oneSection.section_name + ' - inactive'}</div>
+                        >
+
+                            {(oneSection.active) ? formObj.textForList(oneSection.game, oneSection.section) : formObj.textForList(oneSection.game, oneSection.section) + ' - inactive'}
+                            {/* {(oneSection.active) ? oneSection.game_text + '-' + oneSection.section_name: oneSection.Text + '-' + oneSection.section_name + ' - inactive'} */}
+                            </div>
                 ))}
         </div>
     )

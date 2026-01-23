@@ -1,9 +1,6 @@
 import MyButton from "../../../Components/Widgets/my-button"
 import MyInput from "../../../Components/Widgets/my-input"
 import axios from "axios"
-import {useState} from 'react'
-
-
 
 export default function NewEvent({
     fetchData,
@@ -19,7 +16,7 @@ export default function NewEvent({
 
     const AddEvent = async()=>{        
         try{
-            const response = (await axios.post(`http://127.0.0.1:8000/games/events/`,{'name':event.event}));
+            const response = (await axios.post(`http://127.0.0.1:8000/games/sections/`,{'name':event.event}));
             fetchData();
             setEvent({
                 event:"",

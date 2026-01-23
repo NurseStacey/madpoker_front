@@ -44,7 +44,7 @@ export default function CurrentGames({
             setSelectedGame(null)
 
         }catch(err){
-            if (err.status===403) alert('There is a ')
+            if (err.status===403) alert('There is a a game played for this venue.  Can not delete game.')
             alert('Problem deleting games.');
         }             
     }

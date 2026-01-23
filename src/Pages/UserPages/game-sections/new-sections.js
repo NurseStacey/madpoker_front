@@ -12,18 +12,21 @@ export default function NewSection({
     fetchData,
     selectedSection,
     formObj,
-    setFormObj
+    setFormObj,
+    allSections
 })
 {
     const [allGames, setAllGames]=useState([])
     const [allDirectors, setAllDirectors]=useState([])
-    const [allSection, setAllSection]=useState([])
+    //const [allSection, setAllSection]=useState([])
 
     useEffect(()=>{
-        if(selectedSection===null) return
+         if(selectedSection===null) return
 
-        console.log(allSection.find((oneSection)=>oneSection.id=selectedSection))
-        setFormData(allSection.find((oneSection)=>oneSection.id=selectedSection))
+         setFormObj({
+             ...formObj,
+                formData: allSections.find((oneSection)=>oneSection.id===selectedSection)
+    })
 
     },[selectedSection])
     // useEffect(()=>{
@@ -105,7 +108,7 @@ export default function NewSection({
             ...formObj,
             formData:{
                 ...formObj.formData,
-                 section:allSection.find((oneSection)=>e.target.value===oneSection.name).id
+                 section:allSections.find((oneSection)=>e.target.value===oneSection.name).id
             }
         })        
         // setFormData({
