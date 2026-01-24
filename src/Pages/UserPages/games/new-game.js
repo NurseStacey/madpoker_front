@@ -1,6 +1,7 @@
 import MyButton from '../../../Components/Widgets/my-button';
 import MyInput from '../../../Components/Widgets/my-input';
 import MyDropdownText from '../../../Components/Widgets/my-dropdown-text';
+import MyTextArea from '../../../Components/Widgets/my-textarea';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {WeekDays} from '../../../Components/weekdays';
@@ -92,13 +93,7 @@ export default function NewGame({
     const AddGame = async()=>{
         if (selectedGame!==null) return
         try {
-            // let DataToSend={
-            //     week_day:formData.week_day,
-            //     time:formData.time,
-            //     director:formData.director,
-            //     venue:formData.venue,
-            //     description:formData.description
-            // }
+            console.log(formData)
             const response = await axios.post("http://127.0.0.1:8000/games/games/",formData);
             fetchData()
 
@@ -167,7 +162,17 @@ export default function NewGame({
                         }}
                     />                    
                 </div>
-                    
+            <MyTextArea
+                labelText="Game Description"
+                handleChange={HandelChange}
+                inputValue={formData.description}
+                inputName="description"
+                cols="20"
+                rows="6"
+                labelStyle={{
+                    fontSize:'20px'
+                }}
+            />                          
                 <MyButton
                     button_function={AddGame}
                     disable={selectedGame!==null}
@@ -176,7 +181,7 @@ export default function NewGame({
                         margin:"20px auto",
                         height:"75px"}}                     
                 />
-                <button onClick={Test}>test</button>
+                {/* <button onClick={Test}>test</button> */}
         </div>
     )
 }

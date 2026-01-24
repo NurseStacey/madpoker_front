@@ -11,7 +11,7 @@ export default function NewPlayer(){
     const [Height, setHeight] =  useState(0)    
     const [formObj, setFormObj]=useState(CreateFormObj())
     const [confirmedPassword, setConfirmedPassword]=useState("")
-    const [regisrationMessage, setRegistrationMessage]=useState("")
+    const [registrationMessage, setRegistrationMessage]=useState("")
 
     useEffect(()=>{
         setWidth(width*0.40)
@@ -19,6 +19,8 @@ export default function NewPlayer(){
     },[])    
 
     const handleChange=(e)=>{
+        if (registrationMessage!=="") setRegistrationMessage("")
+
         setFormObj({
             ...formObj,
             formData:{
@@ -36,10 +38,24 @@ export default function NewPlayer(){
 
     const AddUser = async()=>{
         try{
-            console.log(formObj.formData)
-            const response = axios.post("http://127.0.0.1:8000/players/players/",formObj.formData)
+           // console.log(formObj)
+            if (formObj.formData.password===""){
+                alert('Need to add a password.')
+                return
+            }
+            if (formObj.formData.player===""){
+                alert('Need user name.')
+                return
+            }            
+            if(formObj.formData.password!==confirmedPassword){
+                alert('Passwords do not match.')
+                return
+            }            
+            const response = await axios.post("http://127.0.0.1:8000/players/players/",formObj.formData)
             setRegistrationMessage("You've been successfully registered!")
             setFormObj(CreateFormObj())
+            setConfirmedPassword("")
+        
 
         }catch(err){
             console.log(err)
@@ -117,7 +133,7 @@ export default function NewPlayer(){
                     labelText="Password"
                     handleChange={handleChange}
                     inputValue={formObj.formData.password}
-                    inputName="phone"
+                    inputName="password"
                     inputType='password'
                     inputStyle={{
                         fontSize:"20px"
@@ -154,7 +170,7 @@ export default function NewPlayer(){
                         fontSize:'30px',
                         textAlign:'center'
                     }}>
-                        {regisrationMessage}
+                        {registrationMessage}
                 </div>
                 {/* <button onClick={Test}>test</button> */}
         </div>

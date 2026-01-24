@@ -16,56 +16,7 @@ export default function NewSection({
     allSections
 })
 {
-    const [allGames, setAllGames]=useState([])
-    const [allDirectors, setAllDirectors]=useState([])
-    //const [allSection, setAllSection]=useState([])
-
-
-    // useEffect(()=>{
-
-    //     const fetchGames=async()=>{
-    //         try{
-
-    //             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-    //             console.log(response.data);
-    //             setFormObj({
-    //                 ...formObj,
-    //                 AllGames:response.data
-    //             })
-    //             //setAllGames(response.data);
-
-    //         }catch(err){
-    //             alert('Problem loading games.');
-    //         }
-    //     }
-    //     const fetchDirectors = async()=>{
-    //         try{
-    //             const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
-    //             //console.log(response.data)
-    //             setAllDirectors(response.data)
-
-    //         }catch(err){
-    //             alert('Problem getting directors.');
-    //         }
-    //     }
-
-    //     const fetchSections = async()=>{
-    //             try{
-    //                 const response = await axios.get("http://127.0.0.1:8000/games/sections/",);
-    //                 //console.log(response.data)
-    //                 setAllSection(response.data)
-
-    //             }catch(err){
-    //                 alert('Problem getting sections.');
-    //             }
-    //         }           
-    //     fetchGames()
-    //     fetchDirectors()
-    //     fetchSections()
-
-    // }, [])
-
-    const Test=()=>{console.log(formObj.selectedDirectorName())}
+    const Test=()=>{console.log(formObj)}
 
     const GameSelected=(e)=>{
         setFormObj({
@@ -110,7 +61,7 @@ export default function NewSection({
     const AddSection = async()=>{
 
         try {
-            const response = await axios.post("http://127.0.0.1:8000/games/sectionthrough/",formData);
+            const response = await axios.post("http://127.0.0.1:8000/games/sectionthrough/",formObj.formData);
             fetchData()
             setFormObj({
                 ...formObj,
