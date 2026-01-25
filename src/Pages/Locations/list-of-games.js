@@ -60,11 +60,11 @@ export default function ListOfGames({
                             weekDay={oneWeekDay}
                             theseGames={allGames[oneWeekDay]}
                             RegisterForGame={RegisterForGame}
-                            />
+                            /> 
 
                 </div>
             ))} 
-
+            <button onClick={Test}>test</button>
             </div>
     )
 }

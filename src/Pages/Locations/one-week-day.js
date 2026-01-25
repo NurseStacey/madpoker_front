@@ -41,7 +41,11 @@ export default function OneWeekDay({
                             }}>
                             {oneGame.sections.map((oneSection,index)=>(
                                 <div
-                                    onClick={()=>RegisterForGame(oneSection.id, oneGame.venue_name, oneGame.time, oneSection.section)}
+                                    onClick={()=>RegisterForGame(
+                                        oneSection.played_game_id, 
+                                        oneGame.venue_name, 
+                                        oneGame.time, 
+                                        oneSection.section)}
                                     style={{
                                         fontSize:'16px',
                                         marginBottom:'10px',

@@ -49,7 +49,7 @@ export default function GameRegistrationAndSignup({
     
     const SignupForGame=async(localPlayerID)=>{
         let data_to_send={
-            WhichPlayer:localPlayerID,
+            which_player:localPlayerID,
             which_game:gameID
         }
         try{
@@ -66,8 +66,13 @@ export default function GameRegistrationAndSignup({
 
         }
         catch(error){
+            if (error.response.status===409) {
+                alert("You've already registered")
+            } else {
+                alert('There was a problem with signing up up.  Please contact a director')
+            }
            console.log(error)
-           alert('There was a problem with signing up up.  Please contact a director')
+           
 
         }    
 
