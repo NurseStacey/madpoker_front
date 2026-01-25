@@ -1,0 +1,57 @@
+
+
+export default function OneWeekDay({
+    weekDay,
+    theseGames,
+    RegisterForGame
+})
+{
+    return(
+        <div
+            key={weekDay}
+            style={{
+                fontSize:"22px",
+                fontFamily:"averia sans libre",
+                fontWeight:"bold",
+                textAlign:"left",
+                marginTop:"15px",
+                width:'100%',
+            }}>
+                {weekDay}
+                {theseGames.map((oneGame)=>(
+                    <div
+                    style={{
+                        display:'flex',
+                        width:'100%',
+                        margin:'10px 0px',
+                    }}>
+                        <div
+                            style={{
+                                width:'25%',
+                                color:'red',
+                                fontSize:'16px',
+                            }}>
+                            {oneGame.venue_name}
+                        </div>
+                        <div
+                            style={{
+                                display:'block',
+                                width:'74%',
+                                marginLeft:'1%'
+                            }}>
+                            {oneGame.sections.map((oneSection,index)=>(
+                                <div
+                                    onClick={()=>RegisterForGame(oneSection.id, oneGame.venue_name, oneGame.time, oneSection.section)}
+                                    style={{
+                                        fontSize:'16px',
+                                        marginBottom:'10px',
+                                        cursor:'pointer'
+                                    }}>
+                                        {oneSection.description}
+                                </div>
+                            ))}
+                        </div>
+                    </div>))}
+        </div>        
+    )
+}

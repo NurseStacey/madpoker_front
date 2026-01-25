@@ -5,7 +5,10 @@ import Register from './register'
 
 export default function GameRegistrationAndSignup({
     setOpenModal,
-    gameID
+    gameID,
+    venueName,
+    time,
+    section
 })
 {
     const [player, setPlayer]=useState({
@@ -86,12 +89,15 @@ export default function GameRegistrationAndSignup({
                 setOpenModal={setOpenModal}
                 SignupForGame={()=>SignupForGame(playerID)}
                 setPlayerID={setPlayerID}
+                venueName={venueName}
+                time={time}
+                section={section}
             />
-            <Register
+            {/* <Register
                 setNewPlayer={setPlayer}
                 newPlayer={player}
                 RegisterAndSignUp={RegisterAndSignUp}
-            />
+            /> */}
             </div>
 
     )

@@ -9,7 +9,10 @@ export default function Signup({
     player,
     setOpenModal,
     SignupForGame, 
-    setPlayerID
+    setPlayerID,
+    venueName,
+    time,
+    section
 })
 {
     const [allPlayers, setAllPlayers]=useState([]);
@@ -44,7 +47,7 @@ export default function Signup({
                     fontSize:'20px',
                     marginTop:'30px'
                 }}>
-            Registration
+            Registration for {section} at {time} at {venueName}
             </div>
 
                 <MyDropdownText

@@ -62,6 +62,7 @@ export default function CurrentGames({
             setSelectedGame(null)
 
         }catch(err){
+            console.log(err.response.data)
             alert('Problem updating games.');
         }            
     }
@@ -90,7 +91,7 @@ export default function CurrentGames({
     }
 
     const Test=()=>{
-        console.log(allGames)
+        console.log(formData)
     }
     return(
         <div
@@ -115,7 +116,7 @@ export default function CurrentGames({
                     selectedGame={selectedGame}
                 />
 
-            {/* <button onClick={Test}>test</button>  */}
+            <button onClick={Test}>test</button> 
         </div>
     )
 }

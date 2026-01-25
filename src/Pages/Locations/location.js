@@ -2,52 +2,51 @@ import {VenuePics} from '../../data-files/venue-pictures';
 import VerticalDeck from '../../Components/VerticalSlideShow/VerticalDeck';
 import WindowDimensions from '../../utils/window-dimensions'
 import {useEffect, useState} from 'react'
-import axios from 'axios'
-import { WeekDays } from '../../Components/weekdays';
 import '@fontsource/averia-sans-libre/700.css';  
 import GameRegistrationAndSignup from './register-signup';
-import OneGame from './one-game';
-
+import ListOfGames from './list-of-games';
 
 export default function Locations(){
     const { height, width } = WindowDimensions();
-    const [Width, setWidth]=useState(0)
-    const [Height, setHeight] =  useState(0)
-    const [gameID, setGameID]=useState(-1)
-    const [playerGames, setPlayerGames]=useState([])
-    const [localWeekDays, setLocalWeekDays]=useState([])
+    const [Width, setWidth]=useState(0);
+    const [Height, setHeight] =  useState(0);
+    const [gameID, setGameID]=useState(-1);
+    const [venueName, setVenueName]=useState('');
+    const [time, setTime]=useState('');
+    const [section, setSection]=useState('');
+
+
     const [openModal, setOpenModal]=useState(false)
 
     useEffect(()=>{
         setWidth(width*0.60)
         setHeight(height)
-        LoadGamesForPlayers()
         let now = new Date()
-        setLocalWeekDays([...WeekDays.slice(now.getDay(),WeekDays.length),...WeekDays.slice(0,now.getDay())])
-
     },[])
 
-    const LoadGamesForPlayers =async()=>{
-        try{
-            const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-            console.log(response.data);
-            setPlayerGames(response.data);
 
-        }catch(err){
-            alert('Problem loading games')
-            //console.log(err);
-        }        
-    }
 
-    const RegisterForGame=(id)=>{
-        setGameID(id)
-        setOpenModal(true)
+    const RegisterForGame=(id, thisVenueName, thisTime, thisSection)=>{
+        setGameID(id);
+        setOpenModal(true);
+        setVenueName(thisVenueName);
+        setSection(thisSection)
 
+        let tempTime= parseInt(thisTime);
+        let AMPM='AM'
+        if (tempTime>1200) {
+            tempTime-=1200;
+            AMPM='PM';
+        };
+
+        let tempHour=parseInt(tempTime/100);
+        let tempMinute = tempTime - (100*tempHour)
+
+        setTime(`${tempHour}:${tempMinute} ${AMPM}`)
     }
 
     const Test=()=>{
         console.log(openModal)
-        console.log(playerGames)
     }
     return(
         <div
@@ -57,20 +56,20 @@ export default function Locations(){
                 marginLeft:'125px'        
             }}
             >
-
                     {(openModal) ?  
                         <div
                             style={{
                                 marginTop:"50px",
-//                                marginLeft:"50px",
                                 width:"600px",
-                                height:"400px",              
-                               // border:'1px solid black'                  
+                                height:"400px",                          
                             }}
                         >
                         <GameRegistrationAndSignup
                             setOpenModal={setOpenModal}
                             gameID={gameID}
+                            venueName={venueName}
+                            time={time}
+                            section={section}
                         /> 
                     </div>:
                     <div
@@ -87,8 +86,6 @@ export default function Locations(){
                         <VerticalDeck
                             All_Images={VenuePics}/>
                     </div> }
-                    
-
                 <div
                     style={{
                         color:"red",
@@ -102,42 +99,10 @@ export default function Locations(){
                         textAlign:"center"                                   
                     }}>
                         Locations
-                </div>                
-                <div
-                    style={{
-                        // border:"1px solid black",
-                        marginTop:"25px",
-                        width:"600px"
-
-                    }}>
-                    {localWeekDays.map((oneWeekDay)=>(
-                        <div
-                            key={oneWeekDay}
-                            style={{
-                                fontSize:"22px",
-                                fontFamily:"averia sans libre",
-                                fontWeight:"bold",
-                                textAlign:"left",
-                                marginTop:"15px"
-                            }}>
-
-                                {oneWeekDay}
-                                {playerGames.map((oneGame)=>(<div key={`${oneGame.id}${oneWeekDay}`}>
-                                    <OneGame
-                                        thisGame={oneGame}
-                                        thisWeekDay={oneWeekDay}
-                                        RegisterForGame={RegisterForGame}
-                                    />
-                                    </div>
-                                ))} 
-
-                     
-                            
-                        </div>
-                    ))}
-                <button onClick={Test}>Test</button>
-                </div>
-
+                </div>    
+                <ListOfGames
+                    RegisterForGame={RegisterForGame}
+                />
         </div>
     )
 }
