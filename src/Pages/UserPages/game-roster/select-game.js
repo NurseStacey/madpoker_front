@@ -46,7 +46,9 @@ export default function SelectGame({
             }else{
                 if (whichUser.id>0){
                     const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
-                    setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
+                    console.log (response.data);
+                    //setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
+                    setAllGames(response.data);
                     if (response.data.length>0){
                         let thisWeekDay=(new Date()).getDay()
                         let WeekDayArray = [...Array.from(Array(7).keys()).slice(thisWeekDay,7),
@@ -73,10 +75,12 @@ export default function SelectGame({
         if (e.target.name==="Director") setWhichUser(allDirectors.find((oneUser)=>oneUser.username===e.target.value))
 
         if (e.target.name==="Game") {
-            let thisGame=allGames.find((oneGame)=>oneGame.Text===e.target.value)
+            let thisGame=allGames.find((oneGame)=>oneGame.game_text===e.target.value)
+            console.log(thisGame)
             setWhichGame(thisGame);
             let tempDateArray=[];
-            thisGame.Dates.map((oneDate)=>tempDateArray.push(oneDate));
+            thisGame.all_dates.map((oneDate)=>tempDateArray.push(oneDate));
+            console.log(tempDateArray)
             setAllDates(tempDateArray);
         }
         if (e.target.name==="Date") setWhichDate(allDates.find((oneDate)=>oneDate.date===e.target.value))
@@ -106,9 +110,9 @@ export default function SelectGame({
                 }}
             />     
             <MyDropdownText
-                optionsList={allGames.map((oneGame)=>oneGame.Text)}
+                optionsList={allGames.map((oneGame)=>oneGame.game_text)}
                 setSelectedOption={HandelChange}
-                selection = {whichGame.Text}
+                selection = {whichGame.game_text}
                 name="Game"
                 disable={false}
                 style={{
@@ -117,7 +121,7 @@ export default function SelectGame({
                 }}
             />      
             <MyDropdownText
-                optionsList={[... new Set(allDates.map((oneDate)=>oneDate.date))]}
+                optionsList={allDates.map((oneDate)=>oneDate.date)}
                 setSelectedOption={HandelChange}
                 selection = {whichDate.date}
                 name="Date"

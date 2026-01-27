@@ -49,12 +49,13 @@ export default function CurrentRoster({
     }
 
     const GetRoster=async()=>{
-        //console.log(which_game)
+
         if (whichGameID !== undefined && whichGameID!==-1) {
             try{
-                const response = await axios.get(`http://127.0.0.1:8000/games/game_roster/${whichGameID}`,);    
-                setNumberPlayers(response.data.PlayersArray.length);
-                setCurrentRoster(response.data.PlayersArray.sort((a,b)=>a.name.localeCompare(b.name)));
+                const response = await axios.get(`http://127.0.0.1:8000/games/game_roster/${whichGameID}`,); 
+                console.log(response.data)   
+                setNumberPlayers(response.data.length);
+                setCurrentRoster(response.data.sort((a,b)=>a.player_name.localeCompare(b.player_name)));
                 }catch(err){
                     alert(`There was an issue with getting the current roster.  Error code ${err.status}`)
                 }
@@ -121,25 +122,27 @@ export default function CurrentRoster({
             </div>
             <div
                 style={{
-                    display:'block',
+                   // display:'block',
+                    display:'grid',
+                    gridTemplateColumns:'30% 20% 10% 20% 20%',
                     border:'1px solid black',
                     width:"80%",
                     padding:'10px', 
                     margin:"auto"
                     //margin:'3% 20%'
                 }}>
-                <div
+                {/* <div
                     style={{
                         display:'flex',
                         justifyContent:'left',
                         font:'arial',
                         fontSize:'18px',
-                        width:'100%',
-                    }}>
+                       // width:'100%',
+                    }}> */}
                     <div
                         onClick={()=>orderPlayers('name')}
                         style={{
-                            width:'30%',
+                           // width:'30%',
                             textAlign:'left',
                             paddingLeft:'15%',
                             cursor:'pointer',
@@ -148,7 +151,7 @@ export default function CurrentRoster({
                     </div>
                     <div                
                         style={{
-                            width:'25%',
+                           // width:'25%',
                             textAlign:'left',
                         }}>
                         Registration Time
@@ -156,36 +159,45 @@ export default function CurrentRoster({
                      <div
                         onClick={()=>orderPlayers('position')}
                         style={{
-                            width:'5%',
-                            paddingRight:'5%',
-                            textAlign:'right',
-                            cursor:'pointer',
+                           // width:'5%',
+                          //  paddingRight:'5%',
+                            textAlign:'left',
+                            cursor:'pointer'
                         }}
                     >
                         Position
                     </div> 
                     <div
                         style={{
-                            width:'10%',
-                            paddingRight:'15%',
+                          //  width:'10%',
+                           // paddingRight:'15%',
                             textAlign:'left',
-                            cursor:'pointer',
-                        }}                    >
+                            cursor:'pointer'
+                        }}>
                         Remove Player
                     </div>
-                            
-                </div>
-                {currentRoster.map((onePlayer)=>(
                     <div
-                        key={onePlayer.id}
-                    >
-                        <OnePlayer
-                            thisPlayer={onePlayer}
-                            setPosition={setPosition}
-                            GetRoster={GetRoster}
-                            />
-                    </div>
-                ))}
+                        style={{
+                          //  width:'10%',
+                          //  paddingRight:'15%',
+                            textAlign:'left',
+                            cursor:'pointer',
+                        }}>
+                        Player is Out
+                    </div>                    
+
+                {/* </div> */}
+                <ul>
+                    {currentRoster.map((onePlayer)=>(
+                        <li key={onePlayer.id}>
+                            <OnePlayer
+                                thisPlayer={onePlayer}
+                                setPosition={setPosition}
+                                GetRoster={GetRoster}
+                                />
+                        </li>
+                    ))} 
+                </ul>
             </div>
 
             <button onClick={Test}>Test</button>

@@ -18,7 +18,7 @@ export default function GameRoster()
 
     const [whichDate, setWhichDate]=useState({
         date:'01/01',
-        id:'-1'
+        id:-1
     })
 
     useEffect(()=>{
