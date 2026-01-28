@@ -77,9 +77,9 @@ export default function MyDropdownText({
                     height:'80%'
                 }}
             >
-                {matchingList.map((oneItem)=>
+                {matchingList.map((oneItem, index)=>
+                    (oneItem!==undefined) ?
                     <div
-                        
                         key={oneItem}
                         onClick={()=>selectionClicked(oneItem)}
                         style={{
@@ -90,7 +90,7 @@ export default function MyDropdownText({
                         >
                         {oneItem}
                     
-                    </div>
+                    </div> :<></>
                 )}
             </div>
         </div>

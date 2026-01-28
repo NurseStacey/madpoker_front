@@ -19,7 +19,10 @@ export default function SelectGame({
         email:""
     });
 
-    const Test=()=>{console.log(allDates)}
+    const Test=()=>{
+        let X=allGames.map((oneGame)=>oneGame.game_text)
+        console.log(allGames.map((oneGame)=>oneGame.game_text))
+        console.log(X.map((oneGame)=>oneGame.slice(0,10)))}
     useEffect(()=>{
         GetDirectors();
     },[]);
@@ -28,7 +31,8 @@ export default function SelectGame({
         try{
             const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
             setAllDirectors([{username:'All Directors'},...response.data])
-            setWhichUser(response.data.find((oneUser)=>oneUser.username===localStorage.getItem('current_user')))
+           // setWhichUser(response.data.find((oneUser)=>oneUser.username===localStorage.getItem('current_user')))
+            setWhichUser(response.data.find((oneUser)=>oneUser.username==='Perri'))
         }catch(err){
             console.log(err);
         }
@@ -41,13 +45,14 @@ export default function SelectGame({
     const GetGames = async()=>{
         try{
             if (whichUser.username==="All Directors") {
-                const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-                setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
+                const response = await axios.get("http://127.0.0.1:8000/games/get_all_sections/",);
+                setAllGames(response.data.filter((oneGame)=>oneGame.game_text!=='default'));
+
+                console.log(response.data.filter((oneGame)=>oneGame.game_text!=='default'))
             }else{
                 if (whichUser.id>0){
                     const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
-                    console.log (response.data);
-                    //setAllGames(response.data.filter((oneGame)=>oneGame.Text!=='default'));
+
                     setAllGames(response.data);
                     if (response.data.length>0){
                         let thisWeekDay=(new Date()).getDay()
@@ -76,11 +81,9 @@ export default function SelectGame({
 
         if (e.target.name==="Game") {
             let thisGame=allGames.find((oneGame)=>oneGame.game_text===e.target.value)
-            console.log(thisGame)
             setWhichGame(thisGame);
             let tempDateArray=[];
             thisGame.all_dates.map((oneDate)=>tempDateArray.push(oneDate));
-            console.log(tempDateArray)
             setAllDates(tempDateArray);
         }
         if (e.target.name==="Date") setWhichDate(allDates.find((oneDate)=>oneDate.date===e.target.value))
@@ -119,7 +122,7 @@ export default function SelectGame({
                     width:'600px',
                     margin:'0px 20px'
                 }}
-            />      
+            />  
             <MyDropdownText
                 optionsList={allDates.map((oneDate)=>oneDate.date)}
                 setSelectedOption={HandelChange}
@@ -130,7 +133,7 @@ export default function SelectGame({
                     width:'600px',
                     margin:'0px 20px'
                 }}
-            />                  
+            /> 
 
         </div>               
     )

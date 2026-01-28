@@ -2,6 +2,7 @@ import My_Button from '../../../Components/Widgets/my-button'
 import OnePlayer from './one-player'
 import {useState, useEffect} from 'react'
 import axios from 'axios';
+import Fragment from 'react'
 
 export default function CurrentRoster({
    // which_game,
@@ -187,17 +188,17 @@ export default function CurrentRoster({
                     </div>                    
 
                 {/* </div> */}
-                <ul>
+
                     {currentRoster.map((onePlayer)=>(
-                        <li key={onePlayer.id}>
+                        <Fragment key={onePlayer.id}>
                             <OnePlayer
                                 thisPlayer={onePlayer}
                                 setPosition={setPosition}
                                 GetRoster={GetRoster}
                                 />
-                        </li>
+                        </Fragment>
                     ))} 
-                </ul>
+
             </div>
 
             <button onClick={Test}>Test</button>
