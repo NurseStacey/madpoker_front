@@ -31,8 +31,7 @@ export default function SelectGame({
         try{
             const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
             setAllDirectors([{username:'All Directors'},...response.data])
-           // setWhichUser(response.data.find((oneUser)=>oneUser.username===localStorage.getItem('current_user')))
-            setWhichUser(response.data.find((oneUser)=>oneUser.username==='Perri'))
+            setWhichUser(response.data.find((oneUser)=>oneUser.username===localStorage.getItem('current_user')))
         }catch(err){
             console.log(err);
         }
@@ -77,7 +76,13 @@ export default function SelectGame({
     }   
 
     const HandelChange=(e)=>{
-        if (e.target.name==="Director") setWhichUser(allDirectors.find((oneUser)=>oneUser.username===e.target.value))
+        if (e.target.name==="Director"){
+            setWhichUser(allDirectors.find((oneUser)=>oneUser.username===e.target.value))
+            setWhichDate({
+                date:'01/01',
+                id:-1
+            })
+        }
 
         if (e.target.name==="Game") {
             let thisGame=allGames.find((oneGame)=>oneGame.game_text===e.target.value)
@@ -85,6 +90,10 @@ export default function SelectGame({
             let tempDateArray=[];
             thisGame.all_dates.map((oneDate)=>tempDateArray.push(oneDate));
             setAllDates(tempDateArray);
+            setWhichDate({
+                date:'01/01',
+                id:-1
+            })            
         }
         if (e.target.name==="Date") setWhichDate(allDates.find((oneDate)=>oneDate.date===e.target.value))
     }

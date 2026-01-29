@@ -23,7 +23,7 @@ export default function CurrentGamesListBox({
                         fontSize:"18px",
                         backgroundColor:(oneGame.id===selectedGame) ? "pink" :"white",
                     }}
-                    >{(oneGame.active) ? oneGame.Text : oneGame.Text + ' - inactive'}</div>
+                    >{(oneGame.active) ? oneGame.game_text : oneGame.game_text + ' - inactive'}</div>
             ))}
         </div>
     )

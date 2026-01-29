@@ -8,13 +8,10 @@ import CurrentRoster from './current-roster'
 
 export default function GameRoster()
 {
-
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
-
     const navigate = useNavigate();
-
 
     const [whichDate, setWhichDate]=useState({
         date:'01/01',
@@ -25,8 +22,6 @@ export default function GameRoster()
         setWidth(width);
         setHeight(height);
     },[]);
-
-
 
     return(
         <div 
@@ -54,7 +49,6 @@ export default function GameRoster()
                 whichDate={whichDate}
             />
             <CurrentRoster
-                //which_game={which_game}
                 whichGameID={whichDate.id}
                 />
          

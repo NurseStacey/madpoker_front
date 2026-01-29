@@ -48,7 +48,7 @@ export function CreateFormObj(){
             //console.log(this.allGames)
             let thisGame = this.AllGames.find((oneGame)=>oneGame.id===gameID)
             let thisSection = this.AllSections.find((oneSection)=>oneSection.id===sectionID)
-            return thisGame.Text + '-' + thisSection.name
+            return thisGame.game_text + '-' + thisSection.name
         },
         selectedDirectorName:function(){
             // console.log(this.AllDirectors)

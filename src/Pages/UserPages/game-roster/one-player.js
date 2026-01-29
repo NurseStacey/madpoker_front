@@ -4,17 +4,43 @@ import axios from 'axios'
 export default function OnePlayer({
     thisPlayer,
     setPosition,
-    GetRoster
+    GetRoster,
+    otherEvents,
+    IsOutSetPosition,
 })
 {
 
-    const IsOut=async(id)=>{
+    const AddTo=async(id)=>{
+        let data_to_send={
+            which_player:thisPlayer.id,
+            which_game:id
+        }
+        try{
+            console.log(data_to_send)
+            const response = await axios.post(`http://127.0.0.1:8000/games/register_player_for_game/`,data_to_send)
+            console.log(response)
+            if(response.status===201) alert('You are registered for this game.')
+                else  alert('There was an issue with registration.  Please let a director know.');
 
+        }
+        catch(error){
+            if (error.response.status===409) {
+                alert("You've already registered")
+            } else {
+                alert('There was a problem with signing up up.  Please contact a director')
+            }
+           console.log(error)
+           
+
+        }    
     }
 
-    const AddToGame=async(section, id)=>{
-        
+    const Test=()=>{console.log(otherEvents)}
+
+    const IsOut=()=>{
+        IsOutSetPosition(thisPlayer.player_name)
     }
+
 
     const RemovePlayer=async(id)=>{
         try{
@@ -27,19 +53,8 @@ export default function OnePlayer({
 
     return(
         <>
-        {/* // <div
-        //     style={{
-
-        //         display:'flex',
-        //         justifyContent:'left',
-        //         font:'arial',
-        //         fontSize:'18px',
-        //         width:'100%',      
-        //         alignItems:'center'       
-        //     }}> */}
             <div
                 style={{
-                    //width:'30%',
                     textAlign:'left',
                     paddingLeft:'15%',
                 }}>
@@ -47,14 +62,12 @@ export default function OnePlayer({
             </div>
             <div                
                 style={{
-                    //width:'25%',
                     textAlign:'left',
                 }}>
                 {thisPlayer.registration_date_time_str}
             </div>
             <div
                 style={{
-                    //width:'5%',
                     paddingRight:'5%',
                     textAlign:'left',
                     cursor:'pointer',
@@ -66,7 +79,7 @@ export default function OnePlayer({
                     width:"30px",
                     marginRight:"10%",
                 }}
-                name={thisPlayer.name}
+                name={thisPlayer.player_name}
                 onChange={setPosition}  
                 type="number"
                 value={thisPlayer.position}></input>
@@ -74,7 +87,6 @@ export default function OnePlayer({
             </div> 
             <div
                 style={{
-                   // width:'10%',
                     paddingRight:'15%',
                     textAlign:'right',
                     cursor:'pointer',   
@@ -89,18 +101,17 @@ export default function OnePlayer({
                     }}
                     disable={false}
                 />
-
-
             </div>    
             <div
                 style={{
-                    //width:'10%',
                     paddingRight:'15%',
                     textAlign:'right',
                     cursor:'pointer',
                 }}>           
                 <MyButton
-                    button_function={()=>IsOut(thisPlayer.id)}
+                    //button_function={IsOut}
+                    button_function={Test}
+                    
                     button_text="Is Out"
                     button_style={{
                         width:"100px",
@@ -108,8 +119,31 @@ export default function OnePlayer({
                         fontSize:"15px",
                     }}
                     disable={false}
-                />                 
-            </div>    
+                /> 
+                </div>
+               
+             {otherEvents.map((oneEvent)=>(
+                <div
+                    key={oneEvent.event_name}
+                    style={{
+                        paddingRight:'15%',
+                        textAlign:'right',
+                        cursor:'pointer',
+                    }}>
+                       
+                    <MyButton
+                            button_function={()=>AddTo(oneEvent.id)}
+                            button_text={oneEvent.event_name}
+                            button_style={{
+                                width:"100px",
+                                height:"100%",
+                                fontSize:"15px",
+                            }}
+                            disable={false}
+                        />                        
+                </div>                 
+            ))}                  
+       
         </>
     )
 }

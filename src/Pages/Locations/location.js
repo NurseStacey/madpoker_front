@@ -42,7 +42,7 @@ export default function Locations(){
         let tempHour=parseInt(tempTime/100);
         let tempMinute = tempTime - (100*tempHour)
 
-        setTime(`${tempHour}:${tempMinute} ${AMPM}`)
+        setTime(`${tempHour}:${String(tempMinute).padStart(2,'0')} ${AMPM}`)
     }
 
     const Test=()=>{

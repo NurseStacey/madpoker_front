@@ -22,15 +22,16 @@ export default function Admin(){
         const checkLoggedInUser=async()=>{
             try{
                 const token=localStorage.getItem("accessToken");
-                
+                console.log(token)
                 if (token){
                     const config={
                         headers:{
                             'Authorization':`Bearer ${token}`
                         }
                     };
-
+                    console.log(config)
                     const response = await axios.get("http://127.0.0.1:8000/login_api/user/", config);
+
                     setisLoggedIn(true);
                     setusername(response.data.username);
                 }
@@ -40,7 +41,8 @@ export default function Admin(){
                     navigate("/login",)
                 }
             }
-            catch{
+            catch(err){
+                console.log(err)
                 navigate("/login",)
             }
 

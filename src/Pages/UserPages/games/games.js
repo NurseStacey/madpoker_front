@@ -22,8 +22,9 @@ export default function EditGames()
     useEffect(()=>{
         setWidth(width);
         setHeight(height);
-        fetchData();
     },[width,height]);    
+
+    useEffect(()=>{fetchData();},[])
 
     const Test=()=>{
         console.log(formData)
@@ -33,7 +34,6 @@ export default function EditGames()
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/games/games/",);
-            //console.log(response.data)
             setAllGames(response.data);
 
         }catch(err){

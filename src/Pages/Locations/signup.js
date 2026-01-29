@@ -20,7 +20,8 @@ export default function Signup({
     const LoadPlayers = async()=>{
         try{
             const response = await axios.get("http://127.0.0.1:8000/players/players/",);
-            setAllPlayers(response.data)
+            console.log(response.data)
+            setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
 
         }catch(err){
             console.log(err);
