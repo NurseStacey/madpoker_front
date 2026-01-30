@@ -7,6 +7,7 @@ export default function OnePlayer({
     GetRoster,
     otherEvents,
     IsOutSetPosition,
+    disableUpdateButton
 })
 {
 
@@ -25,9 +26,11 @@ export default function OnePlayer({
         }
         catch(error){
             if (error.response.status===409) {
-                alert("You've already registered")
+                alert("You've already registered.")
+            }else if (error.response.status===423) {
+                alert("Not able to register, game is locked.")
             } else {
-                alert('There was a problem with signing up up.  Please contact a director')
+                alert('There was a problem with signing up up.  Please contact a director.')
             }
            console.log(error)
            
@@ -82,7 +85,9 @@ export default function OnePlayer({
                 name={thisPlayer.player_name}
                 onChange={setPosition}  
                 type="number"
-                value={thisPlayer.position}></input>
+                disable={disableUpdateButton}
+                value={thisPlayer.position}>                    
+                </input>
 
             </div> 
             <div
@@ -99,7 +104,7 @@ export default function OnePlayer({
                         height:"100%",
                         fontSize:"15px",
                     }}
-                    disable={false}
+                    disable={disableUpdateButton}
                 />
             </div>    
             <div
@@ -109,16 +114,14 @@ export default function OnePlayer({
                     cursor:'pointer',
                 }}>           
                 <MyButton
-                    //button_function={IsOut}
-                    button_function={Test}
-                    
+                    button_function={IsOut}
                     button_text="Is Out"
                     button_style={{
                         width:"100px",
                         height:"100%",
                         fontSize:"15px",
                     }}
-                    disable={false}
+                    disable={disableUpdateButton}
                 /> 
                 </div>
                

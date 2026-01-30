@@ -6,7 +6,8 @@ export default function ListOfRecords({
     setNumberPlayers,
     whichGameID,
     setUpdateRoster,
-    updateRoster
+    updateRoster,
+    disableUpdateButton
 })
 {
     let defaultPercents=[30, 20, 10, 20, 20,]
@@ -31,8 +32,8 @@ export default function ListOfRecords({
 
     useEffect(()=>{
         if (updateRoster){
-            UpdateRoster()
-            setUpdateRoster(false)
+            UpdateRoster();
+            setUpdateRoster(false);
         }
         
     },[updateRoster])    
@@ -76,9 +77,9 @@ export default function ListOfRecords({
                     for (let i=0;i<numberOtherEvents;i++){
                         newArray.push(eventButtonLength/numberOtherEvents);
                     }
-                    console.log('here')
+                    //console.log('here')
                     setGridTemplatePercents(newArray);  
-                    console.log(newArray)                
+                    //console.log(newArray)                
                 } else setGridTemplatePercents(defaultPercents)
 
                 }catch(err){
@@ -92,7 +93,7 @@ export default function ListOfRecords({
         if (whichGameID !== undefined && whichGameID!==-1) {
             try{
                 const response = await axios.get(`http://127.0.0.1:8000/games/game_roster/${whichGameID}`,);
-                //  console.log(response.data)   
+                console.log(response.data)   
                 setNumberPlayers(response.data.length);
                 setCurrentRoster(response.data.sort((a,b)=>a.player_name.localeCompare(b.player_name)));
                 }catch(err){
@@ -124,14 +125,27 @@ export default function ListOfRecords({
 
     const IsOutSetPosition=(player_name)=>{
 
-        let value = 0
+        let newPositionValue=-1
+       
+        let nextPosition = currentRoster.length;
+        [...currentRoster].sort((a,b)=>b.position-a.position).map((onePlayer)=>{
+
+            if (onePlayer.position===0 && newPositionValue===-1)
+                newPositionValue=nextPosition;
+            else if (onePlayer.position>0)
+                nextPosition--;
+        })
+        if (newPositionValue===-1)
+            newPositionValue=currentRoster.length;
 
         setPosition({
             target:{
                 name:player_name,
-                value:Math.max(currentRoster.map((onePlayer)=>onePlayer.position))
+                value:newPositionValue
             }
-        })
+        });
+        UpdateRoster();
+        
     }
     const setPosition=(e)=>{
         let thisPlayer = currentRoster.find((onePlayer)=>onePlayer.player_name===e.target.name)
@@ -146,7 +160,7 @@ export default function ListOfRecords({
     }
 
     const Test=()=>{
-        console.log(otherEvents)
+        console.log(currentRoster)
     }
 
     return(
@@ -162,8 +176,8 @@ export default function ListOfRecords({
                 margin:"auto"
             }}>
                 <div
-                    //onClick={()=>orderPlayers('name')}
-                    onClick={Test}
+                    onClick={()=>orderPlayers('name')}
+                    //onClick={Test}
                     style={{
                         textAlign:'left',
                         paddingLeft:'15%',
@@ -217,7 +231,8 @@ export default function ListOfRecords({
                             setPosition={setPosition}
                             GetRoster={GetRoster}
                             otherEvents={otherEvents}
-                            IsOutSetPosition={IsOutSetPosition  }
+                            IsOutSetPosition={IsOutSetPosition}
+                            disableUpdateButton={disableUpdateButton}
                             />
                     </Fragment>
                 ))} 

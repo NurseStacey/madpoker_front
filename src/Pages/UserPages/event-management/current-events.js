@@ -28,7 +28,7 @@ export default function CurrentEvent({
 
     const Update=async()=>{
         try{
-            console.log(event)
+            
             const response = (await axios.patch(`http://127.0.0.1:8000/games/one_section/${event.id}/`,event))
             fetchData();
             setEvent({

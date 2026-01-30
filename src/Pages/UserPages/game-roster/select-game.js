@@ -46,8 +46,7 @@ export default function SelectGame({
             if (whichUser.username==="All Directors") {
                 const response = await axios.get("http://127.0.0.1:8000/games/get_all_sections/",);
                 setAllGames(response.data.filter((oneGame)=>oneGame.game_text!=='default'));
-
-                console.log(response.data.filter((oneGame)=>oneGame.game_text!=='default'))
+                //console.log(response.data.filter((oneGame)=>oneGame.game_text!=='default'))
             }else{
                 if (whichUser.id>0){
                     const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
@@ -92,7 +91,8 @@ export default function SelectGame({
             setAllDates(tempDateArray);
             setWhichDate({
                 date:'01/01',
-                id:-1
+                id:-1,
+                canUpdate:false
             })            
         }
         if (e.target.name==="Date") setWhichDate(allDates.find((oneDate)=>oneDate.date===e.target.value))

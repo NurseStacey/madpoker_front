@@ -68,6 +68,8 @@ export default function GameRegistrationAndSignup({
         catch(error){
             if (error.response.status===409) {
                 alert("You've already registered")
+            }else if (error.response.status===423) {
+                alert("Not able to register, game is locked.")
             } else {
                 alert('There was a problem with signing up up.  Please contact a director')
             }

@@ -43,11 +43,12 @@ export default function Login(){
         setisLoading(true)
         try{
             const response = await axios.post("http://127.0.0.1:8000/login_api/login/",formData)
-            //console.log(response)
+            console.log(response.data)
             setsuccessMessage("Login Successful")
             localStorage.setItem("accessToken",response.data.tokens.access);
             localStorage.setItem("refreshToken",response.data.tokens.refresh);
             localStorage.setItem("current_user",response.data['username'])
+            localStorage.setItem("is_superuser",response.data['is_superuser'])
             seterror(null)
             navigate("/admin",)
         }
@@ -82,8 +83,6 @@ export default function Login(){
             <Title
                 TitleText = "MAD Poker Director Login Page"
                 />
-     
-
             <div
                 style={{
                     width:"400px",
@@ -123,7 +122,7 @@ export default function Login(){
             </div>
             {successMessage && <p>{successMessage}</p>}
             {error && <p>{error}</p>}       
-        {/* <button onClick={test}>test</button> */}
+
         </div>
     )
 }
