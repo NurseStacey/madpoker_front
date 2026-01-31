@@ -85,7 +85,8 @@ export default function OnePlayer({
                 name={thisPlayer.player_name}
                 onChange={setPosition}  
                 type="number"
-                disable={disableUpdateButton}
+                
+                disabled={disableUpdateButton}
                 value={thisPlayer.position}>                    
                 </input>
 
@@ -135,14 +136,14 @@ export default function OnePlayer({
                     }}>
                        
                     <MyButton
-                            button_function={()=>AddTo(oneEvent.id)}
-                            button_text={oneEvent.event_name}
-                            button_style={{
-                                width:"100px",
-                                height:"100%",
-                                fontSize:"15px",
-                            }}
-                            disable={false}
+                        button_function={()=>AddTo(oneEvent.id)}
+                        button_text={oneEvent.event_name}
+                        button_style={{
+                            width:"100px",
+                            height:"100%",
+                            fontSize:"15px",
+                        }}
+                        disable={false}
                         />                        
                 </div>                 
             ))}                  

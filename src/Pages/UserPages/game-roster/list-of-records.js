@@ -124,29 +124,23 @@ export default function ListOfRecords({
     }    
 
     const IsOutSetPosition=(player_name)=>{
+        let thisPlayer = currentRoster.find((onePlayer)=>onePlayer.player_name===player_name)
+        if (thisPlayer.position>0) return
 
-        let newPositionValue=-1
-       
-        let nextPosition = currentRoster.length;
-        [...currentRoster].sort((a,b)=>b.position-a.position).map((onePlayer)=>{
-
-            if (onePlayer.position===0 && newPositionValue===-1)
-                newPositionValue=nextPosition;
-            else if (onePlayer.position>0)
-                nextPosition--;
-        })
-        if (newPositionValue===-1)
-            newPositionValue=currentRoster.length;
-
-        setPosition({
-            target:{
-                name:player_name,
-                value:newPositionValue
+        for (let i=currentRoster.length;i>0;i--) {
+            if(currentRoster.find((onePlayer)=>onePlayer.position===i)===undefined){
+                setPosition({
+                target:{
+                    name:player_name,
+                    value:i
+                    }
+                });
+                break;
             }
-        });
+        }
         UpdateRoster();
-        
     }
+    
     const setPosition=(e)=>{
         let thisPlayer = currentRoster.find((onePlayer)=>onePlayer.player_name===e.target.name)
 

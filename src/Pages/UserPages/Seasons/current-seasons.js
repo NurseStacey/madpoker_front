@@ -7,25 +7,27 @@ export default function CurrentSeasons({
 })
 {
 
-
     return(
         <div
             style={{
                 display:"block",
                 border:'1px solid black',
                 margin:"5% auto",
-                padding:"3%",
-                width:'50%',
-                fontSize:'20px',
-                alignItems:'center'
+                padding:"2%",
+                width:'60%',
+                alignItems:'center',
+                fontSize:'24px'
             }}
         >
             <div>Current Seasons</div>
             {allSeasons.map((oneSeason)=>(
-                <OneSeason
-                    oneSeason={oneSeason}
-                    fetchData={fetchData}
-                    />
+                <div
+                    key={oneSeason.id}>
+                    <OneSeason
+                        oneSeason={oneSeason}
+                        fetchData={fetchData}
+                        />
+                </div>
             ))}
         </div>
 

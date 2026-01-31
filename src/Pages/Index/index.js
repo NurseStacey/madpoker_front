@@ -8,6 +8,8 @@ import Merch from '../Merch/merch'
 import SpecialMessages from '../Special/special';
 import Locations from '../Locations/location';
 import NewPlayer from '../new-player/new-player';
+import LinkToPoints from '../link-to-points/link-to-points';
+
 
 export default function Index(){
     const [RightSideKey, setRighSideKey]=useState('locations')
@@ -39,6 +41,7 @@ export default function Index(){
         (RightSideKey=='special') ?  <SpecialMessages/> :
         (RightSideKey=='locations') ? <Locations/> :
         (RightSideKey=='new_player')? <NewPlayer/>:
+        (RightSideKey=='points')? <LinkToPoints/>:
         <></>}
         </>
     )

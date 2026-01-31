@@ -12,10 +12,17 @@ export default function CurrentRoster({
     const [updateRoster,  setUpdateRoster]=useState(false);
     const [ disableFinalizedButton, setDisableFinalizedButton]=useState(true);
     const [disableUpdateButton, setDisableUpdateButton]=useState(false);
+    const [buttonVisibility, setButtonVisibility]=useState('visible');
 
     useEffect(()=>{
         setDisableFinalizedButton(whichGameID===-1 || whichGameID===undefined)
     },[whichGameID])
+
+    const setVisibility = () =>{
+
+        if (buttonVisibility==='visible') setButtonVisibility('hidden')
+            else setButtonVisibility('visible')
+    }
 
     const finalizeResults = async()=>{
 
@@ -35,7 +42,8 @@ export default function CurrentRoster({
     const buttonStyle={
             height:'50px',
             width:'150px',
-            margin: '0px 10px'
+            margin: '0px 10px',
+            visibility:buttonVisibility
     }
 
     return(
@@ -62,12 +70,22 @@ export default function CurrentRoster({
                     margin:'10px 0px'
                 }}
                 >
+               
                 <My_Button
                     button_function={()=>setUpdateRoster(true)}
                     button_text="Update Roster"
                     button_style={buttonStyle}
                     disable={disableUpdateButton}
                 />
+                <My_Button
+                    button_function={setVisibility}
+                    button_text="Hide Buttons"
+                    button_style={{
+                        height:'50px',
+                        width:'150px',
+                        margin: '0px 10px'}}
+                    disable={false}
+                />                     
                 <My_Button
                     button_function={finalizeResults}
                     button_text="Finalize Results"

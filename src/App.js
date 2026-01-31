@@ -17,7 +17,7 @@ import EditVenues from './Pages/UserPages/edit-venues/edit-venues'
 import EditGames from './Pages/UserPages/games/games'
 import SeasonManagement from './Pages/UserPages/Seasons/seasons-management';
 import GameRoster from './Pages/UserPages/game-roster/game-roster.js'
-import EventManagement from './Pages/UserPages/event-management/event-management.js';
+import EventManagement from './Pages/UserPages/event-management/event-management';
 import GameSection from './Pages/UserPages/game-sections/game-sections';
 
 
