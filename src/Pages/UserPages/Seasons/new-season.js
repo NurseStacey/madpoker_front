@@ -13,11 +13,23 @@ export default function NewSeason({
     })
 
     const handleChange = (e)=>{
-        console.log(e.target)
-        setFormData({
-            ...formData,
-            [e.target.name]:e.target.value
-        })        
+        if (e.target.name==="start_date") {
+            let futureDate = new Date(e.target.value);
+            
+            futureDate.setMonth(futureDate.getMonth()+3)       
+            futureDate.setDate(futureDate.getDate()-1)
+            setFormData({
+                ...formData,
+                [e.target.name]:e.target.value,
+                "end_date":futureDate.toISOString().split('T')[0]
+            })            
+        } else {
+            setFormData({
+                ...formData,
+                [e.target.name]:e.target.value
+            })
+        }
+
     }
 
     const AddSeason = async()=>{

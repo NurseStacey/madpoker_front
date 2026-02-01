@@ -20,11 +20,12 @@ export default function OneWeekDay({
                 {weekDay}
                 {theseGames.map((oneGame)=>(
                     <div
-                    style={{
-                        display:'flex',
-                        width:'100%',
-                        margin:'10px 0px',
-                    }}>
+                        key={oneGame.venue_name}
+                        style={{
+                            display:'flex',
+                            width:'100%',
+                            margin:'10px 0px',
+                        }}>
                         <div
                             style={{
                                 width:'25%',
@@ -41,6 +42,7 @@ export default function OneWeekDay({
                             }}>
                             {oneGame.sections.map((oneSection,index)=>(
                                 <div
+                                    key={oneSection.id}
                                     onClick={()=>RegisterForGame(
                                         oneSection.played_game_id, 
                                         oneGame.venue_name, 

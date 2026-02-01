@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
 import WindowDimensions from '../../utils/window-dimensions';
 import axios from 'axios';
-import MyListBox from '../../Components/Widgets/my-listbox';
+import DropDown from '../../Components/Widgets/drop-down/drop-down'
+import PlayerSearch from './player-search/player-search'
 
 
 export default function LinkToPoints()
@@ -11,6 +12,10 @@ export default function LinkToPoints()
     const [Height, setHeight] =  useState(0)
     const [LeftMargin, setLeftMargin]=useState(0)
     const [allSeasons,  setAllSeasons]=useState([])
+    const[allVenues, setAllVenues]=useState([])
+
+    const[selectedSeason, setSelectedSeason]=useState('')
+    const[selectedVenue, setSelectedVenue]=useState('')
 
     useEffect(()=>{
         setWidth(width*0.60);
@@ -19,8 +24,13 @@ export default function LinkToPoints()
 
         const fetchData = async() =>{
             try {
-                const response = await axios.get("http://127.0.0.1:8000/games/seasons/",);
+                let response = await axios.get("http://127.0.0.1:8000/games/seasons/",);
                 setAllSeasons(response.data)
+                setSelectedSeason(response.data[0].season)
+
+                response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
+                setAllVenues(response.data)
+                setSelectedVenue("-- All Venues --")                
             } catch(err){
                 
             }
@@ -48,7 +58,7 @@ export default function LinkToPoints()
                     marginLeft:'10%',
                     // border:'1px solid black'
                 }}
-            >
+                >
                 <div
                     style={{
                         font:'arial',
@@ -61,29 +71,51 @@ export default function LinkToPoints()
                 <div
                     style={{
                         backgroundColor:'#d7d7ce',
-                        width:'50%',
+                        width:`${0.3*Width}px`,
                         height:'225px',
                         margin:'auto',
-                        display:'block'
+                        display:'block',
+                        border:'1px solid black',
+                        position:'relative'
                     }}>
-                    <div
-                        style={{
-                            display:'flex',
-                            justifyContent:'center'
-                        }}>
-                        <div
-                            style={{
-                                color:"#70727b",
-                                padding:'10px',
-                                fontSize:'12px  '
-                            }}
-                        >
-                            SEASON
-                        </div>
-                        <select name='season'
+                    <DropDown
+                        selectedItem={selectedSeason}
+                        width={0.3*Width}
+                        allItems={allSeasons.map((oneSeason)=>oneSeason.season)}
+                        setSelectedItem={setSelectedSeason}
+                        title="SEASON"
+                        top={0}
+                    />
+                    <DropDown
+                        selectedItem={selectedVenue}
+                        width={0.3*Width}
+                        allItems={["-- All Venues --",...allVenues.map((oneVenue)=>oneVenue.venue_name)]}
+                        setSelectedItem={setSelectedVenue}
+                        title="VENUE"
+                        top={60}
+                    />       
+
+                    <PlayerSearch
+                        width={0.3*Width}
+                        top={120}                    
+                    />
+                </div>
+                <button onClick={Test}>test</button>
+                
+            </div>
+        
+        </div>
+    )
+}
+
+  {/* <select name='season'
+                                size='1'
                                 style={{
-                                width:'400px',
-                                padding:'10px'
+                                // width:'400px',
+                                // padding:'10px',
+                                height:'20px',
+                                overflowY:'scroll',
+                                //display:'none'
                             }}>
                             {allSeasons.map((oneSeason)=>(
                                 <option
@@ -97,19 +129,11 @@ export default function LinkToPoints()
                                     
                                 </option>
                             ))}
-                        </select>
-                    </div>
+                        </select> */}
+                    
                     {/* <MyListBox
                         theList={allSeasons}
                         title="SEASON"
                         titleColor="#70727b"
                         direction="horizontal"
                     /> */}
-                </div>
-                <button onClick={Test}>test</button>
-                
-            </div>
-        
-        </div>
-    )
-}

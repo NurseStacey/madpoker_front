@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import Signup from './signup'
-import Register from './register'
 
 export default function GameRegistrationAndSignup({
     setOpenModal,
@@ -100,11 +99,6 @@ export default function GameRegistrationAndSignup({
                 time={time}
                 section={section}
             />
-            {/* <Register
-                setNewPlayer={setPlayer}
-                newPlayer={player}
-                RegisterAndSignUp={RegisterAndSignUp}
-            /> */}
             </div>
 
     )
