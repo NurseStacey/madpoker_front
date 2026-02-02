@@ -1,6 +1,5 @@
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
 import OneMessage from './one-message'
@@ -8,6 +7,7 @@ import NewMessage from './new-message'
 import UpdateMessage from './one-message-edit'
 import MyButton from '../../../Components/Widgets/my-button'
 import TodayDate from '../../../utils/today-date';
+import AdminButton from '../../../Components/admin-button';
 
 export default function UpdateSpecialMessage()
 {
@@ -17,7 +17,6 @@ export default function UpdateSpecialMessage()
         text:"",
         color:"#000000",
     });    
-    const navigate = useNavigate();
     const [editText, setEditText]=useState(false)
     const [RecordToEdit, setRecordToEdit]=useState({
         date:"",
@@ -99,7 +98,8 @@ export default function UpdateSpecialMessage()
 
             <Title
                 TitleText = "Update Special Message"
-                />      
+                />
+            <AdminButton/>            
             <div
                 style={{
                     display:"block"
@@ -178,16 +178,7 @@ export default function UpdateSpecialMessage()
                             </div>
                     )}  
                 </div>   
-                <MyButton
-                    button_function={()=>navigate("/admin")}
-                    button_text={"Return to Admin"}
-                    button_style={{
-                        height:"100px",
-                        width:"100px",
-                        margin:"auto"
-                    }}
-                    disable={false}
-                />
+
                     {/* <button onClick={Test}>test</button>  */}
         </div>
     )

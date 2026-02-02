@@ -5,7 +5,7 @@ import Title from '../Componenets/Title';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 import WindowDimensions from '../../../utils/window-dimensions';
-import { useNavigate } from "react-router-dom";
+import AdminButton from '../../../Components/admin-button';
 
 export default function EventManagement()
 {
@@ -16,8 +16,7 @@ export default function EventManagement()
     const [event, setEvent]=useState({
         name:"",
         id:-1
-    });
-    const navigate = useNavigate();    
+    });  
 
     const fetchData = async()=>{
         try{
@@ -46,7 +45,7 @@ export default function EventManagement()
             <Title
                 TitleText = "Edit Events"
             />   
-
+            <AdminButton/>
             <div
                 style={{
                     display:"flex",
@@ -67,17 +66,7 @@ export default function EventManagement()
                     setEvent={setEvent}           
                 />
 
-            </div>
-            <MyButton
-                button_function={()=>navigate("/admin")}
-                button_text={"Return to Admin"}
-                button_style={{
-                    height:"100px",
-                    width:"100px",
-                    margin:"auto"
-                }}
-                disable={false}
-            />         
+            </div>  
 
         </div>
     )

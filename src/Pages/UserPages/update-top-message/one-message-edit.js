@@ -68,14 +68,15 @@ export default function UpdateMessage({
                 className="SubTitle"
             >
                     Update Text
-                </div>            
+            </div>            
             <div
                 style={{
                     display:"flex",
                     flexDirection:"row",
                     justifyContent:"center",
                     margin:"40px 15%",
-                    border:"1px solid black"
+                    border:"1px solid black",
+                    width:'80%'
                 }}>
                 
                 <MyInputColumn

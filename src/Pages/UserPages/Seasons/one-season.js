@@ -35,7 +35,7 @@ export default function OneSeason({
     const UpdateSeason = async()=>{
         try{
             
-            const response = await axios.patch(`http://127.0.0.1:8000/games/oneseason/${formData.id}/`,formData);
+            const response = await axios.patch(`http://127.0.0.1:8000/seasons/oneseason/${formData.id}/`,formData);
             console.log(response)
             fetchData()
             setFormData({

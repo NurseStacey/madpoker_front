@@ -1,19 +1,16 @@
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
-import MyButton from '../../../Components/Widgets/my-button';
 import NewSection from './new-sections';
 import CurrentSection from './current-sections';
-//import {BlankFormData,FormObject} from './blank-form-data';
+import AdminButton from '../../../Components/admin-button';
 import  {CreateFormObj,BlankFormData} from './blank-form-data';
 
 export default function GameSection(){
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
-    const navigate = useNavigate();
     const [formObj, setFormObj]=useState(CreateFormObj())
     const [allSections, setAllSections]=useState([])
     const [selectedSection,setSelectedSection]=useState(null)
@@ -128,17 +125,8 @@ export default function GameSection(){
             <Title
                 TitleText = "Edit Game Sections"
             />   
-            {/* <button onClick={Test}>Test</button> */}
-            <MyButton
-                button_function={()=>navigate("/admin")}
-                button_text={"Return to Admin"}
-                button_style={{
-                    height:"75px",
-                    width:"100px",
-                    margin:"2% auto"
-                }}
-                disable={false}
-            />               
+            <AdminButton/>
+            
             <button onClick={Test}>test</button>
             <div
                 style={{

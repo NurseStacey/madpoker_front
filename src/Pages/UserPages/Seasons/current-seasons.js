@@ -12,7 +12,7 @@ export default function CurrentSeasons({
             style={{
                 display:"block",
                 border:'1px solid black',
-                margin:"5% auto",
+                margin:"1% auto",
                 padding:"2%",
                 width:'60%',
                 alignItems:'center',

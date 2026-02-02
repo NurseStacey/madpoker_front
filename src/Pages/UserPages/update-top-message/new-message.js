@@ -49,14 +49,19 @@ export default function NewMessage({
                 display:"block"
             }}
             >
-
+            <div
+                className="SubTitle"
+            >
+                    New Text
+            </div>            
             <div
                 style={{
                     display:"flex",
                     flexDirection:"row",
                     justifyContent:"center",
                     margin:"40px 15%",
-                    border:"1px solid black"
+                    border:"1px solid black",
+                    width:'80%'
                 }}>
                 
                 <MyInputColumn

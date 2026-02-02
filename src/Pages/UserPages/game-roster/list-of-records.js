@@ -41,7 +41,7 @@ export default function ListOfRecords({
     const UpdateRoster=async ()=>{
 
         try{
-            const response = await axios.post("http://127.0.0.1:8000/games/update_roster/",{allUsers:currentRoster});
+            const response = await axios.post("http://127.0.0.1:8000/gameresults/update_roster/",{allUsers:currentRoster});
         }catch(err){
 
             if (err.response.data['result']==='problem') {
@@ -92,7 +92,7 @@ export default function ListOfRecords({
 
         if (whichGameID !== undefined && whichGameID!==-1) {
             try{
-                const response = await axios.get(`http://127.0.0.1:8000/games/game_roster/${whichGameID}`,);
+                const response = await axios.get(`http://127.0.0.1:8000/game_roster/game_roster/${whichGameID}`,);
                 console.log(response.data)   
                 setNumberPlayers(response.data.length);
                 setCurrentRoster(response.data.sort((a,b)=>a.player_name.localeCompare(b.player_name)));

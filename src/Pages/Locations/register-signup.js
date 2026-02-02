@@ -52,7 +52,7 @@ export default function GameRegistrationAndSignup({
             which_game:gameID
         }
         try{
-            const response = await axios.post(`http://127.0.0.1:8000/games/register_player_for_game/`,data_to_send)
+            const response = await axios.post(`http://127.0.0.1:8000/gameresults/register_player_for_game/`,data_to_send)
             console.log(response)
             if(response.status===201) alert('You are registered for this game.')
                 else  alert('There was an issue with registration.  Please let a director know.');

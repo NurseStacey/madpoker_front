@@ -14,8 +14,6 @@ export default function TopMessage({
     const [messages, setMessages]=useState([])
     const [fontSize, setfontSize]=useState(28)
 
-
-
     useEffect(()=>{
         //console.log(LocalHeight)
         if (LocalHeight>0) fetchData()
@@ -25,8 +23,7 @@ export default function TopMessage({
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/website_data/homepagetext",);
-            //console.log('here')
-            //let tempMessageArray=response.data.sort((a,b)=>a.order=b.order)
+
             let finalMessageArray=[]
             let numberLines=0
             let numberOfMargins=0

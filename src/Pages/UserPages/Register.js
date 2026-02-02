@@ -1,7 +1,6 @@
-import React from 'react';
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import AdminButton from '../../Components/admin-button';
 import WindowDimensions from '../../utils/window-dimensions';
 import Title from './Componenets/Title';
 import MyButton from '../../Components/Widgets/my-button';
@@ -9,7 +8,6 @@ import MyInput from '../../Components/Widgets/my-input';
 
 
 export default function Register(){
-    const navigate = useNavigate();
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);
@@ -133,22 +131,13 @@ export default function Register(){
                         button_function={handlesubmit}
                         button_text={"Add Director"}  
                         button_style={{
-                            margin:"25px auto",
-                            height:"75px",
-                            width:"100px"
+                            height:"100px",
+                            width:"100px",
+                            margin:"1% auto"
                         }}
                         disable={false}              
                     />
-                    <MyButton
-                        button_function={()=>navigate("/admin",)}
-                        button_text={"Return to Admin Page"}  
-                        button_style={{
-                            margin:"25px auto",
-                            height:"75px",
-                            width:"100px"
-                        }}     
-                        disable={false}         
-                    />                    
+                    <AdminButton/>                    
                 </div>                                     
             </div>
             

@@ -1,12 +1,10 @@
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
-
 import NewMessage from './new-message'
 import UpdateMessage from './one-message-edit'
-import MyButton from '../../../Components/Widgets/my-button'
+import AdminButton from '../../../Components/admin-button';
 import CurrentMessages from './current-messages'
 
 
@@ -17,7 +15,7 @@ export default function UpdateTopMessage()
         text:"",
         color:"#000000",
     });    
-    const navigate = useNavigate();
+
     const [editText, setEditText]=useState(false)
     const [RecordToEdit, setRecordToEdit]=useState({
         order:"",
@@ -81,16 +79,7 @@ export default function UpdateTopMessage()
             <Title
                 TitleText = "Update Top Message on Home Page"
                 />      
-                <MyButton
-                    button_function={()=>navigate("/admin")}
-                    button_text={"Return to Admin"}
-                    button_style={{
-                        height:"70px",
-                        width:"150px",
-                        margin:"20px auto"
-                    }}
-                    disable={false}
-                />                
+            <AdminButton/>            
             <div
                 style={{
                     display:"block"

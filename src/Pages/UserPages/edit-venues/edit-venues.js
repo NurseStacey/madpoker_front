@@ -1,11 +1,11 @@
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
-import MyButton from '../../../Components/Widgets/my-button';
 import NewVenue from './new-venue';
 import CurrentVenues from './current-venues';
+import AdminButton from '../../../Components/admin-button';
+
 
 export default function EditVenues()
 {
@@ -14,7 +14,6 @@ export default function EditVenues()
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
-    const navigate = useNavigate();
     const [allVenues, setAllVenues]=useState([]);
     const [formData, setFormData]=useState({
         venue_name:"",
@@ -61,6 +60,7 @@ export default function EditVenues()
                     marginTop:"50px"
                 }}
             >
+                <AdminButton/>
                 <NewVenue
                     fetchData={fetchData}
                     setFormData={setFormData}
@@ -76,17 +76,7 @@ export default function EditVenues()
                     formData={formData}                    
                 />
 
-            </div>
-            <MyButton
-                button_function={()=>navigate("/admin")}
-                button_text={"Return to Admin"}
-                button_style={{
-                    height:"100px",
-                    width:"100px",
-                    margin:"auto"
-                }}
-                disable={false}
-            />         
+            </div>    
 
         </div>
     )

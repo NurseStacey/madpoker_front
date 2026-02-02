@@ -35,12 +35,13 @@ export default function NewSeason({
     const AddSeason = async()=>{
         try{
 
-            const response = await axios.post("http://127.0.0.1:8000/games/seasons/",formData);
+            const response = await axios.post("http://127.0.0.1:8000/seasons/seasons/",formData);
             
             fetchData()
             setFormData({
-                SeasonNumber:"",
-                StartDate:"2026-01-01"
+                season:"",
+                start_date:"2026-01-01",
+                end_date:"2026-03-31"
             })
         }catch(err){
             alert('Problem creating season')
@@ -52,7 +53,7 @@ export default function NewSeason({
             style={{
                 display:"block",
                 border:'1px solid black',
-                margin:"5% auto",
+                margin:"1% auto",
                 padding:"3%",
                 width:'40%',
                 fontSize:'20px',
