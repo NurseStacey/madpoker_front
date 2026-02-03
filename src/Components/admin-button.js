@@ -9,7 +9,7 @@ export default function AdminButton(){
             button_function={()=>navigate("/admin")}
             button_text={"Return to Admin"}
             button_style={{
-                height:"100px",
+                height:"80px",
                 width:"100px",
                 margin:"1% auto"
             }}

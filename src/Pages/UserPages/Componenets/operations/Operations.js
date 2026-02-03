@@ -21,6 +21,11 @@ export default function Operations({
                 NavigationFunction={NavigationFunction}
             />
             <OneOperationButton
+                buttonText="Edit Directors"
+                buttonLink="/edit_directors"
+                NavigationFunction={NavigationFunction}
+            />            
+            <OneOperationButton
                 buttonText="Update Top Message"
                 buttonLink="/update_top"
                 NavigationFunction={NavigationFunction}
