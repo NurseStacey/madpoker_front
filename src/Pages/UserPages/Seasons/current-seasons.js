@@ -3,6 +3,7 @@ import OneSeason from './one-season';
 
 export default function CurrentSeasons({
     allSeasons,
+    seasonTypes,
     fetchData
 })
 {
@@ -25,6 +26,7 @@ export default function CurrentSeasons({
                     key={oneSeason.id}>
                     <OneSeason
                         oneSeason={oneSeason}
+                        seasonTypes={seasonTypes}
                         fetchData={fetchData}
                         />
                 </div>

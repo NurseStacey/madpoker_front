@@ -5,9 +5,12 @@ import MyInput from '../../../Components/Widgets/my-input';
 
 export default function OneSeason({
     oneSeason,
+    seasonTypes,
     fetchData
 })
 {
+
+
     const [formData, setFormData]=useState({
         season:oneSeason.season,
         start_date:oneSeason.start_date,
@@ -16,11 +19,13 @@ export default function OneSeason({
     })
 
     useEffect(()=>{
+        console.log(oneSeason)
         setFormData({
             season:oneSeason.season,
             start_date:oneSeason.start_date,
             end_date:oneSeason.end_date,
-            id:oneSeason.id
+            id:oneSeason.id,
+            season_type:oneSeason.season_type
         })
     },[oneSeason])
 
@@ -50,6 +55,7 @@ export default function OneSeason({
         }              
     }
 
+    const test=()=>{console.log(seasonTypes)}
 
     return(
         <div
@@ -67,18 +73,38 @@ export default function OneSeason({
                         paddingTop:'10px'
                     }}
                 >
-                    <div>
-                        <MyInput
-                            labelText="Season"
-                            handleChange={handleChange}
-                            inputValue={formData.season}
-                            inputName="season"
-                            inputType="text"
-                            inputStyle={{
-                                margin:'0px'
-                            }}
-                        />                    
-                    </div> 
+                    <div
+                        style={{
+                            display:'flex',
+                            justifyContent:'space-between',
+                            width:'100%',
+                            
+                        }}
+                        >
+                        <div>
+                            <MyInput
+                                labelText="Season"
+                                handleChange={handleChange}
+                                inputValue={formData.season}
+                                inputName="season"
+                                inputType="text"
+                                inputStyle={{
+                                    margin:'0px',
+                                    width:'400px'
+                                }}
+                            />                    
+                        </div>
+                        <div
+                            style={{
+                                display:'flex'
+                            }}>
+                            <div>Season Type: </div> 
+                            <div>
+                                    {oneSeason.seasonTypeText}
+                            </div>
+                        </div>
+                    </div>
+                 
                     <div
                         style={{
                             display:'flex',

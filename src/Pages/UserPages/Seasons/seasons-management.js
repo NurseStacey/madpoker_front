@@ -11,7 +11,7 @@ export default function SeasonManagement()
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);  
-
+    const [seasonTypes, setSeasonTypes]=useState([])    
     const [allSeasons, setAllSeasons]=useState([])
 
     useEffect(()=>{
@@ -25,11 +25,20 @@ export default function SeasonManagement()
 
             const response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);
             setAllSeasons(response.data)
-            console.log(response.data)
+            //console.log(response.data)
 
         }catch(err){
             alert('Problem getting current seasons')
         }        
+        try{
+
+            const response = await axios.get("http://127.0.0.1:8000/seasons/seasontypes/",);
+            setSeasonTypes(response.data)
+            console.log(response.data)
+
+        }catch(err){
+            alert('Problem getting season types')
+        }              
     }
 
     return(
@@ -51,10 +60,12 @@ export default function SeasonManagement()
                 }}
                 >
                 <NewSeason
+                    seasonTypes={seasonTypes}
                     fetchData={fetchData}/>
                 
                 <CurrentSeasons
                     allSeasons={allSeasons}
+                    seasonTypes={seasonTypes}
                     fetchData={fetchData}
                 />
             </div>
