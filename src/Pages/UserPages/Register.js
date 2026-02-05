@@ -1,6 +1,5 @@
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import AdminButton from '../../Components/admin-button';
 import WindowDimensions from '../../utils/window-dimensions';
 import Title from './Componenets/Title';
 import MyButton from '../../Components/Widgets/my-button';
@@ -137,7 +136,7 @@ export default function Register(){
                         }}
                         disable={false}              
                     />
-                    <AdminButton/>                    
+        
                 </div>                                     
             </div>
             

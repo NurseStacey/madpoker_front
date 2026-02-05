@@ -4,7 +4,6 @@ import Title from '../Componenets/Title';
 import MyButton from '../../../Components/Widgets/my-button';
 import SelectGame from './select-game'
 import CurrentRoster from './current-roster'
-import AdminButton from '../../../Components/admin-button';
 
 export default function GameRoster()
 {
@@ -34,7 +33,6 @@ export default function GameRoster()
             <Title
                 TitleText = "View Game Roster"
             />  
-            <AdminButton/>
                
             <SelectGame
                 setWhichDate={setWhichDate}

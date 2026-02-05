@@ -8,7 +8,8 @@ export default function DropDown({
     allItems,
     setSelectedItem,
     title,
-    top
+    top,
+    DropDownStyle
 })
 {
     const [dropDownClicked, setDropDownClicked]=useState(false)
@@ -18,7 +19,8 @@ export default function DropDown({
             style={{
                 position:'absolute',
                 width:`${width}px`,
-                top:`${top}px`
+                top:`${top}px`,
+                ...DropDownStyle
             }}>
             <DropDownHeader
                 selectedItem={selectedItem}

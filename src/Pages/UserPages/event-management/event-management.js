@@ -5,7 +5,6 @@ import Title from '../Componenets/Title';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 import WindowDimensions from '../../../utils/window-dimensions';
-import AdminButton from '../../../Components/admin-button';
 
 export default function EventManagement()
 {
@@ -45,7 +44,7 @@ export default function EventManagement()
             <Title
                 TitleText = "Edit Events"
             />   
-            <AdminButton/>
+
             <div
                 style={{
                     display:"flex",

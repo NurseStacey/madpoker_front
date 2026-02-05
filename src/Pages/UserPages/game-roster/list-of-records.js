@@ -54,45 +54,45 @@ export default function ListOfRecords({
     }
 
     const GetOtherEvents=async()=>{
-        if (whichGameID !== undefined && whichGameID!==-1) {
-            try{
-                const response = await axios.get(`http://127.0.0.1:8000/games/played_games_events/${whichGameID}`,);
-               // console.log(response.data)   
-                setOtherEvents(response.data);
-                let numberOtherEvents = response.data.length;
-                //console.log(gridTemplatePercents)
-                if (numberOtherEvents>0){
-                    let newArray=[];
+        // if (whichGameID !== undefined && whichGameID!==-1) {
+        //     try{
+        //         const response = await axios.get(`http://127.0.0.1:8000/games/played_games_events/${whichGameID}`,);
+        //        // console.log(response.data)   
+        //         setOtherEvents(response.data);
+        //         let numberOtherEvents = response.data.length;
+        //         //console.log(gridTemplatePercents)
+        //         if (numberOtherEvents>0){
+        //             let newArray=[];
                     
-                    let eventButtonLength=0;
-                    defaultPercents.map((oneValue)=>{
-                        //console.log(oneValue)
-                        if (oneValue>10) {
-                            eventButtonLength += Math.floor(oneValue*0.1);
-                            oneValue = Math.floor(oneValue*0.9);
-                        }
-                        //console.log(oneValue)
-                        newArray.push(oneValue);
-                    })
-                    for (let i=0;i<numberOtherEvents;i++){
-                        newArray.push(eventButtonLength/numberOtherEvents);
-                    }
-                    //console.log('here')
-                    setGridTemplatePercents(newArray);  
-                    //console.log(newArray)                
-                } else setGridTemplatePercents(defaultPercents)
+        //             let eventButtonLength=0;
+        //             defaultPercents.map((oneValue)=>{
+        //                 //console.log(oneValue)
+        //                 if (oneValue>10) {
+        //                     eventButtonLength += Math.floor(oneValue*0.1);
+        //                     oneValue = Math.floor(oneValue*0.9);
+        //                 }
+        //                 //console.log(oneValue)
+        //                 newArray.push(oneValue);
+        //             })
+        //             for (let i=0;i<numberOtherEvents;i++){
+        //                 newArray.push(eventButtonLength/numberOtherEvents);
+        //             }
+        //             //console.log('here')
+        //             setGridTemplatePercents(newArray);  
+        //             //console.log(newArray)                
+        //         } else setGridTemplatePercents(defaultPercents)
 
-                }catch(err){
-                    alert(`There was an issue with getting the other events.  Error code ${err.status}`)
-                }
-            }
+        //         }catch(err){
+        //             alert(`There was an issue with getting the other events.  Error code ${err.status}`)
+        //         }
+        //     }
     }
 
     const GetRoster=async()=>{
 
         if (whichGameID !== undefined && whichGameID!==-1) {
             try{
-                const response = await axios.get(`http://127.0.0.1:8000/game_roster/game_roster/${whichGameID}`,);
+                const response = await axios.get(`http://127.0.0.1:8000/gameresults/game_roster/${whichGameID}`,);
                 console.log(response.data)   
                 setNumberPlayers(response.data.length);
                 setCurrentRoster(response.data.sort((a,b)=>a.player_name.localeCompare(b.player_name)));

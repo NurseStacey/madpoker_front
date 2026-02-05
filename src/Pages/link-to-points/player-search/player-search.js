@@ -13,10 +13,12 @@ export default function PlayerSearch({
 
     return(
         <div
+            onBlur={()=>setOpenList(false)}
             style={{
                 position:'absolute',
                 width:`${width}px`,
-                top:`${top}px`
+                top:`${top}px`,
+                zIndex:3
             }}>
             <SearchInput
                 searchBarInput={searchBarInput}

@@ -6,5 +6,6 @@ export const BlankFormData={
     venue:-1,
     active:true,
     description:'',
-    director:-1
+    director:-1,
+    season_type:-1
 }

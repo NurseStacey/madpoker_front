@@ -1,4 +1,4 @@
-import MyButton from './Widgets/my-button';
+import MyButton from '../../../Components/Widgets/my-button';
 import { useNavigate } from "react-router-dom";
 
 export default function AdminButton(){
@@ -11,7 +11,6 @@ export default function AdminButton(){
             button_style={{
                 height:"80px",
                 width:"100px",
-                margin:"1% auto"
             }}
             disable={false}
         />          

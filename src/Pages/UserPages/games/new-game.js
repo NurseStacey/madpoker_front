@@ -2,6 +2,7 @@ import MyButton from '../../../Components/Widgets/my-button';
 import MyInput from '../../../Components/Widgets/my-input';
 import MyDropdownText from '../../../Components/Widgets/my-dropdown-text';
 import MyTextArea from '../../../Components/Widgets/my-textarea';
+import MyListBox from '../../../Components/Widgets/my-listbox';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {WeekDays} from '../../../Components/weekdays';
@@ -14,8 +15,10 @@ export default function NewGame({
     selectedGame
 })
 {
-    const [allDirectors, setAllDirectors]=useState([])
-    const [allVenues, setAllVenues]=useState([])
+    const [allDirectors, setAllDirectors]=useState([]);
+    const [allVenues, setAllVenues]=useState([]);
+    const [allSeasonType, setAllSeasonStypes]=useState([]);
+    const [seasonTypeText, setSeasonTypeText]=useState('In Person');
 
     useEffect(()=>{
 
@@ -62,32 +65,54 @@ export default function NewGame({
             }catch(err){
                 alert('Problem getting venues.');
             }
-        }            
+        } 
+        
+        const fetchSeasonTypes = async()=>{
+            try{
+                const response = await axios.get("http://127.0.0.1:8000/seasons/seasontypes/",);
+                //console.log(response.data)
+                setAllSeasonStypes(response.data)
+                setFormData({
+                    ...formData,
+                    season_type:response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person').id
+                })  
+            }catch(err){
+                alert('Problem getting venues.');
+            }            
+        }
         fetchDirectors();
         fetchVenues();
+        fetchSeasonTypes();
     },[])
 
     const HandelChange = (e)=>{
         setFormData({...formData, ...{[e.target.name]:e.target.value}})      
     }
 
+    const SeasonTypeSelected=(thisType)=>{
+        setSeasonTypeText(thisType);
+        setFormData({
+            ...formData,
+            season_type:allSeasonType.find((oneSeason)=>oneSeason.season_type===thisType).id
+        });        
+    }
     const DirectorSelected=(e)=>{
 
         setFormData({
             ...formData,
             director:allDirectors.find((oneDirector)=>e.target.value===oneDirector.username).id
-        })
+        });
     }    
 
     const VenueSelected=(e)=>{
         setFormData({
             ...formData,
             venue:allVenues.find((oneVenue)=>e.target.value===oneVenue.venue_name).id
-        })
+        });
     }
 
     const Test=()=>{
-        console.log(allDirectors)
+        console.log(allSeasonType);
     }
 
     const AddGame = async()=>{
@@ -109,7 +134,7 @@ export default function NewGame({
             style={{
                 display:"block",
                 width:"40%",
-                margin:"0% 5%",
+                margin:"2   % 5%",
                 border:'1px solid black',
                 padding:'10px'
             }}>
@@ -162,17 +187,39 @@ export default function NewGame({
                         }}
                     />                    
                 </div>
-            <MyTextArea
-                labelText="Game Description"
-                handleChange={HandelChange}
-                inputValue={formData.description}
-                inputName="description"
-                cols="20"
-                rows="6"
-                labelStyle={{
-                    fontSize:'20px'
-                }}
-            />                          
+                <div
+                    style={{
+                        display:"flex",
+                        justifyContent:"space-around",
+                        height:'175px',
+                        border:'1px solid black',
+                        
+                    }}
+                >
+                    <MyTextArea
+                        labelText="Game Description"
+                        handleChange={HandelChange}
+                        inputValue={formData.description}
+                        inputName="description"
+                        cols="20"
+                        rows="6"
+                        labelStyle={{
+                            fontSize:'20px'
+                        }}
+                    />
+                    <MyListBox
+                        theList={allSeasonType.map((oneSeasonType)=>oneSeasonType.season_type)}
+                        title="Type"
+                        titleColor="black"
+                        direction="vertical"
+                        ListBoxStyle={{
+                            width:'150px'
+                        }}
+                        selectedItem={seasonTypeText}
+                        setSelection={SeasonTypeSelected}
+                    />                     
+                </div>    
+                            
                 <MyButton
                     button_function={AddGame}
                     disable={selectedGame!==null}

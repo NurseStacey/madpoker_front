@@ -4,7 +4,6 @@ import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
 import NewSection from './new-sections';
 import CurrentSection from './current-sections';
-import AdminButton from '../../../Components/admin-button';
 import  {CreateFormObj,BlankFormData} from './blank-form-data';
 
 export default function GameSection(){
@@ -125,7 +124,6 @@ export default function GameSection(){
             <Title
                 TitleText = "Edit Game Sections"
             />   
-            <AdminButton/>
             
             <button onClick={Test}>test</button>
             <div

@@ -37,11 +37,21 @@ export default function OneSeason({
         })        
     }
     
+    const DeleteSeason = async()=>{
+        try{
+            
+            const response = await axios.delete(`http://127.0.0.1:8000/seasons/oneseason/${formData.id}/`,);
+            fetchData()
+
+        }catch(err){
+            console.log(err);
+        }      
+    }
+    
     const UpdateSeason = async()=>{
         try{
             
             const response = await axios.patch(`http://127.0.0.1:8000/seasons/oneseason/${formData.id}/`,formData);
-            console.log(response)
             fetchData()
             setFormData({
                 season:oneSeason.season,
@@ -148,6 +158,17 @@ export default function OneSeason({
                 }}
                 disable={false}            
             />
+            <MyButton
+                button_function={DeleteSeason}
+                button_text={"Delete Season"}
+                button_style={{
+                    height:"50px",
+                    width:"70px",
+                    margin:"auto",
+                    fontSize:'16px'
+                }}
+                disable={false}            
+            />            
         </div>
     )
 }

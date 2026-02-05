@@ -4,7 +4,6 @@ import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
 import NewVenue from './new-venue';
 import CurrentVenues from './current-venues';
-import AdminButton from '../../../Components/admin-button';
 
 
 export default function EditVenues()
@@ -60,7 +59,7 @@ export default function EditVenues()
                     marginTop:"50px"
                 }}
             >
-                <AdminButton/>
+
                 <NewVenue
                     fetchData={fetchData}
                     setFormData={setFormData}

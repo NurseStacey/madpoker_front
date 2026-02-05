@@ -4,7 +4,6 @@ import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
 import NewMessage from './new-message'
 import UpdateMessage from './one-message-edit'
-import AdminButton from '../../../Components/admin-button';
 import CurrentMessages from './current-messages'
 
 
@@ -78,8 +77,7 @@ export default function UpdateTopMessage()
 
             <Title
                 TitleText = "Update Top Message on Home Page"
-                />      
-            <AdminButton/>            
+                />                 
             <div
                 style={{
                     display:"block"

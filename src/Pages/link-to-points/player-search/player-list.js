@@ -12,8 +12,8 @@ export default function PlayerList({
     const [thesePlayers, setThesePlayers]=useState([])
 
     const playerClicked=(id)=>{
-        setSelectedPlayer(allPlayers.find((onePlayer)=>onePlayer.id===id))
-        setDropDownClicked(false)
+        setSelectedPlayer(allPlayers.find((onePlayer)=>onePlayer.id===id));
+        setDropDownClicked(false);
     }
 
     useEffect(()=>{

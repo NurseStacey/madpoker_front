@@ -85,6 +85,9 @@ export default function LinkToPoints()
                         setSelectedItem={setSelectedSeason}
                         title="SEASON"
                         top={0}
+                        DropDownStyle={{
+                            zIndex:6
+                        }}                        
                     />
                     <DropDown
                         selectedItem={selectedVenue}
@@ -93,6 +96,9 @@ export default function LinkToPoints()
                         setSelectedItem={setSelectedVenue}
                         title="VENUE"
                         top={60}
+                        DropDownStyle={{
+                            zIndex:5
+                        }}
                     />       
 
                     <PlayerSearch

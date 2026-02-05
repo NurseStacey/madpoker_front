@@ -4,7 +4,7 @@ import WindowDimensions from '../../../utils/window-dimensions'
 import Title from '../Componenets/Title';
 import NewSeason from './new-season'
 import CurrentSeasons from './current-seasons';
-import AdminButton from '../../../Components/admin-button';
+
 
 export default function SeasonManagement()
 {
@@ -52,7 +52,7 @@ export default function SeasonManagement()
             <Title
                 TitleText = "Season Management"
             />  
-            <AdminButton/>
+
             <div
                 style={{
                     display:'flex',

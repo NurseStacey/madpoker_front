@@ -3,7 +3,7 @@ import Title from '../Componenets/Title';
 import {useState,useEffect} from 'react';
 import axios from 'axios';
 import OneDirector from './one-director';
-import AdminButton from '../../../Components/admin-button';
+
 
 export default function EditDirectors()
 {
@@ -39,7 +39,6 @@ export default function EditDirectors()
             <Title
                 TitleText = "Edit Directors"
             />
-            <AdminButton/>
             <div
                 style={{
                     display:'block',

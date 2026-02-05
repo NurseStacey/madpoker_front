@@ -19,7 +19,7 @@ export default function OneWeekDay({
             }}>
                 {weekDay}
                 {theseGames.map((oneGame)=>(
-                    <div
+                     <div
                         key={oneGame.venue_name}
                         style={{
                             display:'flex',
@@ -56,7 +56,7 @@ export default function OneWeekDay({
                                         {oneSection.description}
                                 </div>
                             ))}
-                        </div>
+                        </div> 
                     </div>))}
         </div>        
     )

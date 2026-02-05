@@ -2,17 +2,14 @@ import MyButton from '../../../Components/Widgets/my-button';
 import MyInput from '../../../Components/Widgets/my-input';
 import axios from 'axios'
 import {useEffect, useState} from 'react';
+import {defaultForm} from './default-form-data';
+
 
 export default function NewSeason({
     seasonTypes,
     fetchData
 }){
-    const [formData, setFormData]=useState({
-        season:"",
-        start_date:"2026-01-01",
-        end_date:"2026-03-31",
-        season_type:'In Person'
-    })
+    const [formData, setFormData]=useState(defaultForm)
     const [seasonTypeText, setSeasonTypeText]=useState('');
 
     const seasonTypeClicked = (oneSeasonType)=>{setFormData({
@@ -25,7 +22,11 @@ export default function NewSeason({
 
         if (e.target.name==="season_type"){
             
-            seasonTypeClicked(seasonTypes.find((oneSeason)=>oneSeason.season_type.toLowerCase()===e.target.value.toLowerCase()).id);
+            
+            if (seasonTypes.find((oneSeason)=>oneSeason.season_type.toLowerCase()===e.target.value.toLowerCase())!==undefined)
+                seasonTypeClicked(seasonTypes.find((oneSeason)=>oneSeason.season_type.toLowerCase()===e.target.value.toLowerCase()).id);
+            else seasonTypeClicked(-1)
+
             setSeasonTypeText(e.target.value);
             return;
         }
@@ -51,21 +52,18 @@ export default function NewSeason({
     const AddSeason = async()=>{
         try{
             let data_to_send=formData
-            if (formData.season_type===undefined){
+            if (formData.season_type===-1){
                 data_to_send={
                     ...formData,
                     season_type_text:seasonTypeText
                 }
             }
 
-            const response = await axios.post("http://127.0.0.1:8000/seasons/seasons/",formData);
+            const response = await axios.post("http://127.0.0.1:8000/seasons/seasons/",data_to_send);
             
             fetchData()
-            setFormData({
-                season:"",
-                start_date:"2026-01-01",
-                end_date:"2026-03-31"
-            })
+            setFormData(defaultForm);
+            setSeasonTypeText("")
         }catch(err){
             alert('Problem creating season')
         }        
@@ -90,7 +88,7 @@ export default function NewSeason({
             <MyInput
                 labelText="Season"
                 handleChange={handleChange}
-                inputValue={formData.season}
+                inputValue={formData.season}    
                 inputName="season"
                 inputType="text"
             />
@@ -129,6 +127,7 @@ export default function NewSeason({
                             key={oneType.id}
                             onClick={()=>seasonTypeClicked(oneType.id)}
                             style={{
+                                textAlign:'left',
                                 backgroundColor:(formData.season_type===oneType.id)?'limegreen':'white'
                             }}
                             >

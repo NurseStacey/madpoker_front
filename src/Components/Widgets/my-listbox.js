@@ -4,7 +4,10 @@ export default function MyListBox({
     theList,
     title,
     titleColor,
-    direction
+    direction,
+    ListBoxStyle,
+    selectedItem,
+    setSelection
 })
 {
     return(
@@ -12,7 +15,9 @@ export default function MyListBox({
             style={{
                 display:'flex',
                 flexDirection:(direction==='horizontal' ? 'row' : 'column'),
-                justifyContent:'center'
+                justifyContent:'flex-start',
+                ...ListBoxStyle
+
             }}>
             <div
                 style={{
@@ -25,14 +30,20 @@ export default function MyListBox({
                 style={{
                     backgroundColor:'white',
                     color:'black',
-                    padding:'5%'
+                    padding:'5%',
+                    border:'1px solid black',
+                    width:'100%'
                 }}>
-                {/* {theList.map((oneItem)=>(
+                {theList.map((oneItem)=>(
                     <div
-                        key={oneItem}>
+                        onClick={()=>setSelection(oneItem)}
+                        key={oneItem}
+                        style={{
+                            backgroundColor:(selectedItem===oneItem)?'limegreen':'white'
+                        }}>
                         {oneItem}
                     </div>
-                ))} */}
+                ))} 
             </div>
         </div>
     )

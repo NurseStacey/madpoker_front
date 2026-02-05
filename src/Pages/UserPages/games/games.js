@@ -2,7 +2,6 @@ import NewGame from './new-game'
 import CurrentGames from './current-games';
 import {useState,useEffect} from 'react';
 import axios from 'axios';
-import AdminButton from '../../../Components/admin-button';
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
 import { BlankFormData } from './blank-form-data';
@@ -50,8 +49,7 @@ export default function EditGames()
             <Title
                 TitleText = "Edit Games"
             />   
-            <AdminButton/>
-            {/* <button onClick={Test}>test</button> */}
+
             <div
                 style={{
                     display:"flex",

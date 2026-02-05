@@ -5,9 +5,8 @@ import Title from '../Componenets/Title';
 import OneMessage from './one-message'
 import NewMessage from './new-message'
 import UpdateMessage from './one-message-edit'
-import MyButton from '../../../Components/Widgets/my-button'
 import TodayDate from '../../../utils/today-date';
-import AdminButton from '../../../Components/admin-button';
+
 
 export default function UpdateSpecialMessage()
 {
@@ -98,8 +97,7 @@ export default function UpdateSpecialMessage()
 
             <Title
                 TitleText = "Update Special Message"
-                />
-            <AdminButton/>            
+                />         
             <div
                 style={{
                     display:"block"
