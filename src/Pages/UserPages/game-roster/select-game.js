@@ -109,7 +109,7 @@ export default function SelectGame({
 
             }}
         >
-            <button onClick={Test}>test</button>
+            {/* <button onClick={Test}>test</button> */}
             <MyDropdownText
                 optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
                 setSelectedOption={HandelChange}

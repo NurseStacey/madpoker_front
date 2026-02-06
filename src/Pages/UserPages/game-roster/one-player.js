@@ -47,7 +47,7 @@ export default function OnePlayer({
 
     const RemovePlayer=async(id)=>{
         try{
-            const response = await axios.delete(`http://127.0.0.1:8000/games/remove_layer_from_game/${id}/`,);
+            const response = await axios.delete(`http://127.0.0.1:8000/gameresults/remove_player_from_game/${id}/`,);
             GetRoster()
         }catch(err){
             alert('Error deleting venue')

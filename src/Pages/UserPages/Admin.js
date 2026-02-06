@@ -22,14 +22,14 @@ export default function Admin(){
         const checkLoggedInUser=async()=>{
             try{
                 const token=localStorage.getItem("accessToken");
-                console.log(token)
+
                 if (token){
                     const config={
                         headers:{
                             'Authorization':`Bearer ${token}`
                         }
                     };
-                    console.log(config)
+
                     const response = await axios.get("http://127.0.0.1:8000/login_api/user/", config);
 
                     setisLoggedIn(true);
@@ -54,29 +54,29 @@ export default function Admin(){
         navigate(whereTo,)  
     }
 
-    const handleLogout = async () =>{
-        try{
-            const accessToken = localStorage.getItem("accessToken");
-            const refreshToken = localStorage.getItem("refreshToken");
+    // const handleLogout = async () =>{
+    //     try{
+    //         const accessToken = localStorage.getItem("accessToken");
+    //         const refreshToken = localStorage.getItem("refreshToken");
 
-            if(accessToken && refreshToken) {
-                const config = {
-                headers: {
-                    "Authorization":`Bearer ${accessToken}`
-                }
-                };
+    //         if(accessToken && refreshToken) {
+    //             const config = {
+    //             headers: {
+    //                 "Authorization":`Bearer ${accessToken}`
+    //             }
+    //             };
 
-                await axios.post("http://127.0.0.1:8000/login_api/logout/", {"refresh":refreshToken}, config)
+    //             await axios.post("http://127.0.0.1:8000/login_api/logout/", {"refresh":refreshToken}, config)
                 
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                    setisLoggedIn(false);
-                    setusername("");    
-                navigate("/login",)            
-            }
-        }
-        catch(error){console.log(error)}
-    }
+    //             localStorage.removeItem("accessToken");
+    //             localStorage.removeItem("refreshToken");
+    //                 setisLoggedIn(false);
+    //                 setusername("");    
+    //             navigate("/login",)            
+    //         }
+    //     }
+    //     catch(error){console.log(error)}
+    // }
 
     const test = () =>{
          axios.get('http://localhost:8000/react_test/')
@@ -110,11 +110,11 @@ export default function Admin(){
                     }}>
                         Welcome {username.charAt(0).toUpperCase()+ username.slice(1)}
                     </div>
-                <MyButton
+                {/* <MyButton
                     button_function={handleLogout}
                     button_text={"Logout"}
                     disable={false}
-                    />
+                    /> */}
 
             </div>
             <Operations

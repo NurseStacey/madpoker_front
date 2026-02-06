@@ -3,7 +3,7 @@ import MyButton from '../../Components/Widgets/my-button'
 import MyInput from '../../Components/Widgets/my-input'
 
 
-export default function Register({
+export default function DontNeedRegister({
     setNewPlayer,
     newPlayer,
     RegisterAndSignUp

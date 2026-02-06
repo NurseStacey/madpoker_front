@@ -16,6 +16,10 @@ export const MD_LINKS = [
         'id':'points'
     },
     {
+        'text':'View Event Results',
+        'id':'view_results'
+    },    
+    {
         'text':'About us',
         'id':'about'
     },

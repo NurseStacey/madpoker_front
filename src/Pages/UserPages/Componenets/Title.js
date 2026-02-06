@@ -1,4 +1,5 @@
-import AdminButton from './admin-button'
+import AdminButton from './admin-button';
+import LogoutButton from './logout-button';
 
 export default function Title({
     TitleText
@@ -11,7 +12,7 @@ export default function Title({
                 font:"Arial",
                 fontSize:"35px",
                 display:'flex',
-                justifyContent:'flex-end',
+                justifyContent:'space-between',
                 margin:'auto',
                 //border:'1px solid black'
                 backgroundColor:"red"
@@ -25,7 +26,14 @@ export default function Title({
                 >
                 {TitleText}
             </div> 
-        
+            <div
+                style={{
+                    marginLeft:'30px'
+                }}
+            > 
+                <LogoutButton
+                />
+            </div>                           
             <div
                 style={{
                     marginRight:'30px'

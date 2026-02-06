@@ -100,7 +100,7 @@ export default function CurrentRoster({
                 updateRoster={updateRoster}
                 disableUpdateButton={disableUpdateButton}
                 />
-            <button onClick={Test}>Test</button>
+            {/* <button onClick={Test}>Test</button> */}
         </div>
     )
 }

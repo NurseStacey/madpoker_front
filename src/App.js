@@ -67,7 +67,8 @@ function App() {
             <Route path='event_management' element={<EventManagement/>}/>
             <Route path='game_sections' element={<GameSection/>}/>
             <Route path='edit_directors' element={<EditDirectors/>}/>
-            
+
+
           </Routes>
         </BrowserRouter>
 
