@@ -4,11 +4,11 @@ import Title from '../Componenets/Title';
 import SelectGame from '../Componenets/select-game';
 import CurrentRoster from '../Componenets/single-game-roster/current-roster';
 
-export default function GameRoster()
+export default function FinalizeGame()
 {
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
-    const [Height, setHeight] =  useState(0);  
+    const [Height, setHeight] =  useState(0);
 
     const [whichDate, setWhichDate]=useState({
         date:'01/01',
@@ -19,7 +19,7 @@ export default function GameRoster()
     useEffect(()=>{
         setWidth(width);
         setHeight(height);
-    },[]);
+    },[]);    
 
     return(
         <div 
@@ -28,11 +28,9 @@ export default function GameRoster()
                 height:`${Height}px`,
                 display:"block"
         }}>
-   
             <Title
-                TitleText = "View Game Roster"
+                TitleText = "Finalize Game"
             />  
-               
             <SelectGame
                 setWhichDate={setWhichDate}
                 whichDate={whichDate}
@@ -40,9 +38,8 @@ export default function GameRoster()
             />
             <CurrentRoster
                 whichGameID={whichDate.id}
-                includeFinalizeButton={false}
-                />
-         
+                includeFinalizeButton={true}
+                />            
         </div>
     )
-}
+}    

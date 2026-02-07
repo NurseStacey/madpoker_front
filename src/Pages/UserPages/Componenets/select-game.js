@@ -105,8 +105,8 @@ export default function SelectGame({
                 display:'flex',
                 justifyContent:'center',
                 margin:'auto',
-                marginTop:'30px'
-
+                marginTop:'30px',
+                height:'175px',
             }}
         >
             {/* <button onClick={Test}>test</button> */}
@@ -118,7 +118,8 @@ export default function SelectGame({
                 disable={false}
                 style={{
                     width:'200px',
-                    margin:'0px 20px'
+                    margin:'0px 20px',
+                    height:'100%'
                 }}
             />     
             <MyDropdownText
@@ -129,7 +130,8 @@ export default function SelectGame({
                 disable={false}
                 style={{
                     width:'600px',
-                    margin:'0px 20px'
+                    margin:'0px 20px',
+                    height:'100%'
                 }}
             />  
             <MyDropdownText
@@ -140,7 +142,8 @@ export default function SelectGame({
                 disable={false}
                 style={{
                     width:'600px',
-                    margin:'0px 20px'
+                    margin:'0px 20px',
+                    height:'100%'
                 }}
             /> 
 

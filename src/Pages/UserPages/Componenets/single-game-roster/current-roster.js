@@ -1,4 +1,4 @@
-import My_Button from '../../../Components/Widgets/my-button';
+import My_Button from '../../../../Components/Widgets/my-button';
 import {useState, useEffect} from 'react';
 import ListOfRecords from './list-of-records';
 import axios from 'axios';
@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export default function CurrentRoster({
     whichGameID,
+    includeFinalizeButton,
 })
 {
     const [numberPlayers, setNumberPlayers]=useState(0);
@@ -37,7 +38,7 @@ export default function CurrentRoster({
         }    
     }
 
-    const Test=()=>{console.log()}
+    const Test=()=>{console.log(includeFinalizeButton)}
 
     const buttonStyle={
             height:'50px',
@@ -86,12 +87,15 @@ export default function CurrentRoster({
                         margin: '0px 10px'}}
                     disable={false}
                 />                     
+                {(includeFinalizeButton)?
                 <My_Button
                     button_function={finalizeResults}
                     button_text="Finalize Results"
                     button_style={buttonStyle}
-                    disable={disableFinalizedButton}
-                />                
+                    disable={disableFinalizedButton} />:
+                    <></>
+                }
+                              
             </div>
             <ListOfRecords
                 setNumberPlayers={setNumberPlayers}
@@ -100,7 +104,7 @@ export default function CurrentRoster({
                 updateRoster={updateRoster}
                 disableUpdateButton={disableUpdateButton}
                 />
-            {/* <button onClick={Test}>Test</button> */}
+            <button onClick={Test}>Test</button>
         </div>
     )
 }

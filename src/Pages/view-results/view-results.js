@@ -13,6 +13,7 @@ export default function ViewResults()
 
     const[selectedSeason, setSelectedSeason]=useState('')
     const[selectedVenue, setSelectedVenue]=useState('')
+    const[allData, setAllData]=useState([])
 
     useEffect(()=>{
         setWidth(width*0.60);
@@ -26,7 +27,10 @@ export default function ViewResults()
 
                 response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
                 setAllVenues(response.data)
-                setSelectedVenue("-- All Venues --")                
+                setSelectedVenue("-- All Venues --")
+                
+                response = await axios.get("http://127.0.0.1:8000/games/get_all_infor_for_game_view/",);
+                console.log(response.data)
             } catch(err){
                 
             }

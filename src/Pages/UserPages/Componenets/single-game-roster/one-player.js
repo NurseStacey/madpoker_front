@@ -1,4 +1,4 @@
-import MyButton from "../../../Components/Widgets/my-button"
+import MyButton from "../../../../Components/Widgets/my-button"
 import axios from 'axios'
 
 export default function OnePlayer({
