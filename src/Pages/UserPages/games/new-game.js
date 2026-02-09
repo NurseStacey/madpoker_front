@@ -156,7 +156,7 @@ export default function NewGame({
                         }}
                     />
                    <MyDropdownText
-                        optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
+                        optionsList={allDirectors.map((oneDirector)=>oneDirector.username).toSorted((a, b) => a.localeCompare(b))}
                         setSelectedOption={DirectorSelected}
                         //selection = {formData.DirectorUserName}
                         selection = {(formData.director!==-1) ? allDirectors.find((oneDirector)=>oneDirector.id===formData.director).username: ""}
@@ -167,7 +167,7 @@ export default function NewGame({
                         }}                        
                     />   
                     <MyDropdownText
-                        optionsList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
+                        optionsList={allVenues.map((oneVenue)=>oneVenue.venue_name).toSorted((a, b) => a.localeCompare(b))}
                         setSelectedOption={VenueSelected}
                         selection = {(formData.venue!==-1) ? allVenues.find((oneVenue)=>oneVenue.id===formData.venue).venue_name: ""}
                         name="venues"

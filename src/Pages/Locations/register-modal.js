@@ -2,45 +2,17 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import Signup from './signup'
 
-export default function GameRegistrationAndSignup({
+export default function SignupModal({
     setOpenModal,
     gameID,
     venueName,
     time,
-    section
+    section,
+    date
 })
 {
-    const [player, setPlayer]=useState({
-        player:"",
-        email:"",
-        phone:""
-    })
+    const [player, setPlayer]=useState("")
     const [playerID, setPlayerID]=useState(-1)
-
-    // const RegisterNewPlayer = async ()=>{
-
-    //     try{
-    //         let data_to_send = {
-    //             new_player:player,
-    //             which_game:gameID
-    //         }
-    //         const response = await axios.post("http://127.0.0.1:8000/games/register_new_player_for_game/",data_to_send);
-    //             setPlayer({
-    //                 player:"",
-    //                 email:"",
-    //                 phone:"",
-    //                 id:response.data.id
-    //             })                
-            
-    //     } catch(err){
-    //         if (err.response.data['status']==='problem') {
-    //             alert('Not able to create new user.  Please contact a director');
-    //         } else if (err.response.data['status']==='duplicit username'){alert('That user name is already in use.');            
-    //         }else{ alert('There was an issue with registration.  Please let a director know.');}
-
-    //     }        
-    //     setOpenModal(false)
-    // }
 
     const SignupForGame=async(localPlayerID)=>{
         let data_to_send={
@@ -53,11 +25,7 @@ export default function GameRegistrationAndSignup({
             if(response.status===201) alert('You are registered for this game.')
                 else  alert('There was an issue with registration.  Please let a director know.');
 
-            setPlayer({
-                player:"",
-                email:"",
-                phone:""
-            })
+            setPlayer("")
 
         }
         catch(error){
@@ -69,8 +37,6 @@ export default function GameRegistrationAndSignup({
                 alert('There was a problem with signing up up.  Please contact a director')
             }
            console.log(error)
-           
-
         }    
 
         setOpenModal(false)
@@ -94,6 +60,7 @@ export default function GameRegistrationAndSignup({
                 venueName={venueName}
                 time={time}
                 section={section}
+                date={date}
             />
             </div>
 

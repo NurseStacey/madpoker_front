@@ -12,7 +12,8 @@ export default function Signup({
     setPlayerID,
     venueName,
     time,
-    section
+    section,
+    date
 })
 {
     const [allPlayers, setAllPlayers]=useState([]);
@@ -20,9 +21,7 @@ export default function Signup({
     const LoadPlayers = async()=>{
         try{
             const response = await axios.get("http://127.0.0.1:8000/players/players/",);
-            console.log(response.data)
             setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
-
         }catch(err){
             console.log(err);
         } 
@@ -32,9 +31,11 @@ export default function Signup({
     },[])    
 
     const NameSelected=(e)=>{
-        
-        setPlayer(allPlayers.find((onePlayer)=>onePlayer.player===e.target.value))
-        setPlayerID(allPlayers.find((onePlayer)=>onePlayer.player===e.target.value).id)
+        try{
+            let thisPlayer=allPlayers.find((onePlayer)=>onePlayer.player===e.target.value)
+            setPlayer(thisPlayer.player)
+            setPlayerID(thisPlayer.id)            
+        } catch{}
     }
 
     return(
@@ -48,13 +49,13 @@ export default function Signup({
                     fontSize:'20px',
                     marginTop:'30px'
                 }}>
-            Registration for {section} at {time} at {venueName}
+            Registration for {section} on {date} at {time} at {venueName}
             </div>
 
                 <MyDropdownText
                     optionsList={allPlayers.map((onePlayer)=>onePlayer.player)}
                     setSelectedOption={NameSelected}
-                    selection={player.player}
+                    selection={player}
                     style={{
                         height:"100px",
                         margin:"10px auto"

@@ -47,7 +47,9 @@ export default function OneWeekDay({
                                         oneSection.played_game_id, 
                                         oneGame.venue_name, 
                                         oneGame.time, 
-                                        oneSection.section)}
+                                        oneSection.section,
+                                        oneSection.date
+                                    )}
                                     style={{
                                         fontSize:'16px',
                                         marginBottom:'10px',

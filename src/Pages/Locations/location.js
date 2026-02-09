@@ -3,7 +3,7 @@ import VerticalDeck from '../../Components/VerticalSlideShow/VerticalDeck';
 import WindowDimensions from '../../utils/window-dimensions'
 import {useEffect, useState} from 'react'
 import '@fontsource/averia-sans-libre/700.css';  
-import GameRegistrationAndSignup from './register-signup';
+import SignupModal from './register-modal';
 import ListOfGames from './list-of-games';
 
 export default function Locations(){
@@ -14,7 +14,7 @@ export default function Locations(){
     const [venueName, setVenueName]=useState('');
     const [time, setTime]=useState('');
     const [section, setSection]=useState('');
-
+    const [date, setDate]=useState('');
 
     const [openModal, setOpenModal]=useState(false)
 
@@ -26,11 +26,13 @@ export default function Locations(){
 
 
 
-    const RegisterForGame=(id, thisVenueName, thisTime, thisSection)=>{
+    const RegisterForGame=(id, thisVenueName, thisTime, thisSection, thisDate)=>{
         setGameID(id);
         setOpenModal(true);
         setVenueName(thisVenueName);
         setSection(thisSection)
+        setDate(thisDate)
+        console.log(thisDate)
 
         let tempTime= parseInt(thisTime);
         let AMPM='AM'
@@ -64,12 +66,13 @@ export default function Locations(){
                                 height:"400px",                          
                             }}
                         >
-                        <GameRegistrationAndSignup
+                        <SignupModal
                             setOpenModal={setOpenModal}
                             gameID={gameID}
                             venueName={venueName}
                             time={time}
                             section={section}
+                            date={date}
                         /> 
                     </div>:
                     <div
