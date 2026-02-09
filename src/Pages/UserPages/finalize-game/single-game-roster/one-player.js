@@ -5,11 +5,8 @@ export default function OnePlayer({
     thisPlayer,
     setPosition,
     setPoints,
-    GetRoster,
     otherEvents,
-    IsOutSetPosition,
     disableUpdateButton,
-    includeFinalizeButton
 })
 {
     const AddTo=async(id)=>{
@@ -18,9 +15,8 @@ export default function OnePlayer({
             which_game:id
         }
         try{
-            console.log(data_to_send)
             const response = await axios.post(`http://127.0.0.1:8000/gameresults/register_player_for_game/`,data_to_send)
-            console.log(response)
+
             if(response.status===201) alert('You are registered for this game.')
                 else  alert('There was an issue with registration.  Please let a director know.');
 
@@ -34,27 +30,11 @@ export default function OnePlayer({
                 alert('There was a problem with signing up up.  Please contact a director.')
             }
            console.log(error)
-           
-
         }    
     }
 
     const Test=()=>{console.log(otherEvents)}
 
-    const IsOut=()=>{
-
-        IsOutSetPosition(thisPlayer.player_name)
-    }
-
-
-    const RemovePlayer=async(id)=>{
-        try{
-            const response = await axios.delete(`http://127.0.0.1:8000/gameresults/remove_player_from_game/${id}/`,);
-            GetRoster()
-        }catch(err){
-            alert('Error deleting venue')
-        }      
-    }
 
     return(
         <>
@@ -109,46 +89,12 @@ export default function OnePlayer({
                     name={'pomts-' + thisPlayer.player_name}
                     onChange={setPoints}  
                     type="number"
-                    
-                    disabled={!includeFinalizeButton || disableUpdateButton}
                     value={thisPlayer.points}>                    
                 </input>
 
             </div>             
-            <div
-                style={{
-                    paddingRight:'15%',
-                    textAlign:'right',
-                    cursor:'pointer',   
-                }}>
-                <MyButton
-                    button_function={()=>RemovePlayer(thisPlayer.id)}
-                    button_text="Remove Player"
-                    button_style={{
-                        width:"100px",
-                        height:"100%",
-                        fontSize:"15px",
-                    }}
-                    disable={disableUpdateButton}
-                />
-            </div>    
-            <div
-                style={{
-                    paddingRight:'15%',
-                    textAlign:'right',
-                    cursor:'pointer',
-                }}>           
-                <MyButton
-                    button_function={IsOut}
-                    button_text="Is Out"
-                    button_style={{
-                        width:"100px",
-                        height:"100%",
-                        fontSize:"15px",
-                    }}
-                    disable={disableUpdateButton}
-                /> 
-                </div>
+
+
                
              {otherEvents.map((oneEvent)=>(
                 <div

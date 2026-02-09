@@ -2,10 +2,10 @@ import {useEffect, useState} from 'react'
 import axios from 'axios'
 
 export default function PlayerList({
-    dropDownClicked,
-    setDropDownClicked,
     searchBarInput,
     setSelectedPlayer,
+    selectedPlayer,
+    showDropDown
 })
 {
     const [allPlayers, setAllPlayers]=useState([])
@@ -13,7 +13,6 @@ export default function PlayerList({
 
     const playerClicked=(id)=>{
         setSelectedPlayer(allPlayers.find((onePlayer)=>onePlayer.id===id));
-        setDropDownClicked(false);
     }
 
     useEffect(()=>{
@@ -28,7 +27,7 @@ export default function PlayerList({
             {
                 try{
                     const response = await axios.get("http://127.0.0.1:8000/players/players/",);
-                    console.log(response.data)
+                    
                     setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
                     setThesePlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
                 }catch(err){
@@ -41,7 +40,7 @@ export default function PlayerList({
     return(
         <div
             style={{
-                    display:(dropDownClicked) ? 'block' : 'none',
+                    display:(showDropDown) ? 'block' : 'none',
                     marginLeft:'20%',
                     width:'75%',
                     height:'250px',
@@ -58,6 +57,7 @@ export default function PlayerList({
                     style={{
                         textAlign:'left',
                         paddingLeft:'5px',
+                        backgroundColor:(selectedPlayer.id===onePlayer.id)?'limegreen':'white'
                     }}
                 >
                     {onePlayer.player}

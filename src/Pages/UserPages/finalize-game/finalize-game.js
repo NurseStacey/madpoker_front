@@ -2,7 +2,7 @@ import {useState,useEffect} from 'react';
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
 import SelectGame from '../Componenets/select-game';
-import CurrentRoster from '../Componenets/single-game-roster/current-roster';
+import CurrentRoster from './single-game-roster/current-roster';
 
 export default function FinalizeGame()
 {
@@ -38,7 +38,6 @@ export default function FinalizeGame()
             />
             <CurrentRoster
                 whichGameID={whichDate.id}
-                includeFinalizeButton={true}
                 />            
         </div>
     )

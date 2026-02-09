@@ -7,8 +7,7 @@ export default function ListOfRecords({
     whichGameID,
     setUpdateRoster,
     updateRoster,
-    disableUpdateButton,
-    includeFinalizeButton
+    disableUpdateButton
 })
 {
     
@@ -256,7 +255,6 @@ export default function ListOfRecords({
                             otherEvents={otherEvents}
                             IsOutSetPosition={IsOutSetPosition}
                             disableUpdateButton={disableUpdateButton}
-                            includeFinalizeButton={includeFinalizeButton}
                             />
                     </Fragment>
                 ))} 

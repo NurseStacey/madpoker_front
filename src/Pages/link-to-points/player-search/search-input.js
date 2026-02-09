@@ -3,15 +3,15 @@ import {useEffect, useState} from 'react'
 export default function SearchInput({
     searchBarInput,
     setSearchBarInput,
-    setOpenList
+    setShowDropDown
 })
 {
     const leavesInput=()=>{
-        if (searchBarInput==='') setSearchBarInput("Search player")
+       // if (searchBarInput==='') setSearchBarInput("Search player")
     }
     const InputClicked=()=>{
         setSearchBarInput("");
-        setOpenList(true);
+        setShowDropDown(true)
     }
     
     const handleChange = (e) =>{

@@ -40,7 +40,6 @@ export default function GameRoster()
             />
             <CurrentRoster
                 whichGameID={whichDate.id}
-                includeFinalizeButton={false}
                 />
          
         </div>

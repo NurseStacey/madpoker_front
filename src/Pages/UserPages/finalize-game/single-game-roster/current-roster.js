@@ -87,14 +87,12 @@ export default function CurrentRoster({
                         margin: '0px 10px'}}
                     disable={false}
                 />                     
-                {(includeFinalizeButton)?
+
                 <My_Button
                     button_function={finalizeResults}
                     button_text="Finalize Results"
                     button_style={buttonStyle}
-                    disable={disableFinalizedButton} />:
-                    <></>
-                }
+                    disable={disableFinalizedButton} />
                               
             </div>
             <ListOfRecords
@@ -103,7 +101,6 @@ export default function CurrentRoster({
                 setUpdateRoster={setUpdateRoster}
                 updateRoster={updateRoster}
                 disableUpdateButton={disableUpdateButton}
-                includeFinalizeButton={includeFinalizeButton}
                 />
             <button onClick={Test}>Test</button>
         </div>

@@ -8,7 +8,6 @@ export default function ListOfRecords({
     setUpdateRoster,
     updateRoster,
     disableUpdateButton,
-    includeFinalizeButton
 })
 {
     
@@ -19,7 +18,7 @@ export default function ListOfRecords({
         'position':'forward'
     })
     const [otherEvents, setOtherEvents]=useState([])
-    const gridTemplatePercents =[20, 20, 10,10, 20, 20,]
+    const gridTemplatePercents =[30, 30, 15,20]
     //const [gridTemplatePercents, setGridTemplatePercents]=useState([30, 20, 10, 20, 20,])
 
     useEffect(()=>{
@@ -128,26 +127,6 @@ export default function ListOfRecords({
 
     }    
 
-    const IsOutSetPosition=(player_name)=>{
-  
-        let thisPlayer = currentRoster.find((onePlayer)=>onePlayer.player_name===player_name)
-        
-        if (thisPlayer.position>0) return
-
-        for (let i=currentRoster.length;i>0;i--) {
-            if(currentRoster.find((onePlayer)=>onePlayer.position===i)===undefined){
-                setPosition({
-                target:{
-                    name:'position'+player_name,
-                    value:i
-                    }
-                });
-                break;
-            }
-        }
-        UpdateRoster();
-    }
-    
     const setPosition=(e)=>{
         console.log(e.target.name.slice(8))
         let thisPlayer = currentRoster.find((onePlayer)=>onePlayer.player_name===e.target.name.slice(8))
@@ -223,40 +202,15 @@ export default function ListOfRecords({
                 >
                     Points
                 </div>                 
-                <div
-                    style={{
-                        textAlign:'left',
-                        cursor:'pointer'
-                    }}>
-                    Remove Player
-                </div>
-                <div
-                    style={{
-                        textAlign:'left',
-                        cursor:'pointer',
-                    }}>
-                    Player is Out
-                </div>     
-                {otherEvents.map((oneEvent)=>(
-                    <div
-                    style={{
-                        textAlign:'left',
-                        cursor:'pointer'
-                    }}>
-                        {oneEvent.event_name}
-                    </div>
-                ))}               
+                       
                 {currentRoster.map((onePlayer)=>(
                     <Fragment key={onePlayer.id}>
                         <OnePlayer
                             thisPlayer={onePlayer}
                             setPosition={setPosition}
                             setPoints={setPoints}
-                            GetRoster={GetRoster}
                             otherEvents={otherEvents}
-                            IsOutSetPosition={IsOutSetPosition}
                             disableUpdateButton={disableUpdateButton}
-                            includeFinalizeButton={includeFinalizeButton}
                             />
                     </Fragment>
                 ))} 

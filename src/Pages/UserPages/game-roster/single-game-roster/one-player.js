@@ -8,8 +8,7 @@ export default function OnePlayer({
     GetRoster,
     otherEvents,
     IsOutSetPosition,
-    disableUpdateButton,
-    includeFinalizeButton
+    disableUpdateButton
 })
 {
     const AddTo=async(id)=>{
@@ -110,7 +109,7 @@ export default function OnePlayer({
                     onChange={setPoints}  
                     type="number"
                     
-                    disabled={!includeFinalizeButton || disableUpdateButton}
+                    disabled={true}
                     value={thisPlayer.points}>                    
                 </input>
 
