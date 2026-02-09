@@ -14,8 +14,37 @@ export default function LinkToPoints()
     const [allSeasons,  setAllSeasons]=useState([])
     const[allVenues, setAllVenues]=useState([])
 
-    const[selectedSeason, setSelectedSeason]=useState('')
-    const[selectedVenue, setSelectedVenue]=useState('')
+    const[selectedSeason, setSelectedSeason]=useState({
+        season:"-- All Sesaons --",
+        id:-1
+    });
+    const[selectedVenue, setSelectedVenue]=useState({
+        venue_name:"-- All Venues --",
+        id:-1
+    });
+    const [selectedPlayer, setSelectedPlayer]=useState({
+        id:-1,
+        player:""
+    });
+
+    const getDataToSend=()=>{
+        let dataToSend = {
+            playerID:selectedPlayer.id,
+            venue:selectedVenue.id,
+            season:selectedSeason.id
+        }
+        return dataToSend
+    }
+
+    const pullGames  = async()=>{
+        
+        let response = await axios.post("http://127.0.0.1:8000/games/get_these_game_dates/",getDataToSend());
+        console.log(response.data)
+    }  
+
+    useEffect(()=>{
+        pullGames()
+    },[selectedSeason,selectedVenue,selectedPlayer])
 
     useEffect(()=>{
         setWidth(width*0.60);
@@ -24,13 +53,16 @@ export default function LinkToPoints()
 
         const fetchData = async() =>{
             try {
-                let response = await axios.get("http://127.0.0.1:8000/games/seasons/",);
+                let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);
                 setAllSeasons(response.data)
-                setSelectedSeason(response.data[0].season)
+                setSelectedSeason({
+                    season:"--All Sesaons--",
+                    id:response.data[0].id
+                })
 
                 response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
                 setAllVenues(response.data)
-                setSelectedVenue("-- All Venues --")                
+               
             } catch(err){
                 
             }
@@ -40,7 +72,22 @@ export default function LinkToPoints()
 
     },[])
 
-    const Test=()=>{console.log(allSeasons)}
+    const findSelectedVenue=(venueName)=>{
+        try{
+            setSelectedVenue(allVenues.find((oneVenue)=>oneVenue.venue_name===venueName))
+        }catch{
+            setSelectedVenue({
+                venue_name:"-- All Venues --",
+                id:-1
+            })
+        }
+    }
+
+    const findSelectedSeason=(season)=>{
+        setSelectedSeason(allSeasons.find((oneSeason)=>oneSeason.season===season))
+    }
+
+    const Test=()=>{console.log(selectedVenue)}
 
     return(
          <div
@@ -78,33 +125,36 @@ export default function LinkToPoints()
                         border:'1px solid black',
                         position:'relative'
                     }}>
-                    <DropDown
-                        selectedItem={selectedSeason}
-                        width={0.3*Width}
-                        allItems={allSeasons.map((oneSeason)=>oneSeason.season)}
-                        setSelectedItem={setSelectedSeason}
-                        title="SEASON"
-                        top={0}
-                        DropDownStyle={{
-                            zIndex:6
-                        }}                        
-                    />
-                    <DropDown
-                        selectedItem={selectedVenue}
-                        width={0.3*Width}
-                        allItems={["-- All Venues --",...allVenues.map((oneVenue)=>oneVenue.venue_name)]}
-                        setSelectedItem={setSelectedVenue}
-                        title="VENUE"
-                        top={60}
-                        DropDownStyle={{
-                            zIndex:5
-                        }}
-                    />       
 
                     <PlayerSearch
                         width={0.3*Width}
-                        top={120}                    
+                        top={0}
+                        selectedPlayer={selectedPlayer}
+                        setSelectedPlayer={setSelectedPlayer}        
+                    />                         
+                    <DropDown
+                        selectedItem={selectedSeason.season}
+                        width={0.3*Width}
+                        allItems={["-- All Sesaons --",...allSeasons.map((oneSeason)=>oneSeason.season)]}
+                        setSelectedItem={findSelectedSeason}
+                        title="SEASON"
+                        top={80}
+                        DropDownStyle={{
+                            zIndex:2
+                        }}                        
                     />
+                    <DropDown
+                        selectedItem={selectedVenue.venue_name}
+                        width={0.3*Width}
+                        allItems={["-- All Venues --",...allVenues.map((oneVenue)=>oneVenue.venue_name)]}
+                        setSelectedItem={findSelectedVenue}
+                        title="VENUE"
+                        top={140}
+                        DropDownStyle={{
+                            zIndex:1
+                        }}
+                    />       
+
                 </div>
                 <button onClick={Test}>test</button>
                 
@@ -113,33 +163,3 @@ export default function LinkToPoints()
         </div>
     )
 }
-
-  {/* <select name='season'
-                                size='1'
-                                style={{
-                                // width:'400px',
-                                // padding:'10px',
-                                height:'20px',
-                                overflowY:'scroll',
-                                //display:'none'
-                            }}>
-                            {allSeasons.map((oneSeason)=>(
-                                <option
-                                    key={oneSeason.season}
-                                    value={oneSeason.season}
-
-                                >
-
-                                    {oneSeason.season}
-
-                                    
-                                </option>
-                            ))}
-                        </select> */}
-                    
-                    {/* <MyListBox
-                        theList={allSeasons}
-                        title="SEASON"
-                        titleColor="#70727b"
-                        direction="horizontal"
-                    /> */}

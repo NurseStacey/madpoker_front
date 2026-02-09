@@ -29,7 +29,7 @@ export default function ViewResults()
                 setAllVenues(response.data)
                 setSelectedVenue("-- All Venues --")
                 
-                response = await axios.get("http://127.0.0.1:8000/games/get_all_infor_for_game_view/",);
+                response = await axios.get("http://127.0.0.1:8000/games/get_all_info_for_game_view/",);
                 console.log(response.data)
             } catch(err){
                 

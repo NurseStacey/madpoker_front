@@ -5,15 +5,14 @@ import useOutsideClick from '../../../Components/useOutsideClick'
 
 export default function PlayerSearch({
     width,
-    top
+    top,
+    selectedPlayer,
+    setSelectedPlayer
 })
 {
     const [searchBarInput, setSearchBarInput]=useState('Search player');
     const [showDropDown, setShowDropDown]=useState(false)
-    const [selectedPlayer, setSelectedPlayer]=useState({
-        id:-1,
-        player:''
-    });
+
 
     const handleClickOutside = () => {
         setShowDropDown(false);
@@ -40,7 +39,7 @@ export default function PlayerSearch({
                 position:'absolute',
                 width:`${width}px`,
                 top:`${top}px`,
-                zIndex:3,
+                zIndex:10,
             }}>
             <button onClick={test}>test</button>
             <SearchInput
