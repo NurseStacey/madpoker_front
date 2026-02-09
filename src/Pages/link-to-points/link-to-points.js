@@ -30,15 +30,16 @@ export default function LinkToPoints()
     const getDataToSend=()=>{
         let dataToSend = {
             playerID:selectedPlayer.id,
-            venue:selectedVenue.id,
-            season:selectedSeason.id
+            venueID:selectedVenue.id,
+            seasonID:selectedSeason.id
         }
         return dataToSend
     }
 
     const pullGames  = async()=>{
-        
-        let response = await axios.post("http://127.0.0.1:8000/games/get_these_game_dates/",getDataToSend());
+        if(selectedPlayer.id===-1) return
+        console.log(getDataToSend())
+        let response = await axios.post("http://127.0.0.1:8000/games/get_this_player_results/",getDataToSend());
         console.log(response.data)
     }  
 
@@ -55,10 +56,6 @@ export default function LinkToPoints()
             try {
                 let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);
                 setAllSeasons(response.data)
-                setSelectedSeason({
-                    season:"--All Sesaons--",
-                    id:response.data[0].id
-                })
 
                 response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
                 setAllVenues(response.data)
