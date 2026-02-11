@@ -19,12 +19,17 @@ export default function SelectGame({
         email:""
     });
 
+    const [gamesToShow, setGamesToShow]=useState([]);
+    const [datesToShow, setDatesToShow]=useState([]);
+
     const Test=()=>{
         let X=allGames.map((oneGame)=>oneGame.game_text)
         console.log(allGames.map((oneGame)=>oneGame.game_text))
         console.log(X.map((oneGame)=>oneGame.slice(0,10)))}
+
     useEffect(()=>{
         GetDirectors();
+        GetGames();
     },[]);
 
     const GetDirectors = async()=>{
@@ -38,36 +43,57 @@ export default function SelectGame({
     }    
 
     useEffect(()=>{
-        GetGames();
+        console.log(allGames)
+        //setGamesToShow(allGames.filter((oneGame)=>oneGame.director_name===whichUser.username))
+        let dates = []
+        allGames.filter((oneGame)=>oneGame.director_name===whichUser.username).map((oneGame)=>oneGame.all_dates.map((oneDate)=>dates.push(oneDate.date)));
+        setDatesToShow(dates);        
+        //GetGames();
     }, [whichUser])
+
+    useEffect(()=>{
+        // let dates = []
+        // allGames.filter((oneGame)=>oneGame.game_text===whichGame.game_text).map((oneGame)=>oneGame.all_dates.map((oneDate)=>dates.push(oneDate.date)));
+        // setDatesToShow(dates);
+    },[whichGame])
 
     const GetGames = async()=>{
         try{
-            if (whichUser.username==="All Directors") {
-                const response = await axios.get("http://127.0.0.1:8000/games/get_all_sections/",);
-                setAllGames(response.data.filter((oneGame)=>oneGame.game_text!=='default'));
-                //console.log(response.data.filter((oneGame)=>oneGame.game_text!=='default'))
-            }else{
-                if (whichUser.id>0){
-                    const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
+            const response = await axios.get("http://127.0.0.1:8000/games/get_all_sections/",);
+            console.log(response.data)
+            setAllGames(response.data.filter((oneGame)=>oneGame.game_text!=='default'));
+            let firstLayer=response.data.filter((oneGame)=>oneGame.game_text!=='default');
+            let dates = []
+            response.data.filter((oneGame)=>oneGame.game_text!=='default').map((oneGame)=>oneGame.all_dates.map((oneDate)=>dates.push(oneDate)))
+            //setDatesToShow(dates)
+            //setGamesToShow(response.data.filter((oneGame)=>oneGame.game_text!=='default'));            
+            // if (whichUser.username==="All Directors") {
+            //     const response = await axios.get("http://127.0.0.1:8000/games/get_all_sections/",);
+            //     console.log(response.data)
+            //     setAllGames(response.data.filter((oneGame)=>oneGame.game_text!=='default'));
+            //     setGamesToShow(response.data.filter((oneGame)=>oneGame.game_text!=='default'));
+            //     //console.log(response.data.filter((oneGame)=>oneGame.game_text!=='default'))
+            // }else{
+            //     if (whichUser.id>0){
+            //         const response = await axios.get(`http://127.0.0.1:8000/games/games_by_director/${whichUser.id}/`,);
 
-                    setAllGames(response.data);
-                    if (response.data.length>0){
-                        let thisWeekDay=(new Date()).getDay()
-                        let WeekDayArray = [...Array.from(Array(7).keys()).slice(thisWeekDay,7),
-                            ...Array.from(Array(thisWeekDay).keys())];
+            //         setAllGames(response.data);
+            //         if (response.data.length>0){
+            //             let thisWeekDay=(new Date()).getDay()
+            //             let WeekDayArray = [...Array.from(Array(7).keys()).slice(thisWeekDay,7),
+            //                 ...Array.from(Array(thisWeekDay).keys())];
 
-                        for (let index=0;index<7;index++){
-                            let nextGame=response.data.find((oneGame)=>oneGame.WeekDay===WeekDays[WeekDayArray[index]]);
+            //             for (let index=0;index<7;index++){
+            //                 let nextGame=response.data.find((oneGame)=>oneGame.WeekDay===WeekDays[WeekDayArray[index]]);
 
-                            if (nextGame!==undefined){
-                                setWhichGame(nextGame);
-                                break;
-                            }
-                        }
-                    }     
-                }           
-            }
+            //                 if (nextGame!==undefined){
+            //                     setWhichGame(nextGame);
+            //                     break;
+            //                 }
+            //             }
+            //         }     
+            //     }           
+            // }
         }catch(err){
             console.log(err)
             alert('Problem with loading games.')
@@ -123,7 +149,7 @@ export default function SelectGame({
                 }}
             />     
             <MyDropdownText
-                optionsList={allGames.map((oneGame)=>oneGame.game_text)}
+                optionsList={gamesToShow.map((oneGame)=>oneGame.game_text)}
                 setSelectedOption={HandelChange}
                 selection = {whichGame.game_text}
                 name="Game"
@@ -135,7 +161,7 @@ export default function SelectGame({
                 }}
             />  
             <MyDropdownText
-                optionsList={allDates.map((oneDate)=>oneDate.date)}
+                optionsList={datesToShow.map((oneDate)=>oneDate)}
                 setSelectedOption={HandelChange}
                 selection = {whichDate.date}
                 name="Date"

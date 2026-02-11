@@ -37,8 +37,11 @@ export default function PlayerSearch({
             ref={wrapperRef} 
             style={{
                 position:'absolute',
-                width:`${width}px`,
-                top:`${top}px`,
+                width:'20%',
+                left:'50%',
+                translate:'-50%',
+                //width:`${width}px`,
+                //top:`${top}px`,
                 zIndex:10,
             }}>
             <button onClick={test}>test</button>

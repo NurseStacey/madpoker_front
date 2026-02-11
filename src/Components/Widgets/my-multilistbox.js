@@ -20,6 +20,7 @@ export default function MyMultiListBox({
                 display:'flex',
                 flexDirection:(direction==='horizontal' ? 'row' : 'column'),
                 justifyContent:'flex-start',
+                //border:'1px solid black',
                 ...ListBoxStyle
 
             }}>
@@ -36,7 +37,9 @@ export default function MyMultiListBox({
                     color:'black',
                     padding:'5%',
                     border:'1px solid black',
-                    width:'100%'
+                    width:'100%',
+                    height:'100%',
+                    overflowY:'scroll'
                 }}>
                 {theList.map((oneItem)=>(
                     <div

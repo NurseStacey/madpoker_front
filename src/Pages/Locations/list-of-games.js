@@ -11,18 +11,17 @@ export default function ListOfGames({
     const [allGames, setAllGames]=useState(DefaultGames)
 
     useEffect(()=>{
-  
+        
         const InfoForLocations = async()=>{
+
             try{
                 const response=await axios.get("http://127.0.0.1:8000/games/info_for_locations_page/")
-                console.log(response.data.data)
+
                 setAllGames(response.data.data)
                 if(response.data.status==="problem") {
                     alert('Problem loading games');
                     setAllGames(DefaultGames)
                 }
-
-                console.log(response.data.data)
             }catch(err){
                 alert('Problem loading events.');
             }

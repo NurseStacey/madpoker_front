@@ -16,7 +16,7 @@ export const MD_LINKS = [
         'id':'points'
     },
     {
-        'text':'View Event Results',
+        'text':'View Game Results',
         'id':'view_results'
     },    
     {
