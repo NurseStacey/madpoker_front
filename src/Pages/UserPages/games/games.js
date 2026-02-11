@@ -27,10 +27,11 @@ export default function EditGames()
         console.log(formData)
     }
 
+
     const fetchData = async()=>{
         try{
 
-            const response = await axios.get("http://127.0.0.1:8000/games/games/",);
+            const response = await axios.get("http://127.0.0.1:8000/games/basic_games/",);
             setAllGames(response.data);
 
         }catch(err){

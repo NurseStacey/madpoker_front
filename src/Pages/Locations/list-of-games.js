@@ -16,7 +16,7 @@ export default function ListOfGames({
 
             try{
                 const response=await axios.get("http://127.0.0.1:8000/games/info_for_locations_page/")
-
+                console.log(response.data.data)
                 setAllGames(response.data.data)
                 if(response.data.status==="problem") {
                     alert('Problem loading games');

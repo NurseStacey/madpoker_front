@@ -12,7 +12,7 @@ export default function NewGame({
     formData,
     setFormData,
     fetchData,
-    selectedGame
+    selectedGame,
 })
 {
     const [allDirectors, setAllDirectors]=useState([]);
@@ -38,11 +38,24 @@ export default function NewGame({
         }
 
         if (selectedGame===null)
-            setFormData(BlankFormData);
+            ResetFormData();
         else
             GetThisGame(selectedGame)
     },[selectedGame])
 
+    const ResetFormData=()=>{
+        try{
+            setFormData({
+                ...BlankFormData,
+                season_type:allSeasonType.find((oneSeasonType)=>oneSeasonType.season_type==='In Person').id
+            })
+        }catch{}
+
+    }
+
+    // useEffect(()=>{
+    //     ResetFormData()
+    // },[resetFormData])
 
     useEffect(()=>{
         const fetchDirectors = async()=>{
@@ -72,10 +85,11 @@ export default function NewGame({
                 const response = await axios.get("http://127.0.0.1:8000/seasons/seasontypes/",);
                 //console.log(response.data)
                 setAllSeasonStypes(response.data)
+                console.log(response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person'));
                 setFormData({
                     ...formData,
                     season_type:response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person').id
-                })  
+                });
             }catch(err){
                 alert('Problem getting venues.');
             }            
@@ -85,6 +99,7 @@ export default function NewGame({
         fetchSeasonTypes();
     },[])
 
+    
     const HandelChange = (e)=>{
         setFormData({...formData, ...{[e.target.name]:e.target.value}})      
     }
@@ -112,17 +127,18 @@ export default function NewGame({
     }
 
     const Test=()=>{
-        console.log(allSeasonType);
+        console.log(formData)
+        //console.log(allSeasonType.find((oneSeason)=>oneSeason.season_type==='In Person'));
     }
 
     const AddGame = async()=>{
         if (selectedGame!==null) return
         try {
             console.log(formData)
-            const response = await axios.post("http://127.0.0.1:8000/games/games/",formData);
+            //console.log(response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person'));
+            const response = await axios.post("http://127.0.0.1:8000/games/basic_games/",formData);
             fetchData()
-
-            setFormData(BlankFormData)
+            ResetFormData()
 
         }catch(err){
             alert('Problem creating games.');
@@ -228,7 +244,7 @@ export default function NewGame({
                         margin:"20px auto",
                         height:"75px"}}                     
                 />
-                {/* <button onClick={Test}>test</button> */}
+                <button onClick={Test}>test</button>
         </div>
     )
 }
