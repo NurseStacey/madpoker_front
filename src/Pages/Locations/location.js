@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react'
 import '@fontsource/averia-sans-libre/700.css';  
 import SignupModal from './register-modal';
 import ListOfGames from './list-of-games';
+import BlankGame from './blank-game';
 
 export default function Locations(){
     const { height, width } = WindowDimensions();
@@ -13,24 +14,21 @@ export default function Locations(){
     const [gameID, setGameID]=useState(-1);
     const [venueName, setVenueName]=useState('');
     const [time, setTime]=useState('');
-    const [section, setSection]=useState('');
     const [date, setDate]=useState('');
-
-    const [openModal, setOpenModal]=useState(false)
+    const [gameInfo, setGameInfo]=useState(BlankGame);
+    const [openModal, setOpenModal]=useState(false);
 
     useEffect(()=>{
         setWidth(width*0.60)
         setHeight(height)
         let now = new Date()
-    },[])
+    },[]);
 
-
-
-    const RegisterForGame=(id, thisVenueName, thisTime, thisSection, thisDate)=>{
+    const RegisterForGame=(id, thisVenueName, thisTime, thisDate)=>{
         setGameID(id);
         setOpenModal(true);
         setVenueName(thisVenueName);
-        setSection(thisSection)
+        //setSection(thisSection)
         setDate(thisDate)
         console.log(thisDate)
 
@@ -73,6 +71,7 @@ export default function Locations(){
                             time={time}
                             section={section}
                             date={date}
+                            gameInfo={gameInfo}
                         /> 
                     </div>:
                     <div
@@ -105,6 +104,7 @@ export default function Locations(){
                 </div>    
                 <ListOfGames
                     RegisterForGame={RegisterForGame}
+                    setGameInfo={setGameInfo}
                 />
         </div>
     )

@@ -13,7 +13,8 @@ export default function Signup({
     venueName,
     time,
     section,
-    date
+    date,
+    gameInfo
 })
 {
     const [allPlayers, setAllPlayers]=useState([]);
@@ -49,7 +50,7 @@ export default function Signup({
                     fontSize:'20px',
                     marginTop:'30px'
                 }}>
-            Registration for {section} on {date} at {time} at {venueName}
+            Registration for {gameInfo.game} on {gameInfo.date} at {gameInfo.time} at {gameInfo.venueName}
             </div>
 
                 <MyDropdownText

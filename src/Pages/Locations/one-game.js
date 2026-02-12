@@ -14,11 +14,14 @@ export default function OneGame({
                     fontSize:"18px",
                     display:'flex',
                     flexWrap:'wrap',
-                    cursor:"pointer"
+                    cursor:"pointer",
+                    border:'1px solid black'
                 }}
                 >
                     <p>
-                        <span style={{color:'red'}}>{thisGame.venue_name}</span>{", " + thisGame.description}
+                        <span style={{color:'red'}}>{thisGame.venue_name}</span>
+                        {" - "} 
+                         <span style={{color:'black'}}>thisGame.description}</span>
                     </p> 
             </div>
         :<></>

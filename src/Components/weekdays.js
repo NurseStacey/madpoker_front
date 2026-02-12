@@ -3,7 +3,7 @@ export const WeekDays = [
         "Monday",
         "Tuesday",
         "Wednesday",
-        "Thurseday",
+        "Thursday",
         "Friday",
         "Saturday",
     ]

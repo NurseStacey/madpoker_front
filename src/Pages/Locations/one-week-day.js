@@ -27,14 +27,27 @@ export default function OneWeekDay({
                             margin:'10px 0px',
                         }}>
                         <div
+                                    onClick={()=>RegisterForGame(
+                                        oneGame.id, 
+                                        oneGame.venue_name, 
+                                        oneGame.time, 
+                                       // oneSection.section,
+                                        oneGame.date
+                                    )}                        
                             style={{
-                                width:'25%',
+                                width:'100%',
                                 color:'red',
                                 fontSize:'16px',
+                                cursor:'pointer'
                             }}>
-                            {oneGame.venue_name}
+                                <span style={{color:'red'}}>
+                                    {oneGame.venue_name}
+                                </span>
+                                {" - "} 
+                                <span style={{color:'black'}}>{oneGame.description}</span>                                
+                                    
                         </div>
-                        <div
+                        {/* <div
                             style={{
                                 display:'block',
                                 width:'74%',
@@ -47,7 +60,7 @@ export default function OneWeekDay({
                                         oneSection.played_game_id, 
                                         oneGame.venue_name, 
                                         oneGame.time, 
-                                        oneSection.section,
+                                       // oneSection.section,
                                         oneSection.date
                                     )}
                                     style={{
@@ -58,7 +71,7 @@ export default function OneWeekDay({
                                         {oneSection.description}
                                 </div>
                             ))}
-                        </div> 
+                        </div>  */}
                     </div>))}
         </div>        
     )

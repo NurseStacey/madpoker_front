@@ -4,7 +4,7 @@ export const DefaultGames={
     "Monday":[],
     "Tuesday":[],
     "Wednesday":[],
-    "Thurseday":[],
+    "Thursday":[],
     "Friday":[],
     "Saturday":[]     
 }

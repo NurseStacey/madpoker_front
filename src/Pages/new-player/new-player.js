@@ -20,7 +20,41 @@ export default function NewPlayer(){
 
     const handleChange=(e)=>{
         if (registrationMessage!=="") setRegistrationMessage("")
+        
+        if (e.target.name==="first_name" && formObj.formData.last_name!==""){
+            setFormObj({
+                ...formObj,
+                formData:{
+                    first_name:e.target.value,
+                    last_name:formObj.formData.last_name,
+                    player:e.target.value + formObj.formData.last_name[0],
+                    email:e.target.value + "@gmail.com",
+                    phone:"503-555-1212",
+                    password:"password"
+                }
+                
+            }); 
+            setConfirmedPassword("password");
+            return;                      
+        }
+        
+        if (e.target.name==="last_name" && formObj.formData.first_name!=="") {
 
+            setFormObj({
+                ...formObj,
+                formData:{
+                    first_name:formObj.formData.first_name,
+                    last_name:e.target.value,
+                    player:formObj.formData.first_name + e.target.value[0],
+                    email:e.target.value + "@gmail.com",
+                    phone:"503-555-1212",
+                    password:"password"
+                }
+            });     
+            setConfirmedPassword("password");
+            return;                  
+        }
+        
         setFormObj({
             ...formObj,
             formData:{
