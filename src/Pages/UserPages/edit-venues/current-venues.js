@@ -1,8 +1,6 @@
-import CurrentVenuesButton from './current-venues-buttons'
+import CurrentVenuesButton from './current-venues-buttons';
 import {useState,useEffect} from 'react';
 import axios, { AxiosError } from 'axios';
-
-
 
 export default function CurrentVenues({
     fetchData,

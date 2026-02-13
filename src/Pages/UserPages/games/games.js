@@ -27,7 +27,6 @@ export default function EditGames()
         console.log(formData)
     }
 
-
     const fetchData = async()=>{
         try{
 

@@ -21,7 +21,7 @@ import EventManagement from './Pages/UserPages/event-management/event-management
 import GameSection from './Pages/UserPages/game-sections/game-sections';
 import EditDirectors from './Pages/UserPages/edit-directors/edit-directors';
 import FinalizeGame from './Pages/UserPages/finalize-game/finalize-game';
-
+import GameTypes from './Pages/UserPages/game-types/game-types';
 
 
 function App() {
@@ -71,6 +71,7 @@ function App() {
             <Route path='game_sections' element={<GameSection/>}/>
             <Route path='edit_directors' element={<EditDirectors/>}/>
             <Route path='finalize_game' element={<FinalizeGame/>}/>
+            <Route path='game_types' element={<GameTypes/>}/>
 
           </Routes>
         </BrowserRouter>

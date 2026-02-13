@@ -41,6 +41,11 @@ export default function Operations({
                 NavigationFunction={NavigationFunction}
             />
             <OneOperationButton
+                buttonText="Game Types"
+                buttonLink="/game_types"
+                NavigationFunction={NavigationFunction}
+            />                                       
+            <OneOperationButton
                 buttonText="Edit Games"
                 buttonLink="/edit_games"
                 NavigationFunction={NavigationFunction}
@@ -69,7 +74,8 @@ export default function Operations({
                 buttonText="Event Management"
                 buttonLink="/event_management"
                 NavigationFunction={NavigationFunction}
-            />                                    
+            />          
+             
         </div>
     )
 }

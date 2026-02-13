@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react'
 import '@fontsource/averia-sans-libre/700.css';  
 import SignupModal from './register-modal';
 import ListOfGames from './list-of-games';
-import BlankGame from './blank-game';
+import {BlankGame} from './blank-game';
 
 export default function Locations(){
     const { height, width } = WindowDimensions();
@@ -69,7 +69,7 @@ export default function Locations(){
                             gameID={gameID}
                             venueName={venueName}
                             time={time}
-                            section={section}
+                            
                             date={date}
                             gameInfo={gameInfo}
                         /> 

@@ -1,6 +1,6 @@
 import MyButton from '../../../Components/Widgets/my-button';
 
-export default function CurrentGameTypesButton({
+export default function CurrentVenuesButton({
     Update,
     Delete,
     ChangeActive,

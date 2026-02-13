@@ -3,22 +3,22 @@ import axios from 'axios';
 import MyButton from '../../../Components/Widgets/my-button';
 import MyInput from '../../../Components/Widgets/my-input';
 
-
-export default function NewVenue({
+export default function NewGameType({    
     fetchData,
     setFormData,
     formData,
-    selectedVenue
+    selectedGameType    
 })
 {
 
-    //const [buttonText, setButtonText]=useState("Add Venue")
+    //const [buttonText, setButtonText]=useState("Add Game Type")
     const [enableButton, setEnableButton]=useState(false)
 
     useEffect(()=>{
-        if (selectedVenue===null) setEnableButton(false)//setButtonText("Add Venue")
+        if (selectedGameType===null) setEnableButton(false)//setButtonText("Add Venue")
             else setEnableButton(true)//setButtonText("Update Venue")
-    },[selectedVenue])
+    },[selectedGameType])
+
 
     const handleChange = (e)=>{
 
@@ -28,17 +28,16 @@ export default function NewVenue({
         })        
     }
 
-    const AddVenue = async () =>{
+    const AddGameType = async () =>{
         try{
 
-            const response = await axios.post("http://127.0.0.1:8000/venues/venues/",formData);
+            const response = await axios.post("http://127.0.0.1:8000/games/get_game_types/",formData);
             
             fetchData()
         }catch(err){
-            alert('Error creating new venue')
+            alert('Error creating new Game Type')
         }
-    }
-    
+    }    
     return(
         <div
             style={{
@@ -50,15 +49,15 @@ export default function NewVenue({
             }}>
             
             <MyInput
-                labelText="New Venue Name"
+                labelText="New Game Type Name"
                 handleChange={handleChange}
-                inputValue={formData.venue_name}
-                inputName="venue_name"
+                inputValue={formData.name}
+                inputName="name"
                 inputType="text"
             />
             <MyButton
-                button_function={AddVenue}
-                button_text={"Add Venue"}
+                button_function={AddGameType}
+                button_text={"Add Game Type"}
                 button_style={{
                     height:"50px",
                     width:"100px",

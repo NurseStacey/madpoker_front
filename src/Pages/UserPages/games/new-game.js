@@ -17,8 +17,10 @@ export default function NewGame({
 {
     const [allDirectors, setAllDirectors]=useState([]);
     const [allVenues, setAllVenues]=useState([]);
-    const [allSeasonType, setAllSeasonStypes]=useState([]);
+    const [allSeasonType, setAllSeasontypes]=useState([]);
+    const [allGameType, setAllGametypes]=useState([]);
     const [seasonTypeText, setSeasonTypeText]=useState('In Person');
+    const [gameTypeText, setGameTypeText]=useState('Texas Holdem');
 
     useEffect(()=>{
 
@@ -84,19 +86,34 @@ export default function NewGame({
             try{
                 const response = await axios.get("http://127.0.0.1:8000/seasons/seasontypes/",);
                 //console.log(response.data)
-                setAllSeasonStypes(response.data)
+                setAllSeasontypes(response.data)
                 console.log(response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person'));
                 setFormData({
                     ...formData,
                     season_type:response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person').id
                 });
             }catch(err){
-                alert('Problem getting venues.');
+                alert('Problem getting seasons.');
             }            
         }
+
+        const fetchGameTypes = async()=>{
+            try{
+                const response = await axios.get("http://127.0.0.1:8000/games/get_game_types/",);
+                //console.log(response.data)
+                setAllGametypes(response.data)
+                setFormData({
+                    ...formData,
+                    game_type:response.data.find((oneGameType)=>oneGameType.name==='Texas Holdem').id
+                });
+            }catch(err){
+                alert('Problem getting game types.');
+            }            
+        }        
         fetchDirectors();
         fetchVenues();
         fetchSeasonTypes();
+        fetchGameTypes();
     },[])
 
     
@@ -111,6 +128,14 @@ export default function NewGame({
             season_type:allSeasonType.find((oneSeason)=>oneSeason.season_type===thisType).id
         });        
     }
+
+    const GameTypeSelected=(thisType)=>{
+        setGameTypeText(thisType);
+        setFormData({
+            ...formData,
+            game_type:allGameType.find((oneGame)=>oneGame.name===thisType).id
+        });        
+    }   
     const DirectorSelected=(e)=>{
 
         setFormData({
@@ -224,8 +249,19 @@ export default function NewGame({
                         }}
                     />
                     <MyListBox
+                        theList={allGameType.map((oneGameType)=>oneGameType.name)}
+                        title="Game Type"
+                        titleColor="black"
+                        direction="vertical"
+                        ListBoxStyle={{
+                            width:'150px'
+                        }}
+                        selectedItem={gameTypeText}
+                        setSelection={GameTypeSelected}
+                    />                       
+                    <MyListBox
                         theList={allSeasonType.map((oneSeasonType)=>oneSeasonType.season_type)}
-                        title="Type"
+                        title="Season Type"
                         titleColor="black"
                         direction="vertical"
                         ListBoxStyle={{

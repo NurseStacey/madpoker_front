@@ -1,4 +1,4 @@
-export default BlankGame={
+export const BlankGame={
     venueName:'',
     date:'',
     time:'',

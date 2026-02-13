@@ -7,5 +7,6 @@ export const BlankFormData={
     active:true,
     description:'',
     director:-1,
-    season_type:-1
+    season_type:-1,
+    game_type:-1
 }
