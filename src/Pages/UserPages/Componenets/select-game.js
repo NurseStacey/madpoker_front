@@ -11,45 +11,52 @@ export default function SelectGame({
 {
     const [allGames, setAllGames]=useState([]);
     const [allDirectors,setAllDirectors]=useState([]);
+    const [directorsToShow, setDirectorsToShow]=useState([])
+    const [allVenues, setAllVenues]=useState([]);
+    const [venuesToShow, setVenuesToShow]=useState([])
     const [allDates, setAllDates]=useState([])
-    const [whichGame, setWhichGame]=useState({Text:""});
-    const [whichUser, setWhichUser]=useState({
-        username:"All Directors",
-        id:-1,
-        email:""
-    });
+    const [whichGame, setWhichGame]=useState({title:""});
+    const [whichUser, setWhichUser]=useState("");
+    const [whichVenue, setWhichVenue]=useState("");
 
     const [gamesToShow, setGamesToShow]=useState([]);
     const [datesToShow, setDatesToShow]=useState([]);
 
     const Test=()=>{
-        let X=allGames.map((oneGame)=>oneGame.game_text)
-        console.log(allGames.map((oneGame)=>oneGame.game_text))
-        console.log(X.map((oneGame)=>oneGame.slice(0,10)))}
+       
+    }
 
     useEffect(()=>{
-        GetDirectors();
         GetGames();
     },[]);
 
-    const GetDirectors = async()=>{
-        try{
-            const response = await axios.get("http://127.0.0.1:8000/login_api/all_user/",);
-            setAllDirectors([{username:'All Directors'},...response.data])
-            setWhichUser(response.data.find((oneUser)=>oneUser.username===localStorage.getItem('current_user')))
-        }catch(err){
-            console.log(err);
+    useEffect(()=>{
+
+        if (whichUser==='All Directors'){
+            setVenuesToShow(['All Venues', ...allVenues]);
+            setGamesToShow(allGames.map((oneGame)=>oneGame.title));            
         }
-    }    
+        let theseGames=allGames.filter((oneGame)=>oneGame.director===whichUser);
+        if (theseGames.length===0) return        
+        if (whichUser===undefined || allGames==[]) return  //shouldn't ever happen but just in case
+        setVenuesToShow(['All Venues', ...new Set(theseGames.map((oneGame)=>oneGame.venue))]);
+        setGamesToShow(theseGames.map((oneGame)=>oneGame.title));
+       
+    }, [whichUser])
 
     useEffect(()=>{
-        console.log(allGames)
-        //setGamesToShow(allGames.filter((oneGame)=>oneGame.director_name===whichUser.username))
-        let dates = []
-        allGames.filter((oneGame)=>oneGame.director_name===whichUser.username).map((oneGame)=>oneGame.all_dates.map((oneDate)=>dates.push(oneDate.date)));
-        setDatesToShow(dates);        
-        //GetGames();
-    }, [whichUser])
+
+        if (whichVenue==='All Venues'){
+            setDirectorsToShow(['All Directors',...allDirectors]);
+            setGamesToShow(allGames.map((oneGame)=>oneGame.title));            
+        }
+        let theseGames=allGames.filter((oneGame)=>oneGame.venue===whichVenue);
+        if (theseGames.length===0) return 
+        if (whichVenue===undefined || allGames==[]) return  //shouldn't ever happen but just in case
+        setDirectorsToShow(['All Directors', ...new Set(theseGames.map((oneGame)=>oneGame.director))]);
+        setGamesToShow(theseGames.map((oneGame)=>oneGame.title));
+       
+    }, [whichVenue])
 
     useEffect(()=>{
         // let dates = []
@@ -59,12 +66,29 @@ export default function SelectGame({
 
     const GetGames = async()=>{
         try{
-            const response = await axios.get("http://127.0.0.1:8000/games/get_all_sections/",);
-            console.log(response.data)
-            setAllGames(response.data.filter((oneGame)=>oneGame.game_text!=='default'));
-            let firstLayer=response.data.filter((oneGame)=>oneGame.game_text!=='default');
-            let dates = []
-            response.data.filter((oneGame)=>oneGame.game_text!=='default').map((oneGame)=>oneGame.all_dates.map((oneDate)=>dates.push(oneDate)))
+            const response = await axios.get("http://127.0.0.1:8000/games/games_for_roster/",);
+            setAllGames(response.data['all_game_data']);
+            setAllDirectors(['All Directors',...response.data['directors']]);
+            setDirectorsToShow(['All Directors',...response.data['directors']]);
+            let thisUser=response.data['directors'].find((oneUser)=>oneUser===localStorage.getItem('current_user'))
+            if (thisUser===undefined) thisUser='All Directors'
+            setWhichUser(thisUser);
+            
+            if (response.data['directors'].find((oneUser)=>oneUser===thisUser)!==undefined){
+                let theseGames = response.data['all_game_data'].filter((oneGame)=>oneGame.director===thisUser);
+                setGamesToShow(theseGames.map((oneGame)=>oneGame.title));
+            }
+            else
+                setGamesToShow(response.data['all_game_data'].map((oneGame)=>oneGame.title));
+
+            setAllVenues(response.data['venues']);
+            if (thisUser==='All Directors') {
+                setVenuesToShow(['All Venues',...response.data['venues']]);
+            } else {
+                console.log('two')
+                let theseGames = response.data['all_games_data'].filter((oneGame)=>oneGame.director===thisUser)
+                setVenuesToShow(['All Venues', ...new Set(theseGames.map((oneGame)=>oneGame.venue))]);
+            }
             //setDatesToShow(dates)
             //setGamesToShow(response.data.filter((oneGame)=>oneGame.game_text!=='default'));            
             // if (whichUser.username==="All Directors") {
@@ -102,25 +126,30 @@ export default function SelectGame({
 
     const HandelChange=(e)=>{
         if (e.target.name==="Director"){
-            setWhichUser(allDirectors.find((oneUser)=>oneUser.username===e.target.value))
+            setWhichUser(e.target.value);
             setWhichDate({
                 date:'01/01',
                 id:-1
             })
         }
 
-        if (e.target.name==="Game") {
-            let thisGame=allGames.find((oneGame)=>oneGame.game_text===e.target.value)
-            setWhichGame(thisGame);
-            let tempDateArray=[];
-            thisGame.all_dates.map((oneDate)=>tempDateArray.push(oneDate));
-            setAllDates(tempDateArray);
-            setWhichDate({
-                date:'01/01',
-                id:-1,
-                canUpdate:false
-            })            
+        if(e.target.name==='Venue'){
+            setWhichVenue(e.target.value);
         }
+
+
+        // if (e.target.name==="Game") {
+        //     let thisGame=allGames.find((oneGame)=>oneGame.game_text===e.target.value)
+        //     setWhichGame(thisGame);
+        //     let tempDateArray=[];
+        //     thisGame.all_dates.map((oneDate)=>tempDateArray.push(oneDate));
+        //     setAllDates(tempDateArray);
+        //     setWhichDate({
+        //         date:'01/01',
+        //         id:-1,
+        //         canUpdate:false
+        //     })            
+        //}
         if (e.target.name==="Date") setWhichDate(allDates.find((oneDate)=>oneDate.date===e.target.value))
     }
     
@@ -135,11 +164,11 @@ export default function SelectGame({
                 height:'175px',
             }}
         >
-            {/* <button onClick={Test}>test</button> */}
+            <button onClick={Test}>test</button>
             <MyDropdownText
-                optionsList={allDirectors.map((oneDirector)=>oneDirector.username)}
+                optionsList={directorsToShow}
                 setSelectedOption={HandelChange}
-                selection = {whichUser.username}
+                selection = {whichUser}
                 name="Director"
                 disable={false}
                 style={{
@@ -149,9 +178,21 @@ export default function SelectGame({
                 }}
             />     
             <MyDropdownText
-                optionsList={gamesToShow.map((oneGame)=>oneGame.game_text)}
+                optionsList={venuesToShow}             
                 setSelectedOption={HandelChange}
-                selection = {whichGame.game_text}
+                selection = {whichVenue}
+                name="Venue"
+                disable={false}
+                style={{
+                    width:'600px',
+                    margin:'0px 20px',
+                    height:'100%'
+                }}
+            />              
+            <MyDropdownText
+                optionsList={gamesToShow}
+                setSelectedOption={HandelChange}
+                selection = {whichGame.title}
                 name="Game"
                 disable={false}
                 style={{
@@ -160,7 +201,7 @@ export default function SelectGame({
                     height:'100%'
                 }}
             />  
-            <MyDropdownText
+            {/* <MyDropdownText
                 optionsList={datesToShow.map((oneDate)=>oneDate)}
                 setSelectedOption={HandelChange}
                 selection = {whichDate.date}
@@ -171,7 +212,7 @@ export default function SelectGame({
                     margin:'0px 20px',
                     height:'100%'
                 }}
-            /> 
+            />  */}
 
         </div>               
     )

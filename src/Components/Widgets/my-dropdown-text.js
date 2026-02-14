@@ -77,7 +77,7 @@ export default function MyDropdownText({
                     height:'80%'
                 }}
             >
-                {matchingList.map((oneItem, index)=>
+                {matchingList.map((oneItem)=>
                     (oneItem!==undefined) ?
                     <div
                         key={oneItem}
