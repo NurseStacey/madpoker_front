@@ -10,10 +10,6 @@ export default function Signup({
     setOpenModal,
     SignupForGame, 
     setPlayerID,
-    venueName,
-    time,
-    section,
-    date,
     gameInfo
 })
 {
@@ -50,7 +46,7 @@ export default function Signup({
                     fontSize:'20px',
                     marginTop:'30px'
                 }}>
-            Registration for {gameInfo.game} on {gameInfo.date} at {gameInfo.time} at {gameInfo.venueName}
+            Registration for  {gameInfo.game} on {gameInfo.date} at {gameInfo.time} at {gameInfo.venueName}
             </div>
 
                 <MyDropdownText

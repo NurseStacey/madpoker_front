@@ -1,29 +1,56 @@
-
+import  { Fragment} from 'react'
 
 export default function OneGame({
     thisGame,
-    thisWeekDay,
     RegisterForGame
 })
 {
     return(
-        (thisGame.week_day===thisWeekDay)?
+        <div
+            // key={thisGame.id}
+            onClick={()=>RegisterForGame(thisGame)}         
+            style={{
+                display:'flex',
+                width:'100%',
+                margin:'10px 0px',
+                fontSize:'16px',
+        }}>
             <div
-                onClick={()=>RegisterForGame(thisGame.NextPlayerGameID)}
                 style={{
-                    fontSize:"18px",
-                    display:'flex',
-                    flexWrap:'wrap',
-                    cursor:"pointer",
-                    border:'1px solid black'
-                }}
-                >
-                    <p>
-                        <span style={{color:'red'}}>{thisGame.venue_name}</span>
-                        {" - "} 
-                         <span style={{color:'black'}}>thisGame.description}</span>
-                    </p> 
+                    width:'20%',
+                    color:'red',
+                    cursor:'pointer',
+                    // display:'inline-block',
+                    // verticalAlign:'text-top',
+            }}>
+                {thisGame.venue_name}
             </div>
-        :<></>
+            <div
+                style={{
+                    color:'black',
+                    width:'2%'
+                }}>
+                -
+            </div>
+            <div
+                style={{
+                    width:'68%',
+                    
+                }}
+            >
+                    {thisGame.description.map((onePiece)=>(
+                        <Fragment
+                            key={onePiece['index']}>
+                            <span
+                                
+                                style={{
+                                    color:onePiece['color']
+                                }}> 
+                                {onePiece['text']}
+                            </span>
+                        </Fragment>
+                    ))}
+            </div>
+        </div>
     )
 }

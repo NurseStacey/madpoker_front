@@ -2,5 +2,6 @@ export const BlankGame={
     venueName:'',
     date:'',
     time:'',
-    game:''
+    game:'',
+    id:-1
 }

@@ -5,10 +5,7 @@ import Signup from './signup'
 export default function SignupModal({
     setOpenModal,
     gameID,
-    venueName,
-    time,
-    section,
-    date
+    gameInfo
 })
 {
     const [player, setPlayer]=useState("")
@@ -57,10 +54,7 @@ export default function SignupModal({
                 setOpenModal={setOpenModal}
                 SignupForGame={()=>SignupForGame(playerID)}
                 setPlayerID={setPlayerID}
-                venueName={venueName}
-                time={time}
-                section={section}
-                date={date}
+                gameInfo={gameInfo}
             />
             </div>
 

@@ -12,27 +12,25 @@ export default function Locations(){
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);
     const [gameID, setGameID]=useState(-1);
-    const [venueName, setVenueName]=useState('');
-    const [time, setTime]=useState('');
-    const [date, setDate]=useState('');
     const [gameInfo, setGameInfo]=useState(BlankGame);
     const [openModal, setOpenModal]=useState(false);
 
     useEffect(()=>{
         setWidth(width*0.60)
         setHeight(height)
-        let now = new Date()
     },[]);
 
-    const RegisterForGame=(id, thisVenueName, thisTime, thisDate)=>{
-        setGameID(id);
-        setOpenModal(true);
-        setVenueName(thisVenueName);
-        //setSection(thisSection)
-        setDate(thisDate)
-        console.log(thisDate)
+    useEffect(()=>{
+        if (gameInfo.id!==-1)
+            setOpenModal(true);
+    },[gameInfo])
 
-        let tempTime= parseInt(thisTime);
+    const RegisterForGame=(thisGame)=>{
+
+        setGameID(thisGame.id);
+        console.log(thisGame)
+
+        let tempTime= parseInt(thisGame.time);
         let AMPM='AM'
         if (tempTime>1200) {
             tempTime-=1200;
@@ -41,8 +39,13 @@ export default function Locations(){
 
         let tempHour=parseInt(tempTime/100);
         let tempMinute = tempTime - (100*tempHour)
-
-        setTime(`${tempHour}:${String(tempMinute).padStart(2,'0')} ${AMPM}`)
+        setGameInfo({
+            venueName:thisGame.venue_name,
+            date:thisGame.date,
+            time:`${tempHour}:${String(tempMinute).padStart(2,'0')} ${AMPM}`,
+            game:thisGame.game_type,
+            id:thisGame.id
+        })
     }
 
     const Test=()=>{
@@ -67,10 +70,6 @@ export default function Locations(){
                         <SignupModal
                             setOpenModal={setOpenModal}
                             gameID={gameID}
-                            venueName={venueName}
-                            time={time}
-                            
-                            date={date}
                             gameInfo={gameInfo}
                         /> 
                     </div>:

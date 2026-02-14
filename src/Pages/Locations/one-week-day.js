@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+import  OneGame from './one-game'
 
 
 export default function OneWeekDay({
@@ -6,6 +8,7 @@ export default function OneWeekDay({
     RegisterForGame
 })
 {
+
     return(
         <div
             key={weekDay}
@@ -19,60 +22,14 @@ export default function OneWeekDay({
             }}>
                 {weekDay}
                 {theseGames.map((oneGame)=>(
-                     <div
-                        key={oneGame.venue_name}
-                        style={{
-                            display:'flex',
-                            width:'100%',
-                            margin:'10px 0px',
-                        }}>
-                        <div
-                                    onClick={()=>RegisterForGame(
-                                        oneGame.id, 
-                                        oneGame.venue_name, 
-                                        oneGame.time, 
-                                       // oneSection.section,
-                                        oneGame.date
-                                    )}                        
-                            style={{
-                                width:'100%',
-                                color:'red',
-                                fontSize:'16px',
-                                cursor:'pointer'
-                            }}>
-                                <span style={{color:'red'}}>
-                                    {oneGame.venue_name}
-                                </span>
-                                {" - "} 
-                                <span style={{color:'black'}}>{oneGame.description}</span>                                
-                                    
-                        </div>
-                        {/* <div
-                            style={{
-                                display:'block',
-                                width:'74%',
-                                marginLeft:'1%'
-                            }}>
-                            {oneGame.sections.map((oneSection,index)=>(
-                                <div
-                                    key={oneSection.id}
-                                    onClick={()=>RegisterForGame(
-                                        oneSection.played_game_id, 
-                                        oneGame.venue_name, 
-                                        oneGame.time, 
-                                       // oneSection.section,
-                                        oneSection.date
-                                    )}
-                                    style={{
-                                        fontSize:'16px',
-                                        marginBottom:'10px',
-                                        cursor:'pointer'
-                                    }}>
-                                        {oneSection.description}
-                                </div>
-                            ))}
-                        </div>  */}
-                    </div>))}
+                    <Fragment
+                        key={oneGame.id}>
+                        <OneGame
+                            thisGame={oneGame}
+                            RegisterForGame={RegisterForGame}
+                            />
+                    </Fragment>
+                ))}
         </div>        
     )
 }
