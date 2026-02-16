@@ -192,7 +192,7 @@ export default function ListOfRecords({
                         cursor:'pointer'
                     }}
                 >
-                    Position
+                    Reverse Position
                 </div> 
                 <div
                     style={{

@@ -43,7 +43,7 @@ export default function ListOfRecords({
 
         try{
             const response = await axios.post("http://127.0.0.1:8000/gameresults/update_roster_only_position/",{allUsers:currentRoster});
-            console.log(response.data)
+            //console.log(response.data)
             setCurrentRoster(response.data.sort((a,b)=>a.player_name.localeCompare(b.player_name)))
         }catch(err){
 
@@ -212,7 +212,7 @@ export default function ListOfRecords({
                         cursor:'pointer'
                     }}
                 >
-                    Position
+                    Reverse Position
                 </div> 
                 <div
                     style={{
