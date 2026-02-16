@@ -22,7 +22,7 @@ import GameSection from './Pages/UserPages/game-sections/game-sections';
 import EditDirectors from './Pages/UserPages/edit-directors/edit-directors';
 import FinalizeGame from './Pages/UserPages/finalize-game/finalize-game';
 import GameTypes from './Pages/UserPages/game-types/game-types';
-
+import TestingPage from './Pages/UserPages/testing.js';
 
 function App() {
 
@@ -72,6 +72,7 @@ function App() {
             <Route path='edit_directors' element={<EditDirectors/>}/>
             <Route path='finalize_game' element={<FinalizeGame/>}/>
             <Route path='game_types' element={<GameTypes/>}/>
+            <Route path='testing' element={<TestingPage/>}/>
 
           </Routes>
         </BrowserRouter>

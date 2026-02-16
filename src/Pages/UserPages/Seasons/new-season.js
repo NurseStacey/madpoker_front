@@ -19,7 +19,8 @@ export default function NewSeason({
     }
 
     const handleChange = (e)=>{
-
+        console.log(e.target.name)
+        console.log(e.target.value)
         if (e.target.name==="season_type"){
             
             

@@ -75,7 +75,11 @@ export default function Operations({
                 buttonLink="/event_management"
                 NavigationFunction={NavigationFunction}
             />          
-             
+            <OneOperationButton
+                buttonText="testing"
+                buttonLink="/testing"
+                NavigationFunction={NavigationFunction}
+            />                       
         </div>
     )
 }

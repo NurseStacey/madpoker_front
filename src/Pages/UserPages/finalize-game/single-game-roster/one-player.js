@@ -67,7 +67,6 @@ export default function OnePlayer({
                 name={'position'+thisPlayer.player_name}
                 onChange={setPosition}  
                 type="number"
-                
                 disabled={disableUpdateButton}
                 value={thisPlayer.position}>                    
                 </input>
@@ -89,6 +88,7 @@ export default function OnePlayer({
                     name={'pomts-' + thisPlayer.player_name}
                     onChange={setPoints}  
                     type="number"
+                    disabled={disableUpdateButton}
                     value={thisPlayer.points}>                    
                 </input>
 

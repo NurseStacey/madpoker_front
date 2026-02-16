@@ -1,43 +1,22 @@
 import {useState, useEffect} from 'react';
 import WindowDimensions from '../../utils/window-dimensions';
 import axios from 'axios';
-import DropDown from '../../Components/Widgets/drop-down/drop-down'
+import SelectionBox from './selection-box';
 
 export default function ViewResults()
 {
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);
-    const [allSeasons,  setAllSeasons]=useState([])
-    const[allVenues, setAllVenues]=useState([])
 
-    const[selectedSeason, setSelectedSeason]=useState('')
-    const[selectedVenue, setSelectedVenue]=useState('')
+
+
     const[allData, setAllData]=useState([])
 
     useEffect(()=>{
         setWidth(width*0.60);
         setHeight(height);
-
-        const fetchData = async() =>{
-            try {
-                let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);
-                setAllSeasons(response.data)
-                setSelectedSeason(response.data[0].season)
-
-                response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
-                setAllVenues(response.data)
-                setSelectedVenue("-- All Venues --")
-                
-                response = await axios.get("http://127.0.0.1:8000/games/get_all_info_for_game_view/",);
-                console.log(response.data)
-            } catch(err){
-                
-            }
-        }
-        
-        fetchData()
-    },[])
+    },[]);
 
     return (
          <div
@@ -63,8 +42,11 @@ export default function ViewResults()
                         margin:'2%',
                     }}>
                     View Game Results
-                </div>                    
-                <div
+                </div>     
+                <SelectionBox
+                    Width={Width}
+                />               
+                {/* <div
                     style={{
                         backgroundColor:'#d7d7ce',
                         width:`${0.35*Width}px`,
@@ -96,7 +78,7 @@ export default function ViewResults()
                             zIndex:5
                         }}
                     />                                  
-                </div>           
+                </div>            */}
             </div>            
             
         </div>        
