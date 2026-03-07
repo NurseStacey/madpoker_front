@@ -14,13 +14,19 @@ export default function DropDownHeader({
             style={{
                 display:'flex',
                 justifyContent:'center',
-                marginTop:'2%',
+                
+                margin:'2% 3%',
+                width:'94%',
+                //border:'4px solid black'
             }}>
             <div
                 style={{
                     color:"#70727b",
                     padding:'10px',
                     fontSize:'12px',
+                    width:'35%',
+                    textAlign:'left',
+                    //border:'4px solid black'
                 }}
             >
                 {title}
@@ -29,7 +35,7 @@ export default function DropDownHeader({
                 onClick={()=>setDropDownClicked(!dropDownClicked)}
                 style={{
                     display:"flex",
-                    width:'75%',
+                    width:'65%',
                     fontSize:'20px',
                     backgroundColor:'white',
                     justifyContent:'space-between',

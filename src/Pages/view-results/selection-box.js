@@ -10,7 +10,7 @@ export default function SelectionBox({
     const[selectedVenue, setSelectedVenue]=useState('');    
     const[selectedGame, setSelectedGame]=useState('');
     const [allSeasons,  setAllSeasons]=useState([]);
-    const[allVenues, setAllVenues]=useState([]);
+    const[allVenues, setAllVenues]=useState([]);    
     const[allGames,setAllGames]=useState([]);
 
     const[gamesToShow, setGamesToShow]=useState([]);
@@ -19,17 +19,18 @@ export default function SelectionBox({
 
     const[allGameInfo, setAllGameInfo]=useState([]);
 
-
     useEffect(()=>{
 
         const fetchData = async() =>{
             try {
-                let response = await axios.get("http://127.0.0.1:8000/seasons/seasonforgameresults/",);
+                let response = await axios.get("http://127.0.0.1:8000/consolidated_data/info_for_search/",);
+                console.log(response.data)
                 setAllVenues(response.data['venues']);
                 setVenuesToShow(["-- All Venues --", ...response.data['venues']]);
-                setAllGames(response.data['games']);
-                setGamesToShow(['-- All Games --', ...response.data['games'].map((oneGame)=>oneGame.title)]);
+                setAllGames(response.data['game_titles']);
+                setGamesToShow(['-- All Games --', ...response.data['game_titles']]);
                 let seasonNames=response.data['all_data'].map((oneSeason)=>oneSeason.season_name);
+                console.log(response.data['game_titles'])
                 setAllSeasons(seasonNames);
                 setSeasonsToShow(['-- All Seasons --',...seasonNames]);
 
@@ -37,8 +38,8 @@ export default function SelectionBox({
                 setSelectedVenue("-- All Venues --");
                 setSelectedGame('-- All Games --');
                 
-                response = await axios.get("http://127.0.0.1:8000/games/gameinfo_for_review/",);
-                setAllGameInfo(response.data)
+                // response = await axios.get("http://127.0.0.1:8000/games/gameinfo_for_review/",);
+                // setAllGameInfo(response.data)
             } catch(err){
                 console.log(err.status)
             }
@@ -85,37 +86,40 @@ export default function SelectionBox({
             }}>
             <DropDown
                 selectedItem={selectedSeason}
-                width={0.3*Width}
+                //width={0.3*Width}
                 allItems={seasonsToShow}
                 setSelectedItem={SeasonChosen}
                 title="SEASON"
                 top={0}
                 DropDownStyle={{
                     zIndex:6,
+                    width:'100%'
                 }}                        
             />   
             <DropDown
                 selectedItem={selectedVenue}
-                width={0.3*Width}
+                //width={0.3*Width}
                 allItems={venuesToShow}
                 setSelectedItem={VenueChosen}
                 title="VENUE"
                 top={60}
                 DropDownStyle={{
-                    zIndex:5
+                    zIndex:5,
+                    width:'100%'
                 }}
             />     
-            <DropDown
+          <DropDown
                 selectedItem={selectedGame}
                 width={0.3*Width}
                 allItems={gamesToShow}
                 setSelectedItem={GameChosen}
                 title="GAME"
-                top={60}
+                top={120}
                 DropDownStyle={{
-                    zIndex:5
+                    zIndex:4,
+                    width:'100%'
                 }}
-            />                                                
+            /> 
         </div>              
     )
 }

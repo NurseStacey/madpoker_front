@@ -20,7 +20,7 @@ export default function DropDownList({
                 style={{
                     display:(dropDownClicked) ? 'block' : 'none',
                     marginLeft:'20%',
-                    width:'75%',
+                    width:'65%',
                     height:'250px',
                     backgroundColor:'white',
                     border:'1px solid black',
