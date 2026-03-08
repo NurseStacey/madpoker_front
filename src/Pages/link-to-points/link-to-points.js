@@ -3,6 +3,8 @@ import WindowDimensions from '../../utils/window-dimensions';
 import axios from 'axios';
 import MyListBoxSearch from '../../Components/Widgets/my-listbox-search/my-listbox-search';
 import MyButton from '../../Components/Widgets/my-button';
+import {APPLICATION_COLORS} from '../../Components/application-colors';
+
 
 export default function LinkToPoints()
 {
@@ -35,8 +37,26 @@ export default function LinkToPoints()
         venue_name:""
     });   
 
-    const PullData = () =>{
+    const PullData = async() =>{
+        if(selectedPlayer.id===-1){
+            alert("Must Select A  Player")
+            return
+        }
 
+        console.log(selectedSeason.id)
+        try{
+            const url=`http://127.0.0.1:8000/consolidated_data/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`
+            console.log(url)
+            const response = await axios.get(url)
+            console.log(response.data)
+        }catch(err){
+            console.log('error here')
+            if (err.status===404) {
+                alert("Problem getting player data.")
+            } else if (err.staus===400) {
+                alert("Problem summarizing player data.")
+            }
+            console.log(err)}
     }
 
     const PlayerChosenFromBox = (thisPlayer)=>{
@@ -128,6 +148,7 @@ export default function LinkToPoints()
 
                 response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
                 setAllVenues(response.data)
+                console.log(response.data)
                
             } catch(err){
             }
@@ -201,7 +222,8 @@ export default function LinkToPoints()
                     marginTop:"10%",
                     width:'80%',
                     marginLeft:'10%',
-                    border:'1px solid black'
+                    //border:'1px solid black',
+                    
                 }}
                 >
                 <div
@@ -215,54 +237,93 @@ export default function LinkToPoints()
                 </div>
                 <div
                     style={{
-                        backgroundColor:'#d7d7ce',
+                        backgroundColor:APPLICATION_COLORS['player-interface']['background'],
                         width:'100%',
-                        height:'100px',
+                        height:'150px',
                         margin:'auto',
-                        display:'flex',
-                        justifyContent:'center',
+                        display:'block',
                         border:'1px solid black',
-                        position:'relative'
+                        color:APPLICATION_COLORS['player-interface']['font_color'], 
+                        
                     }}>
-                    <MyListBoxSearch
-                        selection={selectedPlayer.player}
-                        setSelection={PlayerChosenFromBox}
-                        title={"Player"}
-                        theList={allPlayers.map((onePlayer)=>onePlayer.player)}
-                        MyListBoxSearchStyle={{padding:"0px 25px"}}
-                    />   
-                    <MyListBoxSearch
-                        selection={selectedSeason.season}
-                        setSelection={SeasonChosenFromBox}
-                        title={"Season"}
-                        theList={allSeasons.map((oneSeason)=>oneSeason.season)}
-                        MyListBoxSearchStyle={{padding:"0px 25px"}}
-                    /> 
-                  
-                    <MyListBoxSearch
-                        selection={selectedVenue.venue_name}
-                        setSelection={VenueChosenFromBox}
-                        title={"Venue"}
-                        theList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
-                        MyListBoxSearchStyle={{padding:"0px 25px"}}
-                    />                   
-          
-
-                </div>
-
-                <div>
-                    <MyButton
-                        button_function={PullData}
-                        button_text={"Get Patient Summary"}
-                        button_style={{
-                            height:"50px",
-                            width:"100px",
-                            margin:"auto",
-                            backgroundColor:"#afafa7",
+                    <div
+                        style={{
+                            marginTop:'15px'
                         }}
-                        disable={false}
-                    />
+                    >
+                        <MyButton
+                            button_function={PullData}
+                            button_text={"Get Patient Summary"}
+                            button_style={{
+                                height:"50px",
+                                width:"100px",
+                                margin:"auto",
+                                color:APPLICATION_COLORS['player-interface']['button_font_color'],
+                                backgroundColor:APPLICATION_COLORS['player-interface']['button_background'],
+                            }}
+                            disable={false}
+                        />
+                    </div>                        
+                    <div
+                        style={{
+                            display:'flex',
+                            justifyContent:'center',
+                            position:'relative'
+                        }}
+                    >
+                        <MyListBoxSearch
+                            selection={selectedPlayer.player}
+                            setSelection={PlayerChosenFromBox}
+                            title={"Player"}
+                            theList={allPlayers.map((onePlayer)=>onePlayer.player)}
+                            MyListBoxSearchStyle={{
+                                padding:"0px 25px",
+                                width:'25%',
+                                left:"20%",
+                                translate:'-50%'
+                            }}
+                        />   
+                        <MyListBoxSearch
+                            selection={selectedSeason.season}
+                            setSelection={SeasonChosenFromBox}
+                            title={"Season"}
+                            theList={allSeasons.map((oneSeason)=>oneSeason.season)}
+                            MyListBoxSearchStyle={{
+                                padding:"0px 25px",
+                                width:'25%',
+                                left:"50%",
+                                translate:'-50%'
+                            }}
+                        /> 
+                    
+                        <MyListBoxSearch
+                            selection={selectedVenue.venue_name}
+                            setSelection={VenueChosenFromBox}
+                            title={"Venue"}
+                            theList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
+                            MyListBoxSearchStyle={{
+                                padding:"0px 25px",
+                                width:'25%',
+                                left:"80%",
+                                translate:'-50%'
+                            }}
+                        />                   
+            
+                    </div>
+
+                    <div
+                        style={{
+                            marginTop:'125px',
+                            height:'500px',
+                            backgroundColor:APPLICATION_COLORS['player-interface']['background_two'],
+                            overflowY:'scroll'
+                        }}
+                    >
+
+                    </div>  
                 </div>
+
+
  
                 {/* <button onClick={Test}>test</button> */}
                 

@@ -56,6 +56,7 @@ export default function ListBoxSearch({
                     style={{
                         textAlign:'left',
                         paddingLeft:'5px',
+                        color:APPLICATION_COLORS['widget-colors']['font_color'],
                         backgroundColor:(selection===oneItem)?APPLICATION_COLORS['widget-colors']['selected']:'white'
                     }}
                 >

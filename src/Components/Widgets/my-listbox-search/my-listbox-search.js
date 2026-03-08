@@ -34,11 +34,13 @@ export default function MyListBoxSearch({
         setSelection(oneItem);
     }
 
+    const Test=()=>{console.log(theList)}
     return(
         <div
             ref={wrapperRef} 
             style={{
                 display:'block',
+                position:'absolute',
                 ...MyListBoxSearchStyle
             }}
         >
@@ -48,6 +50,7 @@ export default function MyListBoxSearch({
                 }}>
                 {title}
             </div>
+           
             <SearchBox
                 searchBarInput={searchBarInput}
                 setSearchBarInput={setSearchBarInput}
