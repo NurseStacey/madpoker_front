@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import axios from 'axios'
+import {APPLICATION_COLORS} from '../application-colors'
 
 export default function PlayerList({
     searchBarInput,
@@ -57,7 +58,7 @@ export default function PlayerList({
                     style={{
                         textAlign:'left',
                         paddingLeft:'5px',
-                        backgroundColor:(selectedPlayer.id===onePlayer.id)?'limegreen':'white'
+                        backgroundColor:(selectedPlayer.id===onePlayer.id)?APPLICATION_COLORS['widget-colors']['selected']:'white'
                     }}
                 >
                     {onePlayer.player}

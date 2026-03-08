@@ -36,15 +36,15 @@ export default function PlayerSearch({
         <div
             ref={wrapperRef} 
             style={{
-                position:'absolute',
-                width:'20%',
-                left:'50%',
-                translate:'-50%',
-                //width:`${width}px`,
-                //top:`${top}px`,
-                zIndex:10,
+                // position:'absolute',
+                // width:'20%',
+                // left:'50%',
+                // translate:'-50%',
+                // //width:`${width}px`,
+                // //top:`${top}px`,
+                // zIndex:10,
             }}>
-            <button onClick={test}>test</button>
+            <div>Player</div>
             <SearchInput
                 searchBarInput={searchBarInput}
                 setSearchBarInput={setSearchBarInput}

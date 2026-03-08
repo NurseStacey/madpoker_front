@@ -1,4 +1,4 @@
-
+import {APPLICATION_COLORS} from '../application-colors'
 
 export default function MyMultiListBox({
     theList,
@@ -46,7 +46,7 @@ export default function MyMultiListBox({
                         onClick={()=>localSetSelection(oneItem)}
                         key={oneItem}
                         style={{
-                            backgroundColor:(selectedItems.includes(oneItem))?'limegreen':'white'
+                            backgroundColor:(selectedItems.includes(oneItem))?APPLICATION_COLORS['widget-colors']['selected']:'white'
                         }}>
                         {oneItem}
                     </div>

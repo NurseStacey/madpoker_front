@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react'
+import {APPLICATION_COLORS} from '../application-colors'
 
 export default function MyDropdownText({
     optionsList,
@@ -85,7 +86,7 @@ export default function MyDropdownText({
                         style={{
                             textAlign:"left",
                             cursor:"pointer",
-                            backgroundColor: (selection===oneItem) ? "limegreen" : "white"
+                            backgroundColor: (selection===oneItem) ? APPLICATION_COLORS['widget-colors']['selected'] : "white"
                         }}
                         >
                         {oneItem}

@@ -3,7 +3,7 @@ import MyInput from '../../../Components/Widgets/my-input';
 import axios from 'axios'
 import {useEffect, useState} from 'react';
 import {defaultForm} from './default-form-data';
-
+import {APPLICATION_COLORS} from '../../../Components/application-colors'
 
 export default function NewSeason({
     seasonTypes,
@@ -129,7 +129,7 @@ export default function NewSeason({
                             onClick={()=>seasonTypeClicked(oneType.id)}
                             style={{
                                 textAlign:'left',
-                                backgroundColor:(formData.season_type===oneType.id)?'limegreen':'white'
+                                backgroundColor:(formData.season_type===oneType.id)?APPLICATION_COLORS['widget-colors']['selected']:'white'
                             }}
                             >
                             {oneType.season_type}

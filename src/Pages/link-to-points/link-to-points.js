@@ -1,18 +1,18 @@
 import {useState, useEffect} from 'react';
 import WindowDimensions from '../../utils/window-dimensions';
 import axios from 'axios';
-import DropDown from '../../Components/Widgets/drop-down/drop-down'
-import PlayerSearch from './player-search/player-search'
-import MyMultiListBox from '../../Components/Widgets/my-multilistbox'
+import MyListBoxSearch from '../../Components/Widgets/my-listbox-search/my-listbox-search';
+import MyButton from '../../Components/Widgets/my-button';
 
 export default function LinkToPoints()
 {
+    const [allPlayers, setAllPlayers]=useState([])    
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0)
     const [Height, setHeight] =  useState(0)
     const [LeftMargin, setLeftMargin]=useState(0)
     const [allSeasons,  setAllSeasons]=useState([])
-    const[allVenues, setAllVenues]=useState([])
+    const [allVenues, setAllVenues]=useState([])
 
     const[playersGamesToShow, setPlayersGamesToShow]=useState([])
     const[playersGames, setPlayersGames]=useState([])
@@ -21,19 +21,60 @@ export default function LinkToPoints()
 
     const [selectedSeasonsArray, setSelectedSeasosnArray]=useState([])
     const [selectedVenuesArray, setSelectedVenuesArray]=useState([])    
-    // const[selectedSeason, setSelectedSeason]=useState({
-    //     season:"-- All Sesaons --",
-    //     id:-1
-    // });
-    // const[selectedVenue, setSelectedVenue]=useState({
-    //     venue_name:"-- All Venues --",
-    //     id:-1
-    // });
+
     const [selectedPlayer, setSelectedPlayer]=useState({
         id:-1,
         player:""
     });
+    const [selectedSeason, setSelectedSeason]=useState({
+        id:-1,
+        season:""
+    });    
+    const [selectedVenue, setSelectedVenue]=useState({
+        id:-1,
+        venue_name:""
+    });   
 
+    const PullData = () =>{
+
+    }
+
+    const PlayerChosenFromBox = (thisPlayer)=>{
+        //console.log(thisPlayer)
+        if (thisPlayer===""){
+            setSelectedPlayer({
+                id:-1,
+                player:""
+            });
+        } else {
+        let thisPlayerObj=allPlayers.find((onePlayer)=>onePlayer.player===thisPlayer)
+        setSelectedPlayer(thisPlayerObj)
+        }
+    }
+
+    const SeasonChosenFromBox =(thisSeason)=>{
+        if (thisSeason===""){
+            setSelectedSeason({
+                id:-1,
+                season:""
+            });
+        } else {
+        let thisSeasonObj=allSeasons.find((oneSeason)=>oneSeason.season===thisSeason)
+        setSelectedSeason(thisSeasonObj)
+        }
+    }
+
+    const VenueChosenFromBox =(thisVenue)=>{
+        if (thisVenue===""){
+            setSelectedVenue({
+                id:-1,
+                venue_name:""
+            });
+        } else {
+        let thisVenueObj=allVenues.find((oneVenue)=>oneVenue.venue_name===thisVenue)
+        setSelectedVenue(thisVenueObj)
+        }
+    }    
     // const getDataToSend=()=>{
     //     let dataToSend = {
     //         playerID:selectedPlayer.id,
@@ -53,12 +94,18 @@ export default function LinkToPoints()
         setPlayersSeasons(response.data['the_seasons'])
         console.log(response.data)
     }  
-
     useEffect(()=>{
-        pullGames()
-        setSelectedSeasosnArray([])
-        setSelectedVenuesArray([])
-    },[selectedPlayer])
+
+    },[])
+
+    // useEffect(()=>{
+
+
+    //     pullGames()
+    //     setSelectedSeasosnArray([])
+    //     setSelectedVenuesArray([])
+    // },[selectedPlayer])
+    
     //},[selectedSeason,selectedVenue,selectedPlayer])
 
     useEffect(()=>{
@@ -67,6 +114,14 @@ export default function LinkToPoints()
         setHeight(height);
 
         const fetchData = async() =>{
+            try{
+                const response = await axios.get("http://127.0.0.1:8000/players/players/",);
+                
+                setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
+                //setThesePlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
+            }catch(err){
+                console.log(err);
+            }             
             try {
                 let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);
                 setAllSeasons(response.data)
@@ -75,12 +130,9 @@ export default function LinkToPoints()
                 setAllVenues(response.data)
                
             } catch(err){
-                
             }
         }
-
         fetchData()
-
     },[])
 
     // const findSelectedVenue=(venueName)=>{
@@ -164,75 +216,55 @@ export default function LinkToPoints()
                 <div
                     style={{
                         backgroundColor:'#d7d7ce',
-                        //width:`${0.3*Width}px`,
                         width:'100%',
-                        height:'205px',
+                        height:'100px',
                         margin:'auto',
                         display:'flex',
-                        justifyContent:'space-between',
+                        justifyContent:'center',
                         border:'1px solid black',
                         position:'relative'
                     }}>
-
-                    <PlayerSearch
-                        //width={0.3*Width}
-                        selectedPlayer={selectedPlayer}
-                        setSelectedPlayer={setSelectedPlayer}        
-                    />     
-                    <MyMultiListBox
-                        theList={playersVenues.sort((a,b)=>a.localeCompare(b))}
-                        title="Venues Played At"
-                        titleColor="blue"
-                        direction="vertical"
-                        ListBoxStyle={{
-                            marginLeft:"5%",
-                            width:"25%",
-                            height:"200px"
-                        }}
-                        selectedItems={selectedVenuesArray.map((oneVenue)=>oneVenue.venue_name)}
-                        setSelection={venueSelected}
-                    />  
-                    <MyMultiListBox
-                        theList={playersSeasons.sort((a,b)=>a.localeCompare(b))}
-                        title="Seasons Played At"
-                        titleColor="blue"
-                        direction="vertical"
-                        ListBoxStyle={{
-                            marginRight:"5%",
-                            width:"25%",
-                            height:"200px"
-                        }}
-                        selectedItems={selectedSeasonsArray.map((oneSeason)=>oneSeason.season)}
-                        setSelection={seasonSelected}
-                    />                                                              
-   {/*                 <DropDown
-                        selectedItem={selectedSeason.season}
-                        width={0.3*Width}
-                        allItems={["-- All Sesaons --",...allSeasons.map((oneSeason)=>oneSeason.season)]}
-                        setSelectedItem={findSelectedSeason}
-                        title="SEASON"
-                        top={80}
-                        DropDownStyle={{
-                            zIndex:2
-                        }}                        
-                    />
-                    <DropDown
-                        selectedItem={selectedVenue.venue_name}
-                        width={0.3*Width}
-                        allItems={["-- All Venues --",...allVenues.map((oneVenue)=>oneVenue.venue_name)]}
-                        setSelectedItem={findSelectedVenue}
-                        title="VENUE"
-                        top={140}
-                        DropDownStyle={{
-                            zIndex:1
-                        }}
-                    />       */}
+                    <MyListBoxSearch
+                        selection={selectedPlayer.player}
+                        setSelection={PlayerChosenFromBox}
+                        title={"Player"}
+                        theList={allPlayers.map((onePlayer)=>onePlayer.player)}
+                        MyListBoxSearchStyle={{padding:"0px 25px"}}
+                    />   
+                    <MyListBoxSearch
+                        selection={selectedSeason.season}
+                        setSelection={SeasonChosenFromBox}
+                        title={"Season"}
+                        theList={allSeasons.map((oneSeason)=>oneSeason.season)}
+                        MyListBoxSearchStyle={{padding:"0px 25px"}}
+                    /> 
+                  
+                    <MyListBoxSearch
+                        selection={selectedVenue.venue_name}
+                        setSelection={VenueChosenFromBox}
+                        title={"Venue"}
+                        theList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
+                        MyListBoxSearchStyle={{padding:"0px 25px"}}
+                    />                   
+          
 
                 </div>
 
-
+                <div>
+                    <MyButton
+                        button_function={PullData}
+                        button_text={"Get Patient Summary"}
+                        button_style={{
+                            height:"50px",
+                            width:"100px",
+                            margin:"auto",
+                            backgroundColor:"#afafa7",
+                        }}
+                        disable={false}
+                    />
+                </div>
  
-                <button onClick={Test}>test</button>
+                {/* <button onClick={Test}>test</button> */}
                 
             </div>
         

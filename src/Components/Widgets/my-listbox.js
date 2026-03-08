@@ -1,4 +1,4 @@
-
+import {APPLICATION_COLORS} from '../application-colors'
 
 export default function MyListBox({
     theList,
@@ -39,7 +39,7 @@ export default function MyListBox({
                         onClick={()=>setSelection(oneItem)}
                         key={oneItem}
                         style={{
-                            backgroundColor:(selectedItem===oneItem)?'limegreen':'white'
+                            backgroundColor:(selectedItem===oneItem)?APPLICATION_COLORS['widget-colors']['selected']:'white'
                         }}>
                         {oneItem}
                     </div>
