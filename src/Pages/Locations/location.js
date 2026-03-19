@@ -27,7 +27,7 @@ export default function Locations(){
 
     const RegisterForGame=(thisGame)=>{
 
-        setGameID(thisGame.id);
+        setGameID(thisGame.played_game_id);
         console.log(thisGame)
 
         let tempTime= parseInt(thisGame.time);
