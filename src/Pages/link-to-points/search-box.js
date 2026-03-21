@@ -96,7 +96,7 @@ export default function SearchBox({
             >
                 <MyButton
                     button_function={PullData}
-                    button_text={"Get Patient Summary"}
+                    button_text={"Get Player Summary"}
                     button_style={{
                         height:"50px",
                         width:"100px",

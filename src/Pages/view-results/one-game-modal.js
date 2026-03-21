@@ -36,7 +36,6 @@ export default function OneGameModal({
     let OneRowStyle={
         display:'grid',
         gridTemplateColumns: '40% 30% 30%',
-        // margin:'3%',
         fontSize:'20px',
         cursor:'pointer'
     }    
@@ -46,7 +45,8 @@ export default function OneGameModal({
             style={{
                 border:'1px solid black',
                 backgroundColor:APPLICATION_COLORS['player-interface']['background_two'],
-                height:'100%'
+                height:'100%',
+                overflowY:'scroll'
             }}>
             <MyButton
                 button_function={CloseBox}
@@ -66,7 +66,8 @@ export default function OneGameModal({
             </div>
             <div
                 style={{
-                    marginBottom:'2%',
+                    margin:'2% 0%',
+                    borderBottom:'1px dashed black',
                     ...OneRowStyle
                 }}
             >
