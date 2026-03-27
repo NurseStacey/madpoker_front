@@ -1,9 +1,21 @@
 import {APPLICATION_COLORS} from '../../Components/application-colors';
+import {useEffect, useState} from 'react';
 
 export default function ResultsBox(
     {allResults}
 )
 {
+    const [whatSeasons, setWhatSeasons]=useState([])
+
+    // useEffect(()=>{
+    //     let newWhatSeasons=[]
+    //     allResults['season_stats'].map((oneSeason)=>{
+    //         newWhatSeasons.append(oneSeason['season_name'])
+    //     })
+    //     setWhatSeasons(newWhatSeasons)
+
+    // },[allResults])
+
     return(
         <div
             style={{
@@ -13,7 +25,7 @@ export default function ResultsBox(
                 overflowY:'scroll'
             }}
         >
-            {allResults['what_seasons'].map((one_season)=>(
+            {allResults['season_stats'].map((one_season)=>(
                 <div
                     style={{
                         width:'90%',
@@ -27,7 +39,7 @@ export default function ResultsBox(
                             borderBottom:'1px dashed black'
                         }}
                     >
-                        {one_season['season_title']}
+                        {one_season['season_name']}
                     </div>
                     <div
                         style={{
@@ -36,9 +48,9 @@ export default function ResultsBox(
                             margin:'3%'
                         }}
                     >
-                        <div>Overall Position:{allResults['season_summaries'][one_season['season_name']]['season_position']}</div>
-                        <div>Average Score:{allResults['season_summaries'][one_season['season_name']]['average_points']}</div>
-                        <div>Average Position:{allResults['season_summaries'][one_season['season_name']]['average_position']}</div>
+                        <div>Overall Position:{one_season['position']}</div>
+                        <div>Average Score:{one_season['average_points']}</div>
+                        <div>Average Position:{one_season['average_position']}</div>
 
                     </div>
                     <div
@@ -50,12 +62,14 @@ export default function ResultsBox(
                             borderBottom:'1px dashed black'          
                         }}
                     >               
-                        <div style={{width:'30%'}}>Venue</div>
-                        <div style={{width:'20%'}}>Date</div>
-                        <div style={{width:'20%'}}>Position</div>
-                        <div style={{width:'20%'}}>Score</div>
+                        <div style={{width:'25%'}}>Venue</div>
+                        <div style={{width:'17%'}}>Date</div>
+                        <div style={{width:'17%'}}>Game</div>
+                        <div style={{width:'17%'}}>Position</div>
+                        <div style={{width:'17%'}}>Score</div>
                     </div>                             
-                    {allResults['individual_game_results'][one_season['season_name']].map((one_result)=>(
+                    {allResults['individual_game_results'].filter((one_result)=>one_result['season_name']===one_season['season_name']
+                    ).map((one_result)=>(
                         <div
                             key={one_result['id']}
                             style={{
@@ -70,10 +84,11 @@ export default function ResultsBox(
                                     marginLeft:'3%'                                                  
                                 }}
                             >
-                                <div style={{width:'30%'}}>{one_result['display_pieces']['venue']}</div>
-                                <div style={{width:'20%'}}>{one_result['display_pieces']['date']}</div>
-                                <div style={{width:'20%'}}>{one_result['display_pieces']['position']}</div>
-                                <div style={{width:'20%'}}>{one_result['display_pieces']['points']}</div>
+                                <div style={{width:'30%'}}>{one_result['venue']}</div>
+                                <div style={{width:'20%'}}>{one_result['date']}</div>
+                                <div style={{width:'20%'}}>{one_result['game_type']}</div>
+                                <div style={{width:'20%'}}>{one_result['position']}</div>
+                                <div style={{width:'20%'}}>{one_result['points']}</div>
                             </div>
                         </div>
                     ))}

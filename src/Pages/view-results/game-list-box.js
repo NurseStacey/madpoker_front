@@ -51,8 +51,8 @@ export default function GameListBox({
                     onClick={()=>GameClicked(onePlayedGame.id)}
                 >
                     <div>{onePlayedGame.venue}</div>
-                    <div>{onePlayedGame.gametype}</div>
-                    <div>{onePlayedGame.weekday}</div>
+                    <div>{onePlayedGame.game_type}</div>
+                    <div>{onePlayedGame.week_day}</div>
                     <div>{onePlayedGame.date}</div>
                 </div>                 
             ))}

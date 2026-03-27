@@ -25,11 +25,9 @@ export default function SelectGame({
         const fetchData=async()=>{
             try{
                 const url=`http://127.0.0.1:8000/games/played_game_list/${selectedSeason.id}/${selectedVenue.id}/`
-                console.log(url)
                 const response = await axios.get(url)
-                console.log(response.data)
                 setPlayedGameList(response.data)
-                setFilteredPlayedGameList(response.data.these_played_games_list)                
+                setFilteredPlayedGameList(response.data)                
             }catch(err){
                 console.log(err)
             }  
@@ -40,13 +38,10 @@ export default function SelectGame({
     
 
     const FilterGames = ()=>{
-        console.log(selectedSeason)
-        console.log(selectedVenue)
-        console.log(filteredPlayedGameList)
 
         let newFilteredPlayedGameList=[]
         playedGameList.map((onePlayedGame)=>{
-            if((onePlayedGame.season===selectedSeason.season || selectedSeason.id===-1) && (onePlayedGame.venue===selectedVenue.venue_name || selectedVenue.id===-1)) newFilteredPlayedGameList.push(onePlayedGame)
+            if((onePlayedGame.season_name===selectedSeason.season || selectedSeason.id===-1) && (onePlayedGame.venue===selectedVenue.venue_name || selectedVenue.id===-1)) newFilteredPlayedGameList.push(onePlayedGame)
         })
         setFilteredPlayedGameList(newFilteredPlayedGameList)
     }

@@ -13,5 +13,10 @@ export const  APPLICATION_COLORS ={
         'button_background':'#BAFF39',
         'font_color':'#FFFFFF',
         'button_font_color':'#000000'
+    },
+    'fonts':{
+        'header_font':'',
+        'writing_font':'',
+        'link_font':''
     }
 }

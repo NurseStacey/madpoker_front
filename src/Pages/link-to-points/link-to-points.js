@@ -14,7 +14,7 @@ export default function LinkToPoints()
 
     const[allResults, setAllResults]=useState({
         individual_game_results:[],
-        what_seasons:[]
+        season_stats:[]
     })
 
     const [selectedPlayer, setSelectedPlayer]=useState({
@@ -37,8 +37,9 @@ export default function LinkToPoints()
         }
 
         try{
-            const url=`http://127.0.0.1:8000/consolidated_data/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`
+            const url=`http://127.0.0.1:8000/gameresults/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`
             const response = await axios.get(url)
+            //console.log(response.data)
             setAllResults(response.data)
         }catch(err){
             console.log('error here')
