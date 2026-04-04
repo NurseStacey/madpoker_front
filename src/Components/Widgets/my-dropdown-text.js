@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {APPLICATION_COLORS} from '../application-colors'
+import {APPLICATION_COLORS} from '../Constants/application-colors'
 
 export default function MyDropdownText({
     optionsList,

@@ -74,7 +74,12 @@ export default function Operations({
                 buttonText="Event Management"
                 buttonLink="/event_management"
                 NavigationFunction={NavigationFunction}
-            />          
+            />
+            <OneOperationButton
+                buttonText="Cancel Game"
+                buttonLink="/cancel_game"
+                NavigationFunction={NavigationFunction}
+            />                    
             <OneOperationButton
                 buttonText="testing"
                 buttonLink="/testing"

@@ -2,7 +2,7 @@ import MDLogo from '../Pictures/MD_Logo1.jpg'
 import {MD_LINKS} from '../data-files/links'
 import '@fontsource/averia-sans-libre'
 import '../App.css'
-import {APPLICATION_COLORS} from '../Components/application-colors'
+import {APPLICATION_COLORS} from '../Components/Constants/application-colors'
 import WindowDimensions from '../utils/window-dimensions'
 import {useEffect, useState} from 'react'
 
@@ -54,7 +54,8 @@ export default function Left_Side({
             {MD_LINKS.map((one_link)=>
                 <div
                     className='MyLink'
-                    style={{fontFamily:'Averia Sans Libre',
+                    style={{
+                        fontFamily:'Averia Sans Libre',
                         color: (RightSideKey==one_link['id']) ? APPLICATION_COLORS['link-colors']['clicked'] :APPLICATION_COLORS['link-colors']['unclicked']
                     }}
                     key={one_link['id']}

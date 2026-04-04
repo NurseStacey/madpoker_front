@@ -1,5 +1,5 @@
 import MyButton from '../../Components/Widgets/my-button';
-import {APPLICATION_COLORS} from '../../Components/application-colors';
+import {APPLICATION_COLORS} from '../../Components/Constants/application-colors';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 

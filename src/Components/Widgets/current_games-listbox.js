@@ -3,7 +3,8 @@
 export default function CurrentGamesListBox({
     allGames,
     GameSelected,
-    selectedGame
+    selectedGame,
+    ListBoxStyle,
 })
 {
     return(
@@ -11,7 +12,8 @@ export default function CurrentGamesListBox({
             style={{
                 border:'1px solid black',
                 overflowY:'scroll',
-                height:'300px'
+                height:'300px',
+                ...ListBoxStyle
             }}>
             {allGames.map((oneGame)=>(
                 <div

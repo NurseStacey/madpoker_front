@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import MyListBoxSearch from '../../Components/Widgets/my-listbox-search/my-listbox-search';
 import MyButton from '../../Components/Widgets/my-button';
-import {APPLICATION_COLORS} from '../../Components/application-colors';
+import {APPLICATION_COLORS} from '../../Components/Constants/application-colors';
 
 export default function SearchBox({
     setSelectedPlayer,

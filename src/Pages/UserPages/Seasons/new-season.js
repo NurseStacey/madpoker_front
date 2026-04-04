@@ -3,7 +3,7 @@ import MyInput from '../../../Components/Widgets/my-input';
 import axios from 'axios'
 import {useEffect, useState} from 'react';
 import {defaultForm} from './default-form-data';
-import {APPLICATION_COLORS} from '../../../Components/application-colors'
+import {APPLICATION_COLORS} from '../../../Components/Constants/application-colors'
 
 export default function NewSeason({
     seasonTypes,

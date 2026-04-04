@@ -1,4 +1,4 @@
-import {APPLICATION_COLORS} from '../../Components/application-colors';
+import {APPLICATION_COLORS} from '../../Components/Constants/application-colors';
 
 export default function GameListBox({
     filteredPlayedGameList,

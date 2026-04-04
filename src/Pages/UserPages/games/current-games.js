@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 import CurrentGamesButton from './current-games-buttons';
-import CurrentGamesListBox from './current_games-listbox';
+import CurrentGamesListBox from '../../../Components/Widgets/current_games-listbox';
 
 
 export default function CurrentGames({
