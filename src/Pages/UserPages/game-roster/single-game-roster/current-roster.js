@@ -15,6 +15,7 @@ export default function CurrentRoster({
     const [buttonVisibility, setButtonVisibility]=useState('visible');
 
     useEffect(()=>{
+
         setDisableFinalizedButton(whichGameID===-1 || whichGameID===undefined)
     },[whichGameID])
 

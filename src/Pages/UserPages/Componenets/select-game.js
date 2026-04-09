@@ -34,6 +34,7 @@ export default function SelectGame({
             setWhichGame('');
             return;          
         }
+
         let theseGames=allGames.filter((oneGame)=>oneGame.director===thisUser);
         if (theseGames.length===0) return
         if (whichUser===undefined || allGames==[]) return  //shouldn't ever happen but just in case
@@ -47,6 +48,7 @@ export default function SelectGame({
     const venueSelected=(thisVenue)=>{
         setWhichVenue(thisVenue)
         if (thisVenue==='All Venues'){
+
             setDirectorsToShow(allDirectors);
             setGamesToShow(allGames.map((oneGame)=>oneGame.title));
             setWhichUser('All Directors');
@@ -65,10 +67,10 @@ export default function SelectGame({
     }
 
     const gameSelected=(thisGame)=>{
-
-        setDatesToShow(thisGame.dates)
+        
+        setDatesToShow(thisGame.dates.sort((a,b)=>b.id-a.id))
         setWhichGame(thisGame)
-        setAllDirectors(['All Directors', thisGame.director])
+        //setAllDirectors(['All Directors', thisGame.director])
         setWhichUser(thisGame.director)
         setAllVenues(['All Venues', thisGame.venue])
         setWhichVenue(thisGame.venue)
@@ -77,6 +79,7 @@ export default function SelectGame({
     const GetGames = async()=>{
         try{
             const response = await axios.get("http://127.0.0.1:8000/games/games_for_roster/",);
+            console.log(response.data)
             setAllGames(response.data['all_game_data']);
             setAllDirectors(['All Directors',...response.data['directors']]);
             setDirectorsToShow(['All Directors',...response.data['directors']]);
@@ -119,9 +122,14 @@ export default function SelectGame({
 
 
         if (e.target.name==="Game") {
-            gameSelected(allGames.find((oneGame)=>oneGame.title===e.target.value))            
+            let thisGame = allGames.find((oneGame)=>oneGame.title===e.target.value)
+            gameSelected(thisGame)
         }
-        if (e.target.name==="Date") setWhichDate(allDates.find((oneDate)=>oneDate.date===e.target.value))
+        if (e.target.name==="Date") {
+            let thisDate=whichGame.dates.find((oneDate)=>oneDate.date===e.target.value)
+            console.log(thisDate)
+            setWhichDate(thisDate)
+        }
     }
     
     return(

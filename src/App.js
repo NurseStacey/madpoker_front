@@ -24,6 +24,7 @@ import FinalizeGame from './Pages/UserPages/finalize-game/finalize-game';
 import GameTypes from './Pages/UserPages/game-types/game-types';
 import TestingPage from './Pages/UserPages/testing.js';
 import CancelGame from './Pages/UserPages/CancelGame/CancelGame.js';
+import TournamentManagement from './Pages/UserPages/tournament-management/tournament-management.js';
 
 function App() {
 
@@ -62,7 +63,6 @@ function App() {
             <Route path='login' element={<Login/>}/>
             <Route path='register' element={<Register/>}/>
             <Route path='update_top' element={<UpdateTopMessage/>}/> 
-
             <Route path='update_special' element={<UpdateSpecialMessage/>}/>        
             <Route path='edit_venues' element={<EditVenues/>}/>         
             <Route path='edit_games' element={<EditGames/>}/>      
@@ -74,6 +74,7 @@ function App() {
             <Route path='finalize_game' element={<FinalizeGame/>}/>
             <Route path='game_types' element={<GameTypes/>}/>
             <Route path='cancel_game' element={<CancelGame/>}/>
+            <Route path='tournament_management' element={<TournamentManagement/>}/>
             
             <Route path='testing' element={<TestingPage/>}/>
 

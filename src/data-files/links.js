@@ -56,8 +56,8 @@ export const MD_LINKS = [
         'id':'qualifications'
     },     
     {
-        'text':'Tournament Dates',
-        'id':'tournament_dates'
+        'text':'Tournaments',
+        'id':'tournaments'
     },
     {
         'text':'Fun Bus Trips',

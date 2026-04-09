@@ -22,6 +22,7 @@ export default function ListOfRecords({
     //const [gridTemplatePercents, setGridTemplatePercents]=useState([30, 20, 10, 20, 20,])
 
     useEffect(()=>{
+
         if (whichGameID!==-1) {
             GetRoster();
             GetOtherEvents();

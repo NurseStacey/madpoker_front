@@ -10,6 +10,8 @@ import Locations from '../Locations/location';
 import NewPlayer from '../new-player/new-player';
 import LinkToPoints from '../link-to-points/link-to-points';
 import ViewResults from '../view-results/view-results';
+import Tournaments from '../Tournaments/tournaments';
+
 
 export default function Index(){
     const [RightSideKey, setRighSideKey]=useState('locations')
@@ -42,7 +44,8 @@ export default function Index(){
         (RightSideKey=='locations') ? <Locations/> :
         (RightSideKey=='new_player')? <NewPlayer/>:
         (RightSideKey=='points')? <LinkToPoints/>:
-        (RightSideKey=='view_results')? <ViewResults/>:        
+        (RightSideKey=='view_results')? <ViewResults/>:  
+        (RightSideKey=='tournaments')? <Tournaments/>:        
         <></>}
         </>
     )

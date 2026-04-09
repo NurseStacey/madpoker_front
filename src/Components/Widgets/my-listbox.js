@@ -17,7 +17,6 @@ export default function MyListBox({
                 flexDirection:(direction==='horizontal' ? 'row' : 'column'),
                 justifyContent:'flex-start',
                 ...ListBoxStyle
-
             }}>
             <div
                 style={{

@@ -4,11 +4,19 @@ export default function OneGame({
     thisGame,
     RegisterForGame
 })
+
 {
+
+    const GameClicked = ()=>{
+        
+        if (!thisGame.canceled) RegisterForGame(thisGame)
+        
+       
+    }    
     return(
         <div
             // key={thisGame.id}
-            onClick={()=>RegisterForGame(thisGame)}         
+            onClick={GameClicked}
             style={{
                 display:'flex',
                 width:'100%',
@@ -19,7 +27,7 @@ export default function OneGame({
                 style={{
                     width:'20%',
                     color:'red',
-                    cursor:'pointer',
+                    cursor: thisGame.canceled ? 'default' : 'pointer'
                     // display:'inline-block',
                     // verticalAlign:'text-top',
             }}>
@@ -44,7 +52,9 @@ export default function OneGame({
                             <span
                                 
                                 style={{
-                                    color:onePiece['color']
+                                    color:onePiece['color'],
+                                    textDecoration: thisGame.canceled ? 'line-through' : 'none',
+                                    cursor: thisGame.canceled ? 'default' : 'pointer'
                                 }}> 
                                 {onePiece['text']}
                             </span>
