@@ -13,7 +13,8 @@ export default function TournamentInputs({
         'name':'',
         'date':new Date().toISOString().split('T')[0],
         'location':-1,
-        'game_type':-1
+        'game_type':-1,
+        'time':'10:00'
     }
 
     let buttonRowStyle={
@@ -60,7 +61,7 @@ export default function TournamentInputs({
             setGameTypeText(allGameTypes.find((oneGameType)=>oneGameType.id===Response.data.game_type).name);
             setVenueText(allVenues.find((oneVenue)=>oneVenue.id===Response.data.location).venue_name);
 
-            //console.log(Response.data)
+            console.log(Response.data)
         }
 
         if (update>-1){
@@ -201,6 +202,17 @@ export default function TournamentInputs({
                                 width:'250px',
                             }}                    
                     />
+                    <MyInput
+                            labelText="Time"
+                            handleChange={HandelChange}
+                            inputValue={formData.time}
+                            inputName="time"
+                            inputType="Time"
+                            inputStyle={{
+                                height:'50px',
+                                width:'250px',
+                            }}                    
+                    />                    
                     <MyListBox
                         theList={allVenues.map((oneVenue)=>oneVenue.venue_name)}
                         title="Venue"
