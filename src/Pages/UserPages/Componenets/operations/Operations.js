@@ -50,11 +50,11 @@ export default function Operations({
                 buttonLink="/edit_games"
                 NavigationFunction={NavigationFunction}
             />
-            <OneOperationButton
+            {/* <OneOperationButton
                 buttonText="Edit Sections"
                 buttonLink="/game_sections"
                 NavigationFunction={NavigationFunction}
-            />
+            /> */}
             <OneOperationButton
                 buttonText="Season Management"
                 buttonLink="/season_management"
@@ -84,7 +84,12 @@ export default function Operations({
                 buttonText="Tournament Management"
                 buttonLink="/tournament_management"
                 NavigationFunction={NavigationFunction}
-            />                                      
+            />     
+            <OneOperationButton
+                buttonText="Tournament Roster"
+                buttonLink="/tournament_roster"
+                NavigationFunction={NavigationFunction}
+            />                                              
             <OneOperationButton
                 buttonText="testing"
                 buttonLink="/testing"

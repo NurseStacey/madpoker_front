@@ -51,6 +51,7 @@ export default function MyDropdownText({
     }
 
     const Test=()=>{console.log(selection )}
+
     return(
         <div
             style={{
@@ -69,13 +70,14 @@ export default function MyDropdownText({
                 style={{
                     width:"100%",
                     boxSizing: "border-box",
+                    height:'20px'
                 }}
                 />
             <div
                 style={{
                     width:"100%",
                     overflowY:"scroll",
-                    height:'80%'
+                    height:'100%'
                 }}
             >
                 {matchingList.map((oneItem)=>
@@ -92,7 +94,7 @@ export default function MyDropdownText({
                         {oneItem}
                     
                     </div> :<></>
-                )}
+                )} 
             </div>
         </div>
     )

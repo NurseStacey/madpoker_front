@@ -47,11 +47,17 @@ export default function SearchBox({
             try {
                 let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);
                 setAllSeasons(response.data)
-
-                response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
+            }catch(err){
+                alert('Trouble loading seasons.');
+                return;
+            }
+            try{
+                let response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
                 setAllVenues(response.data)
                
             } catch(err){
+                alert('Trouble loading venues.');
+                return;
             }
         }
         fetchData()        

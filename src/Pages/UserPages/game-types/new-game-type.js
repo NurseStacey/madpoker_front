@@ -11,12 +11,11 @@ export default function NewGameType({
 })
 {
 
-    //const [buttonText, setButtonText]=useState("Add Game Type")
     const [enableButton, setEnableButton]=useState(false)
 
     useEffect(()=>{
-        if (selectedGameType===null) setEnableButton(false)//setButtonText("Add Venue")
-            else setEnableButton(true)//setButtonText("Update Venue")
+        if (selectedGameType===null) setEnableButton(false)
+            else setEnableButton(true)
     },[selectedGameType])
 
 

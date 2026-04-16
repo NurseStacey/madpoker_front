@@ -13,17 +13,13 @@ export default function NewMessage({
 }){
 
     const AddText = async () =>{
-        //console.log(formData)
         try{
-
             const response = await axios.post("http://127.0.0.1:8000/website_data/specialmessages/",formData);
             console.log(response.err)
             fetchData()
             Reset()
-
-
         }catch(err){
-            console.log(err);
+            alert("Problem loading special messages")
         }
     }
 
@@ -42,7 +38,11 @@ export default function NewMessage({
     }
 
     const Test =()=>{
-        console.log(formData)
+
+        let date=new Date()
+        let offset = date.getTimezoneOffset() * 60000
+        let localDate = new Date(date.getTime() - offset);
+        console.log(localDate.toISOString().split('T')[0])
     }
     return (
         <div
@@ -92,7 +92,7 @@ export default function NewMessage({
                     }}   
                     disable={false}
                 />
-                {/* <button onClick={Test}>Test</button> */}
+                 <button onClick={Test}>Test</button> 
             </div>
         </div>
     )

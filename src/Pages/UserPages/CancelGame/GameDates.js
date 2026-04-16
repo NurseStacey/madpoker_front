@@ -15,7 +15,6 @@ export default function GameDates({
     const GetCurrentCanceledGameList = async()=>{
         try {
             const response = await axios.get("http://127.0.0.1:8000/games/canceled_game_list/",);
-            console.log(response)
             let tempCurrentCanceldGames = []
             response.data.map((oneCancelation)=>{
                 if (oneCancelation.which_game===thisGame.id) {
@@ -48,7 +47,7 @@ export default function GameDates({
             GetCurrentCanceledGameList();
         }catch(err){
             console.log(err);
-            alert('Problem uncanceling games.');
+            alert('Problem retrieving uncanceling games.');
         }        
     }
 

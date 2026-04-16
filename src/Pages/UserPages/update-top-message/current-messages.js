@@ -26,7 +26,7 @@ export default function CurrentMessages({
             Reset()
 
         }catch(err){
-            console.log(err);
+            alert ('Problem deleting message.')
         }
     }
 

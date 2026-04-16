@@ -37,9 +37,12 @@ export default function LinkToPoints()
         }
 
         try{
-            const url=`http://127.0.0.1:8000/gameresults/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`
-            const response = await axios.get(url)
-            //console.log(response.data)
+
+            const response = await axios.get(`http://127.0.0.1:8000/gameresults/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`)
+            if (response.status===404 || response.status===400) {
+                alert('Difficulty getting player information')
+                return
+            }
             setAllResults(response.data)
         }catch(err){
             console.log('error here')

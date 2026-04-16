@@ -15,15 +15,11 @@ export default function NewMessage({
     const AddText = async () =>{
         console.log(formData)
         try{
-
             const response = await axios.post("http://127.0.0.1:8000/website_data/homepagetext/",formData);
-            
             fetchData()
             Reset()
-
-
         }catch(err){
-            console.log(err);
+            alert('Problem adding message.')
         }
     }
 

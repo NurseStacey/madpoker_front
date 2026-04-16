@@ -6,16 +6,12 @@ export default function OneGame({
 })
 
 {
-
     const GameClicked = ()=>{
-        
         if (!thisGame.canceled) RegisterForGame(thisGame)
-        
-       
     }    
+
     return(
         <div
-            // key={thisGame.id}
             onClick={GameClicked}
             style={{
                 display:'flex',
@@ -28,8 +24,6 @@ export default function OneGame({
                     width:'20%',
                     color:'red',
                     cursor: thisGame.canceled ? 'default' : 'pointer'
-                    // display:'inline-block',
-                    // verticalAlign:'text-top',
             }}>
                 {thisGame.venue_name}
             </div>

@@ -32,10 +32,6 @@ export default function OnePlayer({
            console.log(error)
         }    
     }
-
-    const Test=()=>{console.log(otherEvents)}
-
-
     return(
         <>
             <div

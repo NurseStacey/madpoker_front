@@ -18,13 +18,15 @@ import EditGames from './Pages/UserPages/games/games'
 import SeasonManagement from './Pages/UserPages/Seasons/seasons-management';
 import GameRoster from './Pages/UserPages/game-roster/game-roster.js'
 import EventManagement from './Pages/UserPages/event-management/event-management';
-import GameSection from './Pages/UserPages/game-sections/game-sections';
+//import GameSection from './Pages/UserPages/game-sections/game-sections';
 import EditDirectors from './Pages/UserPages/edit-directors/edit-directors';
 import FinalizeGame from './Pages/UserPages/finalize-game/finalize-game';
 import GameTypes from './Pages/UserPages/game-types/game-types';
 import TestingPage from './Pages/UserPages/testing.js';
 import CancelGame from './Pages/UserPages/CancelGame/CancelGame.js';
 import TournamentManagement from './Pages/UserPages/tournament-management/tournament-management.js';
+import TournamentRoster from './Pages/UserPages/tournament-roster/tournament-roster.js';
+
 
 function App() {
 
@@ -69,13 +71,13 @@ function App() {
             <Route path='season_management' element={<SeasonManagement/>}/>                         
             <Route path='game_roster' element={<GameRoster/>}/>
             <Route path='event_management' element={<EventManagement/>}/>
-            <Route path='game_sections' element={<GameSection/>}/>
+            {/* <Route path='game_sections' element={<GameSection/>}/> */}
             <Route path='edit_directors' element={<EditDirectors/>}/>
             <Route path='finalize_game' element={<FinalizeGame/>}/>
             <Route path='game_types' element={<GameTypes/>}/>
             <Route path='cancel_game' element={<CancelGame/>}/>
             <Route path='tournament_management' element={<TournamentManagement/>}/>
-            
+            <Route path='tournament_roster' element={<TournamentRoster/>}/>
             <Route path='testing' element={<TestingPage/>}/>
 
           </Routes>

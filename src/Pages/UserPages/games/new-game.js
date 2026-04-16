@@ -159,11 +159,18 @@ export default function NewGame({
     const AddGame = async()=>{
         if (selectedGame!==null) return
         try {
-            console.log(formData)
-            //console.log(response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person'));
-            const response = await axios.post("http://127.0.0.1:8000/games/basic_games/",formData);
-            fetchData()
-            ResetFormData()
+
+            let dataToSend = formData
+
+            if (dataToSend.game_type===-1) dataToSend.game_type=allGameType.find((oneGame)=>oneGame.name==='Texas Holdem').id
+
+            const response = await axios.post("http://127.0.0.1:8000/games/basic_games/",dataToSend);
+
+            if (response.status===400) {alert('Problem adding game.')}
+                else {
+                fetchData()
+                ResetFormData()
+            }
 
         }catch(err){
             alert('Problem creating games.');

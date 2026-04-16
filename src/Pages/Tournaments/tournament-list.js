@@ -19,9 +19,9 @@ export default function TournamentList({
                 //console.log(response.data);
             }catch(err){
                 console.log(err);
+                alert('Error loading tournaments.')
             }            
         }
-
         getTournaments()
     },[])
 
@@ -70,7 +70,8 @@ export default function TournamentList({
                             }}
                             onClick={()=>setSelectedTournament({
                                     id:oneTournament.id,
-                                    dowhat:oneTournament.action
+                                    dowhat:oneTournament.action,
+                                    name:oneTournament.name
                                 })}>
                             {oneTournament.display_text}
                         </div>

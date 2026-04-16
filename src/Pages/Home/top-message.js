@@ -1,4 +1,3 @@
-import {MESSAGE} from './notice'
 import '@fontsource/open-sans'
 import {useEffect,useState} from 'react'
 import axios from 'axios';
@@ -15,7 +14,6 @@ export default function TopMessage({
     const [fontSize, setfontSize]=useState(28)
 
     useEffect(()=>{
-        //console.log(LocalHeight)
         if (LocalHeight>0) fetchData()
     },[LocalHeight])
 
@@ -27,6 +25,7 @@ export default function TopMessage({
             let finalMessageArray=[]
             let numberLines=0
             let numberOfMargins=0
+
             response.data.sort((a,b)=>a.order=b.order).map((oneMessage, messageIndex)=>{
                 //console.log(oneMessage.text.split('<BR>'))
                 oneMessage.text.split('<BR>').map((oneLine,lineIndex)=>{

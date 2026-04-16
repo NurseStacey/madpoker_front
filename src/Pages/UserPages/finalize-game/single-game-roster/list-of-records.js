@@ -19,7 +19,6 @@ export default function ListOfRecords({
     })
     const [otherEvents, setOtherEvents]=useState([])
     const gridTemplatePercents =[30, 30, 15,20]
-    //const [gridTemplatePercents, setGridTemplatePercents]=useState([30, 20, 10, 20, 20,])
 
     useEffect(()=>{
         if (whichGameID!==-1) {
@@ -43,7 +42,6 @@ export default function ListOfRecords({
 
         try{
             const response = await axios.post("http://127.0.0.1:8000/gameresults/update_roster/",{allUsers:currentRoster});
-            console.log(response.data)
             setCurrentRoster(response.data.sort((a,b)=>a.player_name.localeCompare(b.player_name)))
         }catch(err){
 

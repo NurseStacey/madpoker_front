@@ -41,14 +41,12 @@ export default function TournamentInputs({
             let Inputs = await axios.get(`http://127.0.0.1:8000/tournaments/info_for_tournament/`,);
             setAllVenues(Inputs['data']['venues'])
             setAllGameTypes(Inputs['data']['game_types'])
-
             console.log(Inputs)
         }
         try {
-            
             getInputs()
         }catch(err){
-            console.log(err)
+            alert('Problem getting tournament info')
         }
 
     },[])
@@ -67,7 +65,7 @@ export default function TournamentInputs({
         if (update>-1){
             try{
                 LoadThisTournament()
-            }catch(err){console.log(err)}
+            }catch(err){alert('Problem loading terounament information.')}
         } else {
             ResetForm()
         }
@@ -161,9 +159,14 @@ export default function TournamentInputs({
     }
     const DeleteTournament = async()=>{
         const DeleteThisTournament=async()=>{
-            const Response=await axios.delete(`http://127.0.0.1:8000/tournaments/onetournament/${update}/`)
-            setUpdateTournamentList(true)
-            ResetForm()
+            try {
+                const Response=await axios.delete(`http://127.0.0.1:8000/tournaments/onetournament/${update}/`)
+                setUpdateTournamentList(true)
+                ResetForm()
+            } catch(err){
+                alert('Problem deleting tournament')
+            }
+
         }
         DeleteThisTournament()        
         setUpdateTournamentList(true)

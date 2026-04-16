@@ -37,7 +37,7 @@ export default function UpdateMessage({
             Reset()
 
         }catch(err){
-            console.log(err);
+            alert('Problem updating message.')
         }
     }
 

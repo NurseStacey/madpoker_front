@@ -30,14 +30,11 @@ export default function UpdateMessage({
     const UpdateText = async () =>{
 
         try{
-
             const response = await axios.patch(`http://127.0.0.1:8000/website_data/specialmessages/${formData.id}/`,formData);
-            
             fetchData()
             Reset()
-
         }catch(err){
-            console.log(err);
+            alert('Problem updating special message.')
         }
     }
 

@@ -22,12 +22,9 @@ export default function NewSeason({
         console.log(e.target.name)
         console.log(e.target.value)
         if (e.target.name==="season_type"){
-            
-            
             if (seasonTypes.find((oneSeason)=>oneSeason.season_type.toLowerCase()===e.target.value.toLowerCase())!==undefined)
                 seasonTypeClicked(seasonTypes.find((oneSeason)=>oneSeason.season_type.toLowerCase()===e.target.value.toLowerCase()).id);
             else seasonTypeClicked(-1)
-
             setSeasonTypeText(e.target.value);
             return;
         }

@@ -78,9 +78,9 @@ export default function UpdateSpecialMessage()
     }
 
     useEffect(()=>{
-        setWidth(width)
-        setHeight(height)
-        fetchData()
+        setWidth(width);
+        setHeight(height);
+        fetchData();
     },[]);
 
     const Test =  ()=>{

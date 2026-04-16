@@ -23,6 +23,7 @@ export default function OneGameModal({
                 setThisGameResults(response.data['this_game_result'])
                 console.log(response.data)
             } catch(err){
+                alert('Problem getting games.');
             }
         }
         fetchData()                

@@ -12,8 +12,8 @@ export default function OneDirector({
             fetchData();
         }catch(err){    
 
-            if(err.response.status===400) {alert('Error deleting venue')
-            } 
+            alert('Error deleting venue')
+           
         }
     }
 

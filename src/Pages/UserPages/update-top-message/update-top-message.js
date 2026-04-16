@@ -36,9 +36,6 @@ export default function UpdateTopMessage()
         })
     }
 
-
-
-
     const fetchData = async ()=>{
         try{
 
@@ -53,7 +50,7 @@ export default function UpdateTopMessage()
             setMessages(response.data)
 
         }catch(err){
-            console.log(err);
+            alert('Problem getting messages.');
         }
     }
 

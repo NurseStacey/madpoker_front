@@ -17,18 +17,17 @@ export default function ListOfRecords({
         'name':'forward',
         'position':'forward'
     })
-    const [otherEvents, setOtherEvents]=useState([])
+
     const gridTemplatePercents =[20, 20, 10,10, 20, 20,]
-    //const [gridTemplatePercents, setGridTemplatePercents]=useState([30, 20, 10, 20, 20,])
 
     useEffect(()=>{
 
         if (whichGameID!==-1) {
             GetRoster();
-            GetOtherEvents();
+            //GetOtherEvents();
         } else {
             setCurrentRoster([])
-            setOtherEvents([])
+
         }
     },[whichGameID])
 
@@ -55,41 +54,6 @@ export default function ListOfRecords({
             } else {alert(`There was an issue with updating the results.  Error code ${err.status}`);}
             
         }        
-    }
-
-    const GetOtherEvents=async()=>{
-        // if (whichGameID !== undefined && whichGameID!==-1) {
-        //     try{
-        //         const response = await axios.get(`http://127.0.0.1:8000/games/played_games_events/${whichGameID}`,);
-        //        // console.log(response.data)   
-        //         setOtherEvents(response.data);
-        //         let numberOtherEvents = response.data.length;
-        //         //console.log(gridTemplatePercents)
-        //         if (numberOtherEvents>0){
-        //             let newArray=[];
-                    
-        //             let eventButtonLength=0;
-        //             defaultPercents.map((oneValue)=>{
-        //                 //console.log(oneValue)
-        //                 if (oneValue>10) {
-        //                     eventButtonLength += Math.floor(oneValue*0.1);
-        //                     oneValue = Math.floor(oneValue*0.9);
-        //                 }
-        //                 //console.log(oneValue)
-        //                 newArray.push(oneValue);
-        //             })
-        //             for (let i=0;i<numberOtherEvents;i++){
-        //                 newArray.push(eventButtonLength/numberOtherEvents);
-        //             }
-        //             //console.log('here')
-        //             setGridTemplatePercents(newArray);  
-        //             //console.log(newArray)                
-        //         } else setGridTemplatePercents(defaultPercents)
-
-        //         }catch(err){
-        //             alert(`There was an issue with getting the other events.  Error code ${err.status}`)
-        //         }
-        //     }
     }
 
     const GetRoster=async()=>{
@@ -182,7 +146,6 @@ export default function ListOfRecords({
             style={{
                 display:'grid',
                 gridTemplateColumns:gridTemplatePercents.join('% ')+'%'  ,
-                //gridTemplateColumns:'200px 100px 50px 100px 100px',
                 rowGap:'10px',
                 border:'1px solid black',
                 width:"80%",
@@ -213,7 +176,7 @@ export default function ListOfRecords({
                         cursor:'pointer'
                     }}
                 >
-                    Reverse Position
+                    Position
                 </div> 
                 <div
                     style={{
@@ -237,15 +200,7 @@ export default function ListOfRecords({
                     }}>
                     Player is Out
                 </div>     
-                {otherEvents.map((oneEvent)=>(
-                    <div
-                    style={{
-                        textAlign:'left',
-                        cursor:'pointer'
-                    }}>
-                        {oneEvent.event_name}
-                    </div>
-                ))}               
+              
                 {currentRoster.map((onePlayer)=>(
                     <Fragment key={onePlayer.id}>
                         <OnePlayer
@@ -253,7 +208,6 @@ export default function ListOfRecords({
                             setPosition={setPosition}
                             setPoints={setPoints}
                             GetRoster={GetRoster}
-                            otherEvents={otherEvents}
                             IsOutSetPosition={IsOutSetPosition}
                             disableUpdateButton={disableUpdateButton}
                             />

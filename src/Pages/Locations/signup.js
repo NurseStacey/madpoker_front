@@ -21,6 +21,7 @@ export default function Signup({
             setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
         }catch(err){
             console.log(err);
+            alert('Problem loading players.')
         } 
     }    
     useEffect(()=>{

@@ -24,7 +24,7 @@ export default function EditDirectors()
             setAllDirectors(response.data)
             console.log(response.data)
         }catch(err){
-            console.log(err)
+            alert('Problem retrieving users.')
         }
     }
 

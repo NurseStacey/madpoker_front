@@ -24,13 +24,13 @@ export default function SelectGame({
     useEffect(()=>{
         const fetchData=async()=>{
             try{
-                const url=`http://127.0.0.1:8000/games/played_game_list/${selectedSeason.id}/${selectedVenue.id}/`
-                const response = await axios.get(url)
-                console.log(response.data)
-                setPlayedGameList(response.data)
-                setFilteredPlayedGameList(response.data)                
+                
+                const response = await axios.get(`http://127.0.0.1:8000/games/played_game_list/${selectedSeason.id}/${selectedVenue.id}/`);
+                console.log(response.data);
+                setPlayedGameList(response.data);
+                setFilteredPlayedGameList(response.data)       ;         
             }catch(err){
-                console.log(err)
+                alert('Trouble getting game list.');
             }  
         }
 

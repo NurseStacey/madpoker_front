@@ -14,9 +14,7 @@ export default function SpecialMessages(){
         try{
 
             const response = await axios.get("http://127.0.0.1:8000/website_data/specialmessages",);
-
             setSpecialMessages(response.data.slice(0,10))
-
         }catch(err){
             alert('Error loading special messages')
         }

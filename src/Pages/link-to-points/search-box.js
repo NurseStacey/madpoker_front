@@ -22,19 +22,27 @@ export default function SearchBox({
 
         const fetchData = async() =>{
             try{
-                const response = await axios.get("http://127.0.0.1:8000/players/players/",);               
+                const response = await axios.get("http://127.0.0.1:8000/players/players/",);        
                 setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
             }catch(err){
                 console.log(err);
+                alert('Problem loading players')
+                return                
             }             
             try {
-                let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);
+                let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);        
                 setAllSeasons(response.data)
-
-                response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
+                }catch(err){
+                        alert('Problem loading seasons information')
+                        return                
+                }
+            try{ 
+                let response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
                 setAllVenues(response.data)
                
             } catch(err){
+                    alert('Problem loading venus')
+                    return
             }
         }
         fetchData()        

@@ -1,20 +1,9 @@
 import {APPLICATION_COLORS} from '../../Components/Constants/application-colors';
-import {useEffect, useState} from 'react';
 
 export default function ResultsBox(
     {allResults}
 )
 {
-    const [whatSeasons, setWhatSeasons]=useState([])
-
-    // useEffect(()=>{
-    //     let newWhatSeasons=[]
-    //     allResults['season_stats'].map((oneSeason)=>{
-    //         newWhatSeasons.append(oneSeason['season_name'])
-    //     })
-    //     setWhatSeasons(newWhatSeasons)
-
-    // },[allResults])
 
     return(
         <div
