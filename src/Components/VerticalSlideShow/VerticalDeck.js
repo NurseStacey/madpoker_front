@@ -5,6 +5,7 @@ import RightChev from './right-chevron.png'
 
 class VerticalDeck extends Component {
     constructor(props){
+        console.log(props)
         super(props)
         this.state={
             cards:props['All_Images'].map((one_link,index)=><Card picsum={one_link} id={index} key={index} />),
@@ -31,7 +32,7 @@ class VerticalDeck extends Component {
         this.current_card=1
         
         this.last_position=[];
-
+        //console.log(this.images.children)
         this.bottom_boundary = parseFloat(this.images.children[this.number_of_cards_by_index].style.top)+this.new_height
         this.top_boundary = parseFloat(this.images.children[0].style.top)-this.new_height
 

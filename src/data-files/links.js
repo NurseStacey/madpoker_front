@@ -33,7 +33,7 @@ export const MD_LINKS = [
     },
     {
         'text':'Directors',
-        'id':'director'
+        'id':'directors_page'
     },
     {
         'text':'Royal Flush Club',

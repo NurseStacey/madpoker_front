@@ -92,7 +92,7 @@ export default function NewMessage({
                     }}   
                     disable={false}
                 />
-                 <button onClick={Test}>Test</button> 
+
             </div>
         </div>
     )

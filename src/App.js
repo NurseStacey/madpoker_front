@@ -7,7 +7,7 @@ import WindowDimensions from './utils/window-dimensions'
 import HomeScreen from './Pages/Home/home'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Login from './Pages/UserPages/Login';
-import Register from './Pages/UserPages/Register';
+import Register from './Pages/UserPages/register-director/register.js';
 import Layout from './Pages/UserPages/Layout';
 import Admin from './Pages/UserPages/Admin';
 import Index from './Pages/Index/index'
@@ -18,7 +18,6 @@ import EditGames from './Pages/UserPages/games/games'
 import SeasonManagement from './Pages/UserPages/Seasons/seasons-management';
 import GameRoster from './Pages/UserPages/game-roster/game-roster.js'
 import EventManagement from './Pages/UserPages/event-management/event-management';
-//import GameSection from './Pages/UserPages/game-sections/game-sections';
 import EditDirectors from './Pages/UserPages/edit-directors/edit-directors';
 import FinalizeGame from './Pages/UserPages/finalize-game/finalize-game';
 import GameTypes from './Pages/UserPages/game-types/game-types';
@@ -79,6 +78,7 @@ function App() {
             <Route path='tournament_management' element={<TournamentManagement/>}/>
             <Route path='tournament_roster' element={<TournamentRoster/>}/>
             <Route path='testing' element={<TestingPage/>}/>
+            
 
           </Routes>
         </BrowserRouter>

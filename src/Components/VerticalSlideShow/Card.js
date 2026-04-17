@@ -1,5 +1,5 @@
 import React from 'react'
-            {/*  */}
+
 function Card(props){
     return(
         <>
@@ -7,7 +7,7 @@ function Card(props){
                 
                 <img style={style.card_img} src={props.picsum.img_link} alt=""/>
                 <div style={style.label}>
-                    {props.picsum.venue_name}
+                    {props.picsum.name}
                 </div>                
             </div>
 

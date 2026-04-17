@@ -1,4 +1,4 @@
-export const VenuePics =[
+export const VenuePicsData =[
     {
         img_link:"https://nebula.wsimg.com/66c0ff4ae1bbb6f3bf98ff2f026646b6?AccessKeyId=A52E80B273170BB51FB6&disposition=0&alloworigin=1",
         venue_name:"Sunset Beach Hut/Tigard/Sundays at 1:00"

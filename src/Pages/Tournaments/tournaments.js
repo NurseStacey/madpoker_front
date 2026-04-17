@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import WindowDimensions from '../../utils/window-dimensions';
-import '@fontsource/averia-sans-libre';
 import axios from 'axios';
 import TournamentList from './tournament-list';
 import SignupModal from './register-modal';

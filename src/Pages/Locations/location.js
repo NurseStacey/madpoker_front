@@ -1,4 +1,4 @@
-import {VenuePics} from '../../data-files/venue-pictures';
+import {VenuePicsData} from '../../data-files/venue-pictures';
 import VerticalDeck from '../../Components/VerticalSlideShow/VerticalDeck';
 import WindowDimensions from '../../utils/window-dimensions'
 import {useEffect, useState} from 'react'
@@ -14,10 +14,18 @@ export default function Locations(){
     const [gameID, setGameID]=useState(-1);
     const [gameInfo, setGameInfo]=useState(BlankGame);
     const [openModal, setOpenModal]=useState(false);
+    const [venuePics, setVenuePics]=useState([]);
 
     useEffect(()=>{
         setWidth(width*0.60)
         setHeight(height)
+
+        let newVenuePics=[]
+        VenuePicsData.map((oneVenue)=>newVenuePics.push({
+            img_link:oneVenue.img_link,
+            name:oneVenue.venue_name
+        }))
+        setVenuePics(newVenuePics)
     },[]);
 
     useEffect(()=>{
@@ -84,8 +92,11 @@ export default function Locations(){
                         }}
                         id="location_slide_show"
                     >
-                        <VerticalDeck
-                            All_Images={VenuePics}/>
+                        {(venuePics.length!==0) ?
+                            <VerticalDeck
+                            All_Images={venuePics}/> :<></>
+                                }
+                        
                     </div> }
                 <div
                     style={{

@@ -3,12 +3,13 @@ import axios from 'axios'
 
 export default function OneDirector({
     ThisDirector,
-    fetchData
+    fetchData,
+    EditDirector
 })
 {
     const RemoveDirector=async(id)=>{
         try{
-            const response = (await axios.delete(`http://127.0.0.1:8000/login_api/remove_director/${ThisDirector.id}/`,))
+            const response = (await axios.delete(`http://127.0.0.1:8000/login_api/update_director/${ThisDirector.id}/`,))
             fetchData();
         }catch(err){    
 
@@ -22,7 +23,6 @@ export default function OneDirector({
             style={{
                 fontSize:'20px',
                 font:'arial',
-               // border:'1px solid black',
                 display:"flex",
                 flexDirection:"row",
                 justifyContent:"space-around",
@@ -32,20 +32,25 @@ export default function OneDirector({
         >
             <div
                 style={{
-
-                    width:'30%'
+                    padding:'1%',
+                    width:'25%',
+                    textWrap:'wrap',
+                    border:'1px solid black'
                 }}
             >
                 {ThisDirector.username} 
             </div>
             <div
                 style={{
-
-                    width:'30%'
+                    padding:'1%',
+                    width:'25%',
+                    overflowWrap:'break-word',
+                    border:'1px solid black'
                 }}
             >
                 {ThisDirector.email} 
             </div>
+            <img src={`http://127.0.0.1:8000/${ThisDirector.image}`} width="100" height="100"/>
             <MyButton
                 button_function={RemoveDirector}
                 button_text={"Remove Director"}  
@@ -56,6 +61,16 @@ export default function OneDirector({
                 }}
                 disable={false}              
             />  
+            <MyButton
+                button_function={()=>EditDirector(ThisDirector.id)}
+                button_text={"Edit Director"}  
+                button_style={{
+                    height:"50px",
+                    width:"100px",
+                    fontSize:'20px',
+                }}
+                disable={false}              
+            />              
         </div>
     )
 }
