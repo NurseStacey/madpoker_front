@@ -16,6 +16,7 @@ export default function EditVenues()
     const [allVenues, setAllVenues]=useState([]);
     const [formData, setFormData]=useState({
         venue_name:"",
+        image:"",
         active:true
     });  
 

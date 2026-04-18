@@ -2,8 +2,6 @@ import {useState,useEffect} from 'react';
 import axiosInstance from 'axios';
 import WindowDimensions from '../../../utils/window-dimensions';
 import Title from '../Componenets/Title';
-import MyButton from '../../../Components/Widgets/my-button';
-import MyInput from '../../../Components/Widgets/my-input';
 import UserForm from '../Componenets/user-form'
 
 export default function Register(){
@@ -45,7 +43,7 @@ export default function Register(){
         formToSend.append("password1", formData.password1);     
         formToSend.append("password2", formData.password2);     
         formToSend.append("phone", formData.phone); 
-        
+        console.log(formToSend)
         setisLoading(true)
         try{
             const response = await axiosInstance.post("http://127.0.0.1:8000/login_api/register/",formToSend, {

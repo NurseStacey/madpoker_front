@@ -1,5 +1,5 @@
 import {useState,useEffect} from 'react';
-import axios from 'axios';
+import axiosInstance from 'axios';
 import MyButton from '../../../Components/Widgets/my-button';
 import MyInput from '../../../Components/Widgets/my-input';
 
@@ -21,18 +21,31 @@ export default function NewVenue({
     },[selectedVenue])
 
     const handleChange = (e)=>{
-
-        setFormData({
-            ...formData,
-            [e.target.name]:e.target.value
-        })        
+        if (e.target.name==='image') {
+            setFormData({
+                ...formData,
+                [e.target.name]:e.target.files[0]
+            })
+        } else {
+            setFormData({
+                ...formData,
+                [e.target.name]:e.target.value
+            })
+        }
     }
 
     const AddVenue = async () =>{
         try{
+            let formToSend = new FormData();
 
-            const response = await axios.post("http://127.0.0.1:8000/venues/venues/",formData);
-            
+            if (formData.image)
+                formToSend.append("image", formData.image, formData.image.name);
+            formToSend.append("venue_name", formData.venue_name);
+            formToSend.append("active", true);
+            console.log(formToSend)
+            const response = await axiosInstance.post("http://127.0.0.1:8000/venues/venues/",formToSend, {
+                headers: { 'Content-Type': 'multipart/form-data'}})            
+            console.log(response)
             fetchData()
         }catch(err){
             alert('Error creating new venue')
@@ -56,6 +69,13 @@ export default function NewVenue({
                 inputName="venue_name"
                 inputType="text"
             />
+            <MyInput
+                labelText="Venue Image"
+                handleChange={handleChange}
+                
+                inputName="image"
+                inputType="file"
+            />                 
             <MyButton
                 button_function={AddVenue}
                 button_text={"Add Venue"}

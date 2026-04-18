@@ -17,6 +17,8 @@ export default function MyInput({
                 flexDirection:"row",
                 justifyContent:"space-between",
                 margin:"25px 0px",
+                //fontSize:'25px',
+                //border:'1px solid black',
                 ...inputStyle
             }}
             >
@@ -30,7 +32,10 @@ export default function MyInput({
                 style={{
                     width:"40%",
                     marginRight:"10%",
-                    textAlign:"right"
+                    textAlign:"right",
+                    alignContent:'center',
+                    fontSize:'inherit',
+                    // border:'1px solid black',
                 }}
                 name={inputName}
                 onChange={handleChange}  

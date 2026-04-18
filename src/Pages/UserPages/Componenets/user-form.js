@@ -11,8 +11,6 @@ export default function UserForm({
 
     const handleChange = (e) =>{
 
-        // console.log(e.target.files[0])
-        // console.log(e.target.name)
         if (e.target.name==='image') {
             setFormData({
                 ...formData,
