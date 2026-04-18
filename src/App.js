@@ -13,7 +13,8 @@ import Admin from './Pages/UserPages/Admin';
 import Index from './Pages/Index/index'
 import UpdateTopMessage from './Pages/UserPages/update-top-message/update-top-message'
 import UpdateSpecialMessage from './Pages/UserPages/special-messages/update-special-message'
-import EditVenues from './Pages/UserPages/edit-venues/edit-venues'
+import EditVenues from './Pages/UserPages/edit-venues/edit-venues.js'
+import AddVenue from './Pages/UserPages/add-venue/add-venue.js'
 import EditGames from './Pages/UserPages/games/games'
 import SeasonManagement from './Pages/UserPages/Seasons/seasons-management';
 import GameRoster from './Pages/UserPages/game-roster/game-roster.js'
@@ -66,6 +67,8 @@ function App() {
             <Route path='update_top' element={<UpdateTopMessage/>}/> 
             <Route path='update_special' element={<UpdateSpecialMessage/>}/>        
             <Route path='edit_venues' element={<EditVenues/>}/>         
+            <Route path='add_venues' element={<AddVenue/>}/> 
+            
             <Route path='edit_games' element={<EditGames/>}/>      
             <Route path='season_management' element={<SeasonManagement/>}/>                         
             <Route path='game_roster' element={<GameRoster/>}/>

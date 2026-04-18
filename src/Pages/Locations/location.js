@@ -1,4 +1,4 @@
-import {VenuePicsData} from '../../data-files/venue-pictures';
+//import {VenuePicsData} from '../../data-files/venue-pictures';
 import VerticalDeck from '../../Components/VerticalSlideShow/VerticalDeck';
 import WindowDimensions from '../../utils/window-dimensions'
 import {useEffect, useState} from 'react'
@@ -6,6 +6,7 @@ import '@fontsource/averia-sans-libre/700.css';
 import SignupModal from './register-modal';
 import ListOfGames from './list-of-games';
 import {BlankGame} from './blank-game';
+import axios from 'axios';
 
 export default function Locations(){
     const { height, width } = WindowDimensions();
@@ -17,15 +18,29 @@ export default function Locations(){
     const [venuePics, setVenuePics]=useState([]);
 
     useEffect(()=>{
+
+
+        const getVenues = async()=>{
+            try{
+ 
+                const response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
+                let newVenuePics=[];
+                
+                response.data.map((oneVenue)=>newVenuePics.push({
+                    img_link:`http://127.0.0.1:8000/${oneVenue.image}`,
+                    name:oneVenue.display_label
+                }));
+                console.log(newVenuePics)
+                setVenuePics(newVenuePics)
+            }catch(err){
+                alert('Error loading venues')
+            }
+        }
+
         setWidth(width*0.60)
         setHeight(height)
+        getVenues()
 
-        let newVenuePics=[]
-        VenuePicsData.map((oneVenue)=>newVenuePics.push({
-            img_link:oneVenue.img_link,
-            name:oneVenue.venue_name
-        }))
-        setVenuePics(newVenuePics)
     },[]);
 
     useEffect(()=>{

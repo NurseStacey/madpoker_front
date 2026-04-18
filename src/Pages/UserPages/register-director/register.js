@@ -77,9 +77,6 @@ export default function Register(){
     }
 
 
-    const test =()=>{
-        console.log(formData)
-    }
     return(
         <div 
             style={{

@@ -1,20 +1,18 @@
 import MyButton from '../../../Components/Widgets/my-button'
 import axios from 'axios'
 
-export default function OneDirector({
-    ThisDirector,
+export default function OneVenue({
+    ThisVenue,
     fetchData,
-    EditDirector
+    EditVenue
 })
 {
-    const RemoveDirector=async(id)=>{
+    const RemoveVenue=async(id)=>{
         try{
-            const response = (await axios.delete(`http://127.0.0.1:8000/login_api/update_director/${ThisDirector.id}/`,))
+            const response = (await axios.delete(`http://127.0.0.1:8000/venues/update_venue/${ThisVenue.id}/`,))
             fetchData();
         }catch(err){    
-
-            alert('Error deleting director')
-           
+            alert('Error deleting venue')
         }
     }
 
@@ -38,7 +36,7 @@ export default function OneDirector({
                     border:'1px solid black'
                 }}
             >
-                {ThisDirector.username} 
+                {ThisVenue.venue_name} 
             </div>
             <div
                 style={{
@@ -48,12 +46,13 @@ export default function OneDirector({
                     border:'1px solid black'
                 }}
             >
-                {ThisDirector.email} 
+                {ThisVenue.display_label} 
             </div>
-            <img src={`http://127.0.0.1:8000/${ThisDirector.image}`} width="100" height="100"/>
+            <img src={`http://127.0.0.1:8000/${ThisVenue.image}`} width="100" height="100"/>
+
             <MyButton
-                button_function={RemoveDirector}
-                button_text={"Remove Director"}  
+                button_function={RemoveVenue}
+                button_text={"Remove Venue"}  
                 button_style={{
                     height:"50px",
                     width:"100px",
@@ -62,8 +61,8 @@ export default function OneDirector({
                 disable={false}              
             />  
             <MyButton
-                button_function={()=>EditDirector(ThisDirector.id)}
-                button_text={"Edit Director"}  
+                button_function={()=>EditVenue(ThisVenue.id)}
+                button_text={"Edit Venue"}  
                 button_style={{
                     height:"50px",
                     width:"100px",

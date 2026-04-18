@@ -1,4 +1,4 @@
-
+import { useRef } from 'react';
 
 export default function MyInput({
     labelText,
@@ -6,10 +6,11 @@ export default function MyInput({
     inputValue,
     inputName,
     inputType,
-    inputStyle
+    inputStyle,
+    inputKey,
 })
 {
-    
+    const fileInputRef = useRef(null);
     return (
         <div
             style={{
@@ -29,6 +30,7 @@ export default function MyInput({
                     textAlign:"Left"
                 }}>{labelText}</label>
             <input
+                key={inputKey}
                 style={{
                     width:"40%",
                     marginRight:"10%",
@@ -37,6 +39,7 @@ export default function MyInput({
                     fontSize:'inherit',
                     // border:'1px solid black',
                 }}
+                ref={fileInputRef}
                 name={inputName}
                 onChange={handleChange}  
                 type={inputType}
