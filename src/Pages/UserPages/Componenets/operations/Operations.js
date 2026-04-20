@@ -36,15 +36,16 @@ export default function Operations({
                 NavigationFunction={NavigationFunction}
             />
              <OneOperationButton
+                buttonText="Add Venues"
+                buttonLink="/add_venues"
+                NavigationFunction={NavigationFunction}
+            />                  
+             <OneOperationButton
                 buttonText="Edit Venues"
                 buttonLink="/edit_venues"
                 NavigationFunction={NavigationFunction}
             />
-             <OneOperationButton
-                buttonText="Add Venues"
-                buttonLink="/add_venues"
-                NavigationFunction={NavigationFunction}
-            />                        
+                  
             <OneOperationButton
                 buttonText="Game Types"
                 buttonLink="/game_types"
@@ -55,11 +56,6 @@ export default function Operations({
                 buttonLink="/edit_games"
                 NavigationFunction={NavigationFunction}
             />
-            {/* <OneOperationButton
-                buttonText="Edit Sections"
-                buttonLink="/game_sections"
-                NavigationFunction={NavigationFunction}
-            /> */}
             <OneOperationButton
                 buttonText="Season Management"
                 buttonLink="/season_management"

@@ -1,5 +1,7 @@
 import MyInput from '../../../Components/Widgets/my-input';
 import MyButton from '../../../Components/Widgets/my-button';
+import { useState } from 'react';
+
 
 export default function UserForm({
     formData,
@@ -8,6 +10,13 @@ export default function UserForm({
     buttonText
 })
 {
+    const [fileKey,setFileKey]=useState(Date.now())
+
+    const localButtonFunction=()=>{
+        setFileKey(Date.now())
+        buttonFunction()
+    }
+
 
     const handleChange = (e) =>{
 
@@ -69,12 +78,12 @@ export default function UserForm({
             <MyInput
                 labelText="Profile Image"
                 handleChange={handleChange}
-                
+                inputKey={fileKey}
                 inputName="image"
                 inputType="file"
             />          
             <MyButton
-                button_function={buttonFunction}
+                button_function={localButtonFunction}
                 button_text={buttonText}  
                 button_style={{
                     height:"100px",
