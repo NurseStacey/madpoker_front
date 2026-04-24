@@ -1,15 +1,18 @@
 import React, {Component, Fragment} from 'react'
 import Card from './Card'
-import LeftChev from './left-chevron.png'
-import RightChev from './right-chevron.png'
+import LeftChev from './left-chevron.png';
+import RightChev from './right-chevron.png';
 
 class VerticalDeck extends Component {
     constructor(props){
-        console.log(props)
+        
         super(props)
         this.state={
             cards:props['All_Images'].map((one_link,index)=><Card picsum={one_link} id={index} key={index} />),
+            transitionDuration:(props['transitionDuration']===undefined ? '.25' : props['transitionDuration']),
+            transition:(props['transition']===undefined ? '' : props['transition'])
         }
+        console.log(this.state)
     }
 
     componentDidMount(){
@@ -53,7 +56,10 @@ class VerticalDeck extends Component {
             counter_for_top=this.middle_card_by_index
         
         for (let i=0; i<this.images.children.length; i++){
-            this.images.children[i].style.transitionDuration='0.25s';
+            //this.images.children[i].style.transitionDuration='.25s'
+            this.images.children[i].style.transitionDuration=this.state['transitionDuration'];
+            
+            //this.images.children[i].style.transition=this.state['transition'];
 
             if (i<this.middle_card_by_index){
                 this.images.children[i].style.top = `-${(counter_for_top*this.new_height) + this.new_height/2}px`
@@ -80,7 +86,10 @@ class VerticalDeck extends Component {
 
         this.current_card--
         for(let i=0; i<this.images.children.length; i++) {
-            this.images.children[i].style.transitionDuration='0.25s';
+            //this.images.children[i].style.transitionDuration='.25s'
+            this.images.children[i].style.transitionDuration=this.state['transitionDuration'];
+            this.images.children[i].style.transition='fade-in'
+           // this.images.children[i].style.transition=this.state['transition'];
             const updated_position = this.last_position[i] + this.new_height;
 
             this.images.children[i].style.top = `${updated_position}px`;
@@ -100,7 +109,10 @@ class VerticalDeck extends Component {
 
         this.current_card++
         for(let i=0; i<this.images.children.length; i++) {
-            this.images.children[i].style.transitionDuration='0.25s';
+            //this.images.children[i].style.transitionDuration='.25s'
+            this.images.children[i].style.transitionDuration=this.state['transitionDuration'];
+            
+           // this.images.children[i].style.transition=this.state['transition'];
             const updated_position = this.last_position[i] - this.new_height;
 
             this.images.children[i].style.top = `${updated_position}px`;
@@ -155,11 +167,13 @@ class VerticalDeck extends Component {
                     
                     if (this.images!==null){
                         for(let i=0; i<this.images.children.length; i++) {
-                            this.images.children[i].style.transitionDuration='0.25s';
-                            //const updated_position = this.last_position[i] - this.new_width;
+
+                            this.images.children[i].style.transitionDuration=this.state['transitionDuration'];
+                            
+                            //this.images.children[i].style.transition=this.state['transition'];
+
                             const updated_position = this.last_position[i] - this.new_height;
 
-                            //this.images.children[i].style.left = `${updated_position}px`;
                             this.images.children[i].style.top = `${updated_position}px`;
                             this.last_position[i]=updated_position;
                         }

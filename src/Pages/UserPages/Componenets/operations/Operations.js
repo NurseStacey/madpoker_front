@@ -92,10 +92,15 @@ export default function Operations({
                 NavigationFunction={NavigationFunction}
             />                                              
             <OneOperationButton
+                buttonText="Winners"
+                buttonLink="/add_winners"
+                NavigationFunction={NavigationFunction}
+            /> 
+            <OneOperationButton
                 buttonText="testing"
                 buttonLink="/testing"
                 NavigationFunction={NavigationFunction}
-            />                       
+            />                                              
         </div>
     )
 }

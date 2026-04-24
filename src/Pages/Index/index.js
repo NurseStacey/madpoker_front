@@ -4,6 +4,7 @@ import Left_Side from '../../Components/left-side'
 import {useState, useEffect} from 'react'
 import WindowDimensions from '../../utils/window-dimensions'
 import HomeScreen from '../Home/home'
+import TempHomeScreen from '../Home/homeTemp'
 import Merch from '../Merch/merch'
 import SpecialMessages from '../Special/special';
 import Locations from '../Locations/location';
@@ -31,22 +32,23 @@ export default function Index(){
         <>
 
         <Left_Side
-        
-        setRightSideKey={setRighSideKey}
-        RightSideKey={RightSideKey}
+            
+            setRightSideKey={setRighSideKey}
+            RightSideKey={RightSideKey}
         />
 
         
-        {(RightSideKey=='home') ? 
-        <HomeScreen/> :
-        (RightSideKey=='shop') ?  <Merch/> :
-        (RightSideKey=='special') ?  <SpecialMessages/> :
-        (RightSideKey=='locations') ? <Locations/> :
-        (RightSideKey=='new_player')? <NewPlayer/>:
-        (RightSideKey=='points')? <LinkToPoints/>:
-        (RightSideKey=='view_results')? <ViewResults/>:  
-        (RightSideKey=='tournaments')? <Tournaments/>:      
-        (RightSideKey=='directors_page')? <DirectorsPage/>:                
+        {/* {(RightSideKey=='home') ?  */}
+        {(RightSideKey==='home') ? 
+        <TempHomeScreen/> :
+        (RightSideKey==='shop') ?  <Merch/> :
+        (RightSideKey==='special') ?  <SpecialMessages/> :
+        (RightSideKey==='locations') ? <Locations/> :
+        (RightSideKey==='new_player')? <NewPlayer/>:
+        (RightSideKey==='points')? <LinkToPoints/>:
+        (RightSideKey==='view_results')? <ViewResults/>:  
+        (RightSideKey==='tournaments')? <Tournaments/>:      
+        (RightSideKey==='directors_page')? <DirectorsPage/>:                
         <></>}
         </>
     )

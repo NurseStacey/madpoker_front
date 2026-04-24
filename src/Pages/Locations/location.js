@@ -109,6 +109,8 @@ export default function Locations(){
                     >
                         {(venuePics.length!==0) ?
                             <VerticalDeck
+                            transitionDuration={'1.20s'}
+                            transition={''}
                             All_Images={venuePics}/> :<></>
                                 }
                         

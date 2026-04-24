@@ -8,5 +8,5 @@ export const BlankFormData={
     description:'',
     director:-1,
     season_type:-1,
-    game_type:-1
+    game_type:null
 }

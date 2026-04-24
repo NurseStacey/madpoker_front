@@ -74,7 +74,14 @@ export default function UserForm({
                 inputValue={formData.phone}
                 inputName="phone"
                 inputType="tel"
-            />                        
+            />      
+            <MyInput
+                labelText="Display Name"
+                handleChange={handleChange}
+                inputValue={formData.display_name}
+                inputName="display_name"
+                inputType="tel"
+            />                                      
             <MyInput
                 labelText="Profile Image"
                 handleChange={handleChange}

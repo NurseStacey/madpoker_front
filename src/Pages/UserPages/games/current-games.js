@@ -9,7 +9,8 @@ export default function CurrentGames({
         formData,
         allGames,
         selectedGame,
-        setSelectedGame
+        setSelectedGame,
+        setResetData
 })
 {
 
@@ -60,6 +61,7 @@ export default function CurrentGames({
             
             fetchData()
             setSelectedGame(null)
+            setResetData(true)
 
         }catch(err){
             console.log(err.response.data)

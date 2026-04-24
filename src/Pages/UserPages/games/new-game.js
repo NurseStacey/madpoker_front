@@ -13,6 +13,7 @@ export default function NewGame({
     setFormData,
     fetchData,
     selectedGame,
+    resetData
 })
 {
     const [allDirectors, setAllDirectors]=useState([]);
@@ -45,6 +46,12 @@ export default function NewGame({
             GetThisGame(selectedGame)
     },[selectedGame])
 
+    useEffect(()=>{
+        ResetFormData();
+        setSeasonTypeText('In Person');
+        setGameTypeText('Texas Holdem');
+    }, [resetData])
+    
     const ResetFormData=()=>{
         try{
             setFormData({
@@ -87,13 +94,13 @@ export default function NewGame({
                 const response = await axios.get("http://127.0.0.1:8000/seasons/seasontypes/",);
                 //console.log(response.data)
                 setAllSeasontypes(response.data)
-                console.log(response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person'));
+                //console.log(response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person'));
                 setFormData({
                     ...formData,
                     season_type:response.data.find((oneSeasonType)=>oneSeasonType.season_type==='In Person').id
                 });
             }catch(err){
-                alert('Problem getting seasons.');
+                alert('Problem getting seasons!');
             }            
         }
 
@@ -152,17 +159,24 @@ export default function NewGame({
     }
 
     const Test=()=>{
-        console.log(formData)
+        console.log(seasonTypeText)
         //console.log(allSeasonType.find((oneSeason)=>oneSeason.season_type==='In Person'));
     }
 
     const AddGame = async()=>{
+        //console.log('here')
         if (selectedGame!==null) return
         try {
 
             let dataToSend = formData
-
-            if (dataToSend.game_type===-1) dataToSend.game_type=allGameType.find((oneGame)=>oneGame.name==='Texas Holdem').id
+            if (dataToSend.venue===-1) {
+                alert("Must select a venue")
+                return
+            }
+            if (dataToSend.director===-1) {
+                alert("Must select a director")
+                return
+            }
 
             const response = await axios.post("http://127.0.0.1:8000/games/basic_games/",dataToSend);
 
@@ -203,6 +217,7 @@ export default function NewGame({
                             height:'100%'
                         }}
                     />
+                    hello
                    <MyDropdownText
                         optionsList={allDirectors.map((oneDirector)=>oneDirector.username).toSorted((a, b) => a.localeCompare(b))}
                         setSelectedOption={DirectorSelected}
@@ -287,7 +302,7 @@ export default function NewGame({
                         margin:"20px auto",
                         height:"75px"}}                     
                 />
-                <button onClick={Test}>test</button>
+                {/* <button onClick={Test}>test</button> */}
         </div>
     )
 }

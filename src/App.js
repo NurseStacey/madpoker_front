@@ -3,7 +3,7 @@ import './App.css';
 import Left_Side from './Components/left-side'
 import {useState, useEffect} from 'react'
 import WindowDimensions from './utils/window-dimensions'
-
+import AddWinner from './Pages/UserPages/winners/winners.js'
 import HomeScreen from './Pages/Home/home'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Login from './Pages/UserPages/Login';
@@ -68,6 +68,7 @@ function App() {
             <Route path='update_special' element={<UpdateSpecialMessage/>}/>        
             <Route path='edit_venues' element={<EditVenues/>}/>         
             <Route path='add_venues' element={<AddVenue/>}/> 
+            <Route path='add_winners' element={<AddWinner/>}/> 
             
             <Route path='edit_games' element={<EditGames/>}/>      
             <Route path='season_management' element={<SeasonManagement/>}/>                         

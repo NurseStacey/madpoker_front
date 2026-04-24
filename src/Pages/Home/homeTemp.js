@@ -12,7 +12,7 @@ import {useEffect, useState} from 'react'
 import {DjangoAddress} from '../../data-files/django-addres';
 import axiosInstance from 'axios';
 
-export default function HomeScreen()
+export default function TempHomeScreen()
 {
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0)
@@ -21,6 +21,7 @@ export default function HomeScreen()
     const [allImages, setAllImages]=useState([])
 
     useEffect(()=>{
+
         setWidth(width*0.60);
         setLeftMargin(width*.0);
         setHeight(height);
@@ -37,7 +38,7 @@ export default function HomeScreen()
                 }))
 
                 setAllImages(thisArray)
-                console.log(thisArray)
+               // console.log(thisArray)
             }catch(err){
                 alert('Problem retrieving winners.')
             }
@@ -59,62 +60,17 @@ export default function HomeScreen()
                 marginLeft:`${LeftMargin}px`,
             }}
             >
+
                 {/* <button onClick={Test}>test</button> */}
-                <div
-                    style={{
-                        display:'block',
-                        width:`${0.8*Width}px`,
-                        //border:'1px solid black'                   
-                    }}
-                    >
-                    <div
-                        style={{
-                            height:`${0.30*Height}px`,   
-                            width:`${0.65*Width}px`,              
-                        }}
-                    >
-                        <TopMessage
-                            LocalHeight={Math.floor(0.30*Height)}
-                            LocalWidth={Math.floor(0.65*Width)}
-                            />
-                        <Award/> 
-                    </div>    
- 
-                    <div
-                        style={{
-                            position: 'relative',
-                            width:'100%',
-                            height:'70%',  
-                            marginTop:'100px'                          
-                    }}>
+         
                         <SlideShow
                             allImages={allImages}
-                            width="300px"
-                            height="300px"
+                            width={700}
+                            height="1300px"
                         />
-                        {/* <Deck       commented out in an attempt to build a new component
-                            All_Images={Winners}
-                            Percent_of_Window={30}/> */}
-                    </div> 
-                </div>
-                 <div
-                    style={{
-                        display:'block',
-                        width:'35%',
-                    }}
-                    >
-                    <Contact/>
-                    <div
-                        className='MyLink'
-                    >
-                        <Merchandise/>
-                    </div>
-                    <div
-                        className='MyLink'
-                    >
-                        <FaceBook/>
-                    </div>
-                </div> 
+
+ 
+          
             </div>
     )
 }

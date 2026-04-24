@@ -14,7 +14,8 @@ export default function Register(){
         password1:"",
         password2:"",
         image:"",
-        phone:""
+        phone:"",
+        display_name:""
     });
 
     useEffect(()=>{
@@ -43,6 +44,7 @@ export default function Register(){
         formToSend.append("password1", formData.password1);     
         formToSend.append("password2", formData.password2);     
         formToSend.append("phone", formData.phone); 
+        formToSend.append("display_name", formData.display_name); 
         console.log(formToSend)
         setisLoading(true)
         try{
@@ -54,7 +56,8 @@ export default function Register(){
                 password1:"",
                 password2:"",
                 image:'',
-                phone:""
+                phone:"",
+                display_name:''
             })
             setsuccessMessage("Registration Successful")
             seterror(null)

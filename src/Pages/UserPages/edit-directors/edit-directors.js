@@ -17,7 +17,8 @@ export default function EditDirectors()
         password1:"",
         password2:"",
         image:"",
-        phone:""
+        phone:"",
+        display_name:""
     });
     const [idToEdit, setIdToEdit]=useState(-1)
 
@@ -48,7 +49,8 @@ export default function EditDirectors()
             password1:"",
             password2:"",
             image:"",
-            phone:thisDirector.phone
+            phone:thisDirector.phone,
+            display_name:thisDirector.display_name
         });
     }
 
@@ -63,6 +65,8 @@ export default function EditDirectors()
             formToSend.append("password1", formData.password1);     
             formToSend.append("password2", formData.password2);     
             formToSend.append("phone", formData.phone);
+            formToSend.append("display_name", formData.display_name);
+
 
             const response = await axiosInstance.patch(`http://127.0.0.1:8000/login_api/update_director/${idToEdit}/`,formToSend, {
                 headers: { 'Content-Type': 'multipart/form-data'}});
@@ -72,7 +76,8 @@ export default function EditDirectors()
                 password1:"",
                 password2:"",
                 image:'',
-                phone:""
+                phone:"",
+                display_name:""
             });
             setIdToEdit(-1);
             fetchData()

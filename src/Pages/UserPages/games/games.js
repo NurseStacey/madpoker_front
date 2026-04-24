@@ -15,10 +15,12 @@ export default function EditGames()
     const [allGames, setAllGames]=useState([]);
     const [selectedGame,setSelectedGame]=useState(null);
     const [formData, setFormData]=useState(BlankFormData);
+    const [resetData, setResetData]=useState(false);
 
     useEffect(()=>{
         setWidth(width);
         setHeight(height);
+
     },[width,height]);    
 
     useEffect(()=>{fetchData();},[])
@@ -62,6 +64,7 @@ export default function EditGames()
                     setFormData={setFormData}
                     fetchData={fetchData}
                     selectedGame={selectedGame}
+                    resetData={resetData}
                 /> 
                 <CurrentGames
                     formData={formData}
@@ -69,6 +72,7 @@ export default function EditGames()
                     allGames={allGames}  
                     selectedGame={selectedGame}     
                     setSelectedGame={setSelectedGame}        
+                    setResetData={setResetData}
                 />
             </div>
              

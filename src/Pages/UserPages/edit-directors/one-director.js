@@ -33,7 +33,7 @@ export default function OneDirector({
             <div
                 style={{
                     padding:'1%',
-                    width:'25%',
+                    width:'20%',
                     textWrap:'wrap',
                     border:'1px solid black'
                 }}
@@ -43,13 +43,23 @@ export default function OneDirector({
             <div
                 style={{
                     padding:'1%',
-                    width:'25%',
+                    width:'20%',
                     overflowWrap:'break-word',
                     border:'1px solid black'
                 }}
             >
                 {ThisDirector.email} 
             </div>
+            <div
+                style={{
+                    padding:'1%',
+                    width:'20%',
+                    overflowWrap:'break-word',
+                    border:'1px solid black'
+                }}
+            >
+                {ThisDirector.display_name} 
+            </div>            
             <img src={`http://127.0.0.1:8000/${ThisDirector.image}`} width="100" height="100"/>
             <MyButton
                 button_function={RemoveDirector}
