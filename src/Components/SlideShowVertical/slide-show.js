@@ -41,6 +41,8 @@ export default function SlideShow({
 
             setTheTimer(thisTimeOut)
         }
+
+        return ()=>clearTimeout(theTimer)
     },[positions])
 
 
@@ -52,7 +54,6 @@ export default function SlideShow({
 
         if (allImages.length>0) {
             localImageArray.map((oneImage,index)=>{
-                //let isVisible=(newPositions[index]===1 || newPositions[index]===0) ? 'visible' : 'hidden';
                 let isVisible=(newPositions[index]===0) ? 'visible' : 'hidden';
                 newArray.push({
                     image:oneImage.image,
@@ -72,7 +73,6 @@ export default function SlideShow({
         if (allImages.length>0) {
             localImageArray.map((oneImage,index)=>{
                 let isVisible=(newPositions[index]===0) ? 'visible' : 'hidden';
-                //let isVisible=(newPositions[index]===-1 || newPositions[index]===0) ? 'visible' : 'hidden';
                 newArray.push({
                     image:oneImage.image,
                     display_text:oneImage.display_text,
