@@ -1,0 +1,52 @@
+.ModalClass {
+    margin-top:50px;
+    width:600px;
+    height:400px;
+}
+
+.SlideShowLocation {
+    margin-top:150px;
+    margin-left:100px;
+    width:50%;
+    height:300px;
+    position: relative;   
+    border:'10px solid black'
+}
+
+.ListOfGamesClass {
+    color:red;
+    font-size:25px;
+    font-family:averia sans libre;
+    font-weight:bold; 
+    text-decoration:underline;  
+    margin-top:25px;
+    margin-left:100px;
+    width:400px;
+    text-align:center;
+}
+
+.SignUpClass {
+    position:fixed;
+    border:1px solid black;
+    background-color:#FADADD;
+    width:800px;
+    height:700px;
+    z-index:1000;
+}
+
+.buttonBox {
+    display: flex;
+    justify-content: center;
+}
+
+.OneWeekDay {
+    font-size:22px;
+    font-family:averia sans libre;
+    font-weight:bold;
+    text-align:left;
+    margin-top:15px;  
+    width:'100%',      
+}
+
+
+

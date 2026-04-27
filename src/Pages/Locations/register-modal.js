@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import Signup from './signup'
+import './location.css';
+import {DjangoAddress} from '../../data-files/django-addres';
 
 export default function SignupModal({
     setOpenModal,
@@ -17,7 +19,9 @@ export default function SignupModal({
             which_game:gameID
         }
         try{
-            const response = await axios.post(`http://127.0.0.1:8000/gameresults/register_player_for_game/`,data_to_send)
+            let url= DjangoAddress + `/gameresults/register_player_for_game/`;
+          
+            const response = await axios.post(url,data_to_send);
             if(response.status===201) alert('You are registered for this game.')
                 else  alert('There was an issue with registration.  Please let a director know.');
 
@@ -39,14 +43,8 @@ export default function SignupModal({
     }
     return(
         <div
-            style={{
-                position:'fixed',
-                border:'1px solid black',
-                backgroundColor:'#FADADD',
-                width:'800px',
-                height:'700px',
-                zIndex:'1000'
-            }}>
+            className='SignUpClass'
+        >
             <Signup
                 setPlayer={setPlayer}
                 player={player}
@@ -55,7 +53,7 @@ export default function SignupModal({
                 setPlayerID={setPlayerID}
                 gameInfo={gameInfo}
             />
-            </div>
+        </div>
 
     )
 }

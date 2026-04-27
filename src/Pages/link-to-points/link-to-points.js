@@ -3,6 +3,8 @@ import WindowDimensions from '../../utils/window-dimensions';
 import axios from 'axios';
 import SearchBox from './search-box';
 import ResultsBox from './results';
+import {DjangoAddress} from '../../data-files/django-addres';
+import './link-to-points.css';
 
 export default function LinkToPoints()
 {
@@ -37,8 +39,9 @@ export default function LinkToPoints()
         }
 
         try{
-
-            const response = await axios.get(`http://127.0.0.1:8000/gameresults/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`)
+            let url= DjangoAddress + `/gameresults/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`;
+            //const response = await axios.get(`http://127.0.0.1:8000/gameresults/pull_data_for_points/${selectedPlayer.id}/${selectedSeason.id}/${selectedVenue.id}/`)
+            const response = await axios.get(url)
             if (response.status===404 || response.status===400) {
                 alert('Difficulty getting player information')
                 return
@@ -64,25 +67,17 @@ export default function LinkToPoints()
          <div
             className='RightSide'
             style={{
-                width:`${Width}px`,
-                height:`${Height}px`,
+                width:`${0.8*Width}px`,
+                // height:`${Height}px`,
                 marginLeft:`${LeftMargin}px`,
-            }}
-            >
-            <div
-                style={{
-                    marginTop:"10%",
-                    width:'80%',
-                    marginLeft:'10%',
+                marginTop:"10%",
+                display:'block'
                 }}
-                >
+            >
+
                 <div
-                    style={{
-                        font:'arial',
-                        fontSize:'30px',
-                        fontWeight:'bold',
-                        margin:'2%',
-                    }}>
+                    className='ThisTitle'
+                >
                     View Players Points
                 </div>
                 <SearchBox
@@ -97,7 +92,7 @@ export default function LinkToPoints()
                 <ResultsBox
                     allResults={allResults}
                 />
-                </div>
+
         </div>
     )
 }

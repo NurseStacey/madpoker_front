@@ -5,7 +5,7 @@ import MyTextArea from '../../../Components/Widgets/my-textarea';
 import MyListBox from '../../../Components/Widgets/my-listbox';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {WeekDays} from '../../../Components/weekdays';
+import {WeekDays} from '../../../data-files/weekdays';
 import {BlankFormData} from './blank-form-data';
 
 export default function NewGame({

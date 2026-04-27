@@ -3,6 +3,7 @@ import axios from 'axios';
 import MyListBoxSearch from '../../Components/Widgets/my-listbox-search/my-listbox-search';
 import MyButton from '../../Components/Widgets/my-button';
 import {APPLICATION_COLORS} from '../../Components/Constants/application-colors';
+import {DjangoAddress} from '../../data-files/django-addres';
 
 export default function SearchBox({
     setSelectedPlayer,
@@ -22,7 +23,8 @@ export default function SearchBox({
 
         const fetchData = async() =>{
             try{
-                const response = await axios.get("http://127.0.0.1:8000/players/players/",);        
+                let url= DjangoAddress + `/players/players/`;
+                const response = await axios.get(url,);        
                 setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
             }catch(err){
                 console.log(err);
@@ -30,14 +32,18 @@ export default function SearchBox({
                 return                
             }             
             try {
-                let response = await axios.get("http://127.0.0.1:8000/seasons/seasons/",);        
+                let url= DjangoAddress + `/seasons/seasons/`;
+                const response = await axios.get(url,);                     
+      
                 setAllSeasons(response.data)
                 }catch(err){
                         alert('Problem loading seasons information')
                         return                
                 }
             try{ 
-                let response = await axios.get("http://127.0.0.1:8000/venues/venues/",);
+                let url= DjangoAddress + `/venues/venues/`;
+                const response = await axios.get(url,);                     
+
                 setAllVenues(response.data)
                
             } catch(err){

@@ -5,12 +5,12 @@ import Contact from './contact';
 import Merchandise from './merchandise';
 import FaceBook from './face-book';
 import {Winners} from '../../data-files/images';
-//import Deck from '../../Components/SlideShow/Deck'
 import SlideShow from '../../Components/SlideShow/slide-show';
 import WindowDimensions from '../../utils/window-dimensions';
 import {useEffect, useState} from 'react'
 import {DjangoAddress} from '../../data-files/django-addres';
 import axiosInstance from 'axios';
+import './home.css';
 
 export default function HomeScreen()
 {
@@ -51,57 +51,41 @@ export default function HomeScreen()
     }
     return(
 
-         <div
-            className='RightSide'
+        <div
             style={{
                 width:`${Width}px`,
                 height:`${Height}px`,
                 marginLeft:`${LeftMargin}px`,
-            }}
-            >
-                {/* <button onClick={Test}>test</button> */}
+                marginTop:'3%',                        
+                display:'flex',
+                justifyContent:'center',
+            }}>
+            <div
+                className='LeftPiece'
+
+                >
                 <div
-                    style={{
-                        display:'block',
-                        width:`${0.8*Width}px`,
-                        //border:'1px solid black'                   
-                    }}
-                    >
-                    <div
-                        style={{
-                            height:`${0.30*Height}px`,   
-                            width:`${0.65*Width}px`,              
-                        }}
-                    >
-                        <TopMessage
-                            LocalHeight={Math.floor(0.30*Height)}
-                            LocalWidth={Math.floor(0.65*Width)}
-                            />
-                        <Award/> 
-                    </div>    
- 
-                    <div
-                        style={{
-                            position: 'relative',
-                            width:'100%',
-                            height:'70%',  
-                            marginTop:'100px'                          
-                    }}>
-                        <SlideShow
-                            allImages={allImages}
-                            width="300px"
-                            height="300px"
+                    className='TopLeftPiece'
+                >
+                    <TopMessage
+                        LocalHeight={Math.floor(0.30*Height)}
+                        LocalWidth={Math.floor(0.60*Width)}
                         />
-                        {/* <Deck       commented out in an attempt to build a new component
-                            All_Images={Winners}
-                            Percent_of_Window={30}/> */}
-                    </div> 
+                    <Award/> 
                 </div>
+                <div
+                    className='SlideShow'
+                >
+                    <SlideShow
+                        allImages={allImages}
+                        width={300}
+                        height={300}
+                    />
+
+                </div>
+            </div>
                  <div
-                    style={{
-                        display:'block',
-                        width:'35%',
-                    }}
+                    className='RightPiece'
                     >
                     <Contact/>
                     <div
@@ -114,7 +98,11 @@ export default function HomeScreen()
                     >
                         <FaceBook/>
                     </div>
-                </div> 
-            </div>
+                </div>             
+
+        </div>
+  
+        
+
     )
 }

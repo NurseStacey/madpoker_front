@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import  OneGame from './one-game'
-
+import './location.css'
 
 export default function OneWeekDay({
     weekDay,
@@ -12,6 +12,7 @@ export default function OneWeekDay({
     return(
         <div
             key={weekDay}
+            className='OneWeekDay'
             style={{
                 fontSize:"22px",
                 fontFamily:"averia sans libre",

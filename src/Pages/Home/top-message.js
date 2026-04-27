@@ -62,6 +62,8 @@ export default function TopMessage({
 
     return(
         <div
+            style={{display:'flex',justifyContent:'center'}}>
+        <div
             style={{
                 display:'block',
                 width:`${LocalWidth}px`,
@@ -90,6 +92,7 @@ export default function TopMessage({
                 >
                 {oneLine['text']}
                 </div>)}  
+        </div>
         </div>
     )
 }

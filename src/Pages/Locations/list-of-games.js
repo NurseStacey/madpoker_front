@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { WeekDays } from '../../Components/weekdays';
+import { WeekDays } from '../../data-files/weekdays';
 import {useEffect, useState} from 'react';
 import OneWeekDay from './one-week-day';
 import {DefaultGames} from './default-games';
+import './location.css';
+import {DjangoAddress} from '../../data-files/django-addres';
 
 export default function ListOfGames({
     RegisterForGame
@@ -15,7 +17,9 @@ export default function ListOfGames({
         const InfoForLocations = async()=>{
 
             try{
-                const response=await axios.get("http://127.0.0.1:8000/games/info_for_locations_page/")
+                let url= DjangoAddress + `/games/info_for_locations_page/`;
+                const response = await axios.get(url,);                
+
                 setAllGames(response.data.data)
                 if(response.data.status==="problem") {
                     alert('Problem loading games');
@@ -44,24 +48,18 @@ export default function ListOfGames({
 
             }}>         
             {localWeekDays.map((oneWeekDay)=>(
-                <div
-                    key={oneWeekDay}
-                    style={{
-                        fontSize:"22px",
-                        fontFamily:"averia sans libre",
-                        fontWeight:"bold",
-                        textAlign:"left",
-                        marginTop:"15px"
-                    }}>
-                        <OneWeekDay
-                            weekDay={oneWeekDay}
-                            theseGames={allGames[oneWeekDay]}
-                            RegisterForGame={RegisterForGame}
-                            />  
+                // <div
+                //     key={oneWeekDay}
+                //     className='OneWeekDay'
+                // >
+                    <OneWeekDay
+                        weekDay={oneWeekDay}
+                        theseGames={allGames[oneWeekDay]}
+                        RegisterForGame={RegisterForGame}
+                        />  
 
-                </div>
+             //   </div>
             ))} 
-            <button onClick={Test}>test</button>
             </div>
     )
 }

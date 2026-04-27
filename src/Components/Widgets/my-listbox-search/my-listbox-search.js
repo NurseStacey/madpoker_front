@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import useOutsideClick from '../../useOutsideClick';
+import useOutsideClick from '../useOutsideClick';
 import SearchBox from './search-box';
 import ListBoxSearch from './listbox-search';
 

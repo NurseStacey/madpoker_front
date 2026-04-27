@@ -1,5 +1,5 @@
 
-//import VerticalDeck from '../../Components/VerticalSlideShowOld/VerticalDeck';
+import VerticalDeck from '../../Components/VerticalSlideShowOld/VerticalDeck';
 import WindowDimensions from '../../utils/window-dimensions'
 import {useEffect, useState} from 'react'
 import '@fontsource/averia-sans-libre/700.css';  
@@ -11,7 +11,7 @@ import './location.css';
 import {DjangoAddress} from '../../data-files/django-addres';
 import SlideShow from '../../Components/SlideShowVertical/slide-show';
 
-export default function Locations(){
+export default function LocationsTemp(){
     const { height, width } = WindowDimensions();
     const [Width, setWidth]=useState(0);
     const [Height, setHeight] =  useState(0);
@@ -34,7 +34,7 @@ export default function Locations(){
                     image:`${DjangoAddress}/${oneVenue.image}`,
                     display_text:oneVenue.display_label
                 }));
-                console.log(newVenuePics)
+                //console.log(newVenuePics)
                 setVenuePics(newVenuePics)
             }catch(err){
                 alert('Error loading venues')
@@ -86,39 +86,22 @@ export default function Locations(){
                 marginLeft:'125px'        
             }}
             >
-                    {(openModal) ?  
-                        <div
-                        className='ModalClass'
-                        >
-                        <SignupModal
-                            setOpenModal={setOpenModal}
-                            gameID={gameID}
-                            gameInfo={gameInfo}
-                        /> 
-                    </div>:
-                    <div
-                        className='SlideShowLocation'
-                        id="location_slide_show"
-                    >
-
-                        {(venuePics.length!==0) ?
-                            <SlideShow
-                                allImages={venuePics}
-                                width={300}
-                                height={300}
-                                />:<></>
-                                }
-                        
-                    </div> }
                 <div
-                    className='ListOfGamesClass'
+                    style={{
+                        marginTop:'400px'
+                    }}
                 >
-                        Locations
-                </div>    
-                <ListOfGames
-                    RegisterForGame={RegisterForGame}
-                    setGameInfo={setGameInfo}
-                />
+                    {(venuePics.length!==0) ?
+                        <SlideShow
+                            allImages={venuePics}
+                            width={300}
+                            height={300}
+                            />:<></>
+                    }                    
+                </div>
+
+  
+           
         </div>
     )
 }

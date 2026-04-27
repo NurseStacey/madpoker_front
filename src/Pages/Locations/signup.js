@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react';
 import MyButton from '../../Components/Widgets/my-button'
 import MyDropdownText from '../../Components/Widgets/my-dropdown-text'
 import axios from 'axios'
+import './location.css'
+import {DjangoAddress} from '../../data-files/django-addres';
 
 
 export default function Signup({
@@ -17,7 +19,9 @@ export default function Signup({
 
     const LoadPlayers = async()=>{
         try{
-            const response = await axios.get("http://127.0.0.1:8000/players/players/",);
+            let url= DjangoAddress + `/games/players/`;
+            const response = await axios.get(url,);              
+
             setAllPlayers(response.data.sort((a,b)=>a.player.localeCompare(b.player)))
         }catch(err){
             console.log(err);
@@ -36,6 +40,12 @@ export default function Signup({
         } catch{}
     }
 
+    const ButtonStyle = {
+        margin:"10px  50px",
+        width:"100px",
+        height:"80px"
+    }
+
     return(
         <div
             style={{
@@ -46,8 +56,8 @@ export default function Signup({
                 style={{
                     fontSize:'20px',
                     marginTop:'30px'
-                }}>
-            Registration for  {gameInfo.game} on {gameInfo.date} at {gameInfo.time} at {gameInfo.venueName}
+            }}>
+                Registration for  {gameInfo.game} on {gameInfo.date} at {gameInfo.time} at {gameInfo.venueName}
             </div>
 
                 <MyDropdownText
@@ -63,29 +73,18 @@ export default function Signup({
                 />
 
                 <div
-                    style={{
-                        display:"flex",
-                        justifyContent:"center"
-                    }}
+                    className='buttonBox'
                 >
-                
-                            
                     <MyButton
                         button_function={()=>setOpenModal(false)}
                         button_text="Cancel"
-                        button_style={{
-                            margin:"10px  50px",
-                            width:"100px",
-                            height:"80px"}}
+                        button_style={ButtonStyle}
                         disable={false}
                     />
                     <MyButton
                         button_function={SignupForGame}
                         button_text="Sign up for Game"
-                        button_style={{
-                            margin:"10px  50px",
-                            width:"100px",
-                            height:"80px"}}
+                        button_style={ButtonStyle}
                         disable={false}
                     />        
                 </div>                      

@@ -6,11 +6,12 @@ export default function Award()
     return(
         <div
             style={{
-                'display':'block',
+                display:'block',
                 //'height':'100px',
-                'width':'100%',
-                'border':'3px solid #3f007f',
-                'marginTop':'2%'
+                width:'100%',
+                border:'3px solid #3f007f',
+                marginTop:'2%',
+                boxSizing:'border-box'
             }}
         >
             <div

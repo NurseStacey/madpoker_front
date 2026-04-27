@@ -4,7 +4,7 @@ import '@fontsource/averia-sans-libre';
 import axiosInstance from 'axios';
 import FadeSlideShow from '../../Components/fade-slide-show/fade-slide-show';
 import {DjangoAddress} from '../../data-files/django-addres';
-
+import './directors.css'
 
 export default function DirectorsPage({})
 {
@@ -50,24 +50,12 @@ export default function DirectorsPage({})
             }}
             >
                 <div
-                    style={{
-                        fontSize:'35px',
-                        fontFamily:"averia sans libre",
-                        width:'80%',
-                        marginTop:'20%',
-                        color:'red',
-                        textDecoration:'underline'
-                    }}
+                    className='Title'
                 >
                     Our Family of Directors
                 </div>
                 <div
-                    style={{
-                        width:'80%',
-                        marginTop:'3%',                        
-                        display:'flex',
-                        justifyContent:'center'
-                    }}
+                    className='SlideShow'
                 >
                     <FadeSlideShow
                         allImages={allDirectors}

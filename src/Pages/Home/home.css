@@ -1,0 +1,22 @@
+.LeftPiece {
+    width:60%;
+    display:block;
+    margin-left: 2%;
+}
+
+.TopLeftPiece {
+    height: 45%;
+}
+
+.SlideShow {
+    height:300px;
+    width:65%; 
+    margin:auto;
+    display:flex;
+    justify-content:center;  
+}
+
+.RightPiece {
+    display:block;
+    width:30%
+}

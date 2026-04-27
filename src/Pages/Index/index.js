@@ -3,11 +3,11 @@ import '../../App.css';
 import Left_Side from '../../Components/left-side'
 import {useState, useEffect} from 'react'
 import WindowDimensions from '../../utils/window-dimensions'
-import HomeScreen from '../Home/home'
-import TempHomeScreen from '../Home/homeTemp'
+import HomeScreen from '../Home/home';
 import Merch from '../Merch/merch'
 import SpecialMessages from '../Special/special';
 import Locations from '../Locations/location';
+import LocationsTemp from '../Locations/location-temp';
 import NewPlayer from '../new-player/new-player';
 import LinkToPoints from '../link-to-points/link-to-points';
 import ViewResults from '../view-results/view-results';
@@ -40,7 +40,7 @@ export default function Index(){
         
         {/* {(RightSideKey=='home') ?  */}
         {(RightSideKey==='home') ? 
-        <TempHomeScreen/> :
+        <HomeScreen/> :
         (RightSideKey==='shop') ?  <Merch/> :
         (RightSideKey==='special') ?  <SpecialMessages/> :
         (RightSideKey==='locations') ? <Locations/> :

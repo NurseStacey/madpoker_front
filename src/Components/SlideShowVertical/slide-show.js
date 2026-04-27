@@ -1,8 +1,6 @@
 import {useEffect, useState} from 'react';
 import './slide-show.css';
-
 import OneImage from './one-image';
-
 
 export default function SlideShow({
     allImages,
@@ -29,9 +27,8 @@ export default function SlideShow({
                     isVisible:'visible'
                     })
             })
-
             setLocalImageArray(newArray);
-            setPositions(positionArray);            
+            setPositions(positionArray);
         }
     },[allImages]);
 
@@ -48,21 +45,19 @@ export default function SlideShow({
 
 
     const CycleBackward=(buttonPressed)=>{
-        let newPositions=[positions[positions.length-1],...positions.slice(0,positions.length-1)]
+        let newPositions=[...positions.slice(1),positions[0],]
         setPositions(newPositions)
         if (buttonPressed) clearTimeout(theTimer);
-    
         let newArray=[];
 
         if (allImages.length>0) {
             localImageArray.map((oneImage,index)=>{
-                let isVisible=(newPositions[index]===1 || newPositions[index]===0) ? 'visible' : 'hidden';
-
+                //let isVisible=(newPositions[index]===1 || newPositions[index]===0) ? 'visible' : 'hidden';
+                let isVisible=(newPositions[index]===0) ? 'visible' : 'hidden';
                 newArray.push({
                     image:oneImage.image,
                     display_text:oneImage.display_text,
                     isVisible:isVisible
-                    
                     })
             })
             setLocalImageArray(newArray);
@@ -76,7 +71,8 @@ export default function SlideShow({
         let newArray=[];
         if (allImages.length>0) {
             localImageArray.map((oneImage,index)=>{
-                let isVisible=(newPositions[index]===-1 || newPositions[index]===0) ? 'visible' : 'hidden';
+                let isVisible=(newPositions[index]===0) ? 'visible' : 'hidden';
+                //let isVisible=(newPositions[index]===-1 || newPositions[index]===0) ? 'visible' : 'hidden';
                 newArray.push({
                     image:oneImage.image,
                     display_text:oneImage.display_text,
@@ -97,11 +93,10 @@ export default function SlideShow({
                     border:'10px solid gray',
                     overflow:'hidden'
                 }}
-            >
-
+                >
                 {localImageArray.map((oneImage, idx)=>(
                     <OneImage
-                        leftPosition={positions[idx]*width}
+                        topPosition={positions[idx]*height}
                         oneImage={oneImage}
                         index={idx}
                         width={width}
